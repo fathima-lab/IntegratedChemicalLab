@@ -1,0 +1,806 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}ICLMS{% endblock %}
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         GLOBAL CSS
+    ====================================================== -->
+
+    <style>
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            background: #f4f8ff;
+
+            color: #172554;
+        }
+
+
+        /* =================================================
+           NAVBAR
+        ================================================= */
+
+        .main-navbar {
+
+            min-height: 76px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #082b83,
+                    #0d47c9
+                );
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.18);
+
+            position: relative;
+
+            z-index: 1000;
+        }
+
+
+        .main-navbar .container {
+
+            min-height: 76px;
+
+        }
+
+
+        /* =================================================
+           BRAND
+        ================================================= */
+
+        .brand-section {
+
+            display: flex;
+
+            align-items: center;
+
+            text-decoration: none;
+
+            color: white;
+
+            transition: .25s ease;
+
+        }
+
+
+        .brand-section:hover {
+
+            color: white;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* =================================================
+           FLASK LOGO
+        ================================================= */
+
+        .brand-logo {
+
+            width: 50px;
+
+            height: 50px;
+
+            min-width: 50px;
+
+            border: 2px solid
+                rgba(255, 255, 255, 0.95);
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-right: 12px;
+
+            background:
+                rgba(255, 255, 255, 0.04);
+
+            box-shadow:
+                inset 0 0 8px
+                rgba(255, 255, 255, 0.08);
+
+        }
+
+
+        .brand-logo svg {
+
+            width: 31px;
+
+            height: 31px;
+
+            display: block;
+
+        }
+
+
+        /* =================================================
+           BRAND TEXT
+        ================================================= */
+
+        .brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            line-height: 1;
+
+        }
+
+
+        .brand-name {
+
+            display: block;
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+
+            color: white;
+
+        }
+
+
+        .brand-subtitle {
+
+            display: block;
+
+            font-size: 9px;
+
+            font-weight: 300;
+
+            margin-top: 5px;
+
+            letter-spacing: .1px;
+
+            color:
+                rgba(255, 255, 255, .92);
+
+        }
+
+
+        /* =================================================
+           NAVIGATION
+        ================================================= */
+
+        .main-navbar .navbar-nav {
+
+            gap: 5px;
+
+        }
+
+
+        .main-navbar .nav-link {
+
+            color: white !important;
+
+            font-size: 15px;
+
+            font-weight: 500;
+
+            padding:
+                11px 15px !important;
+
+            margin-left: 2px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            transition:
+                background .25s ease,
+                transform .25s ease;
+
+        }
+
+
+        .main-navbar .nav-link i {
+
+            font-size: 16px;
+
+        }
+
+
+        .main-navbar .nav-link:hover {
+
+            background:
+                rgba(255, 255, 255, .13);
+
+            color: white !important;
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        /* =================================================
+           REGISTER BUTTON
+        ================================================= */
+
+        .register-nav {
+
+            background:
+                rgba(255, 255, 255, .14);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, .10);
+
+            margin-left: 5px !important;
+
+        }
+
+
+        .register-nav:hover {
+
+            background:
+                rgba(255, 255, 255, .23) !important;
+
+        }
+
+
+        /* =================================================
+           MOBILE NAVIGATION
+        ================================================= */
+
+        .navbar-toggler {
+
+            border:
+                1px solid
+                rgba(255, 255, 255, .6);
+
+            padding: 7px 10px;
+
+        }
+
+
+        .navbar-toggler:focus {
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255, 255, 255, .2);
+
+        }
+
+
+        .navbar-toggler-icon {
+
+            filter:
+                brightness(0)
+                invert(1);
+
+        }
+
+
+        /* =================================================
+           PAGE CONTENT
+        ================================================= */
+
+        .page-content {
+
+            min-height:
+                calc(100vh - 76px);
+
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        .main-footer {
+
+            padding: 25px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =================================================
+           GENERAL LINKS
+        ================================================= */
+
+        a {
+
+            transition: .2s ease;
+
+        }
+
+
+        /* =================================================
+           TABLET
+        ================================================= */
+
+        @media (max-width: 991px) {
+
+            .main-navbar .navbar-collapse {
+
+                background:
+                    rgba(5, 31, 99, .98);
+
+                border-radius: 12px;
+
+                padding: 12px;
+
+                margin-top: 10px;
+
+            }
+
+
+            .main-navbar .navbar-nav {
+
+                gap: 3px;
+
+            }
+
+
+            .main-navbar .nav-link {
+
+                padding:
+                    12px 14px !important;
+
+            }
+
+
+            .register-nav {
+
+                margin-left: 0 !important;
+
+                margin-top: 4px;
+
+            }
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 576px) {
+
+            .brand-logo {
+
+                width: 43px;
+
+                height: 43px;
+
+                min-width: 43px;
+
+                margin-right: 9px;
+
+            }
+
+
+            .brand-logo svg {
+
+                width: 27px;
+
+                height: 27px;
+
+            }
+
+
+            .brand-name {
+
+                font-size: 22px;
+
+            }
+
+
+            .brand-subtitle {
+
+                font-size: 7px;
+
+                margin-top: 4px;
+
+            }
+
+
+            .main-navbar .container {
+
+                min-height: 68px;
+
+            }
+
+
+            .main-navbar {
+
+                min-height: 68px;
+
+            }
+
+        }
+
+    </style>
+
+
+    <!-- =====================================================
+         PAGE-SPECIFIC CSS
+    ====================================================== -->
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<nav class="navbar navbar-expand-lg main-navbar">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             ICLMS BRAND
+        ================================================== -->
+
+        <a
+            href="{% url 'home' %}"
+            class="brand-section"
+        >
+
+
+            <!-- ================= FLASK LOGO ================= -->
+
+            <div class="brand-logo">
+
+                <svg
+                    viewBox="0 0 64 64"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-label="Laboratory flask"
+                    role="img"
+                >
+
+                    <!-- Flask body -->
+
+                    <path
+                        d="
+                            M24 7
+                            V25
+                            L10 48
+                            C7 54 11 60 17 60
+                            H47
+                            C53 60 57 54 54 48
+                            L40 25
+                            V7
+                        "
+                        fill="none"
+                        stroke="white"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+
+                    <!-- Flask opening -->
+
+                    <path
+                        d="M19 7 H45"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                    />
+
+
+                    <!-- Flask liquid -->
+
+                    <path
+                        d="
+                            M13 46
+                            C19 43 24 50 31 47
+                            C38 44 44 44 52 48
+                        "
+                        fill="none"
+                        stroke="#42E8FF"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <!-- ================= BRAND TEXT ================= -->
+
+            <div class="brand-text">
+
+                <span class="brand-name">
+                    ICLMS
+                </span>
+
+                <span class="brand-subtitle">
+                    Integrated Chemical Lab Management System
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- =================================================
+             MOBILE MENU BUTTON
+        ================================================== -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainMenu"
+            aria-controls="mainMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- =================================================
+             NAVIGATION LINKS
+        ================================================== -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainMenu"
+        >
+
+            <ul
+                class="navbar-nav ms-auto align-items-lg-center"
+            >
+
+
+                <!-- HOME -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'home' %}"
+                    >
+
+                        <i class="bi bi-house-fill"></i>
+
+                        <span>
+                            Home
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+                <!-- ABOUT -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'about' %}"
+                    >
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>About</span>
+                    </a>
+
+                </li>
+
+
+                <!-- FEATURES -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'features' %}"
+                    >
+
+                        <i class="bi bi-grid-fill"></i>
+
+                        <span>
+                            Features
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+                <!-- CONTACT -->
+
+                 <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'contact' %}"
+                    >
+
+                        <i class="bi bi-envelope-fill"></i>
+
+                        Contact
+
+                    </a>
+
+                </li>
+
+                <!-- LOGIN -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'login' %}"
+                    >
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        <span>
+                            Login
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+                <!-- REGISTER -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link register-nav"
+                        href="{% url 'register' %}"
+                    >
+
+                        <i class="bi bi-person-plus-fill"></i>
+
+                        <span>
+                            Register
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     PAGE CONTENT
+========================================================= -->
+
+<main class="page-content">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+{% block footer %}
+
+<footer class="main-footer">
+
+    © 2026 Integrated Chemical Laboratory Management System
+
+</footer>
+
+{% endblock %}
+
+
+<!-- =========================================================
+     BOOTSTRAP JAVASCRIPT
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC JAVASCRIPT
+========================================================= -->
+
+{% block scripts %}
+{% endblock %}
+
+
+</body>
+
+</html>
+

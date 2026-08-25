@@ -1,0 +1,1393 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register | ICLMS{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   REGISTRATION PAGE
+========================================================= */
+
+.register-section {
+    min-height: calc(100vh - 76px);
+
+    padding: 35px 15px 50px;
+
+    background:
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(37, 99, 235, 0.12),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(37, 99, 235, 0.10),
+            transparent 25%
+        ),
+        #f3f7ff;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.register-card {
+    max-width: 1400px;
+
+    margin: auto;
+
+    border: none;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow:
+        0 15px 45px rgba(0, 40, 120, 0.15);
+}
+
+
+/* =========================================================
+   LEFT PANEL
+========================================================= */
+
+.left-panel {
+
+    min-height: 780px;
+
+    padding: 38px;
+
+    color: white;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #082b83 0%,
+            #0d47c9 50%,
+            #1769ed 100%
+        );
+}
+
+
+/* Decorative circle */
+
+.left-panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 340px;
+    height: 340px;
+
+    border-radius: 50%;
+
+    border: 1px solid
+        rgba(255,255,255,0.12);
+
+    right: -170px;
+    top: -100px;
+
+}
+
+
+/* Decorative circle */
+
+.left-panel::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    border: 1px solid
+        rgba(255,255,255,0.10);
+
+    left: -130px;
+    bottom: -100px;
+
+}
+
+
+/* =========================================================
+   LABORATORY IMAGE
+========================================================= */
+
+.left-panel img {
+
+    width: 100%;
+
+    height: 245px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 15px !important;
+
+    border: 3px solid
+        rgba(255,255,255,0.80);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,0.20);
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   JOIN OUR LABORATORY HEADING
+========================================================= */
+
+.join-title {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    color: white;
+
+    font-size: 35px;
+
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    margin-top: 30px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   MICROSCOPE ICON
+========================================================= */
+
+.join-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    min-width: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 3px;
+
+    border: 2px solid
+        rgba(255,255,255,0.75);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    color: white;
+
+    font-size: 32px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,0.15);
+}
+
+
+.join-icon i {
+
+    color: white !important;
+
+    font-size: 32px;
+}
+
+
+/* =========================================================
+   LEFT DESCRIPTION
+========================================================= */
+
+.left-panel > p {
+
+    position: relative;
+
+    z-index: 2;
+
+    color:
+        rgba(255,255,255,0.92);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.feature {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    margin-bottom: 23px;
+}
+
+
+.feature > i {
+
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border: 2px solid
+        rgba(255,255,255,0.45);
+
+    background:
+        rgba(255,255,255,0.10);
+
+    color: white;
+
+    font-size: 21px;
+}
+
+
+.feature h5 {
+
+    margin: 0 0 4px;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+.feature p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.80);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.right-panel {
+
+    padding: 42px 48px;
+
+    background: white;
+}
+
+
+/* =========================================================
+   REGISTRATION HEADING
+========================================================= */
+
+.right-panel h1 {
+
+    color: #10265d;
+
+    font-size: 38px;
+
+    font-weight: 600;
+
+    margin: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.right-panel h1 i {
+
+    color: #2563eb;
+
+    font-size: 38px;
+}
+
+
+.right-panel > p {
+
+    font-size: 16px;
+
+    margin-top: 5px;
+
+    margin-bottom: 22px;
+}
+
+
+.right-panel hr {
+
+    border: 0;
+
+    border-top: 1px solid #e2e8f0;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   FORM LABELS
+========================================================= */
+
+.right-panel label {
+
+    display: block;
+
+    color: #10265d;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+.right-panel .form-control,
+.right-panel .form-select {
+
+    min-height: 48px;
+
+    border: 1px solid #dce3ed;
+
+    border-radius: 10px;
+
+    padding: 10px 15px;
+
+    font-size: 15px;
+
+    color: #475569;
+
+    background: #ffffff;
+
+    transition: all .25s ease;
+}
+
+
+.right-panel .form-control::placeholder {
+
+    color: #94a3b8;
+}
+
+
+.right-panel .form-control:hover,
+.right-panel .form-select:hover {
+
+    border-color: #b8c8e5;
+}
+
+
+.right-panel .form-control:focus,
+.right-panel .form-select:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(37,99,235,.10);
+
+}
+
+
+/* =========================================================
+   PASSWORD CONTAINER
+========================================================= */
+
+.password-container {
+
+    position: relative;
+}
+
+
+.password-container .form-control {
+
+    padding-right: 50px;
+}
+
+
+/* =========================================================
+   PASSWORD EYE BUTTON
+========================================================= */
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 13px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    padding: 5px;
+}
+
+
+.password-toggle:hover {
+
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+.password-strength {
+
+    margin-top: 7px;
+}
+
+
+.strength-track {
+
+    width: 100%;
+
+    height: 5px;
+
+    background: #e2e8f0;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.strength-bar {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 10px;
+
+    transition:
+        width .3s ease,
+        background .3s ease;
+}
+
+
+.strength-text {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+========================================================= */
+
+.btn-register {
+
+    min-height: 52px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #155eef,
+            #5b35ed
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 8px 20px
+        rgba(37,99,235,.22);
+
+    transition: all .25s ease;
+}
+
+
+.btn-register:hover {
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(37,99,235,.30);
+}
+
+
+/* =========================================================
+   LOGIN LINK
+========================================================= */
+
+.login-text {
+
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+
+.login-text a {
+
+    color: #2563eb;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.login-text a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ERROR MESSAGES
+========================================================= */
+
+.errorlist {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 5px 0 0;
+
+    color: #dc2626;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .left-panel {
+
+        min-height: auto;
+
+        padding: 30px;
+    }
+
+
+    .right-panel {
+
+        padding: 35px 30px;
+    }
+
+
+    .join-title {
+
+        font-size: 32px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .register-section {
+
+        padding: 20px 10px 35px;
+    }
+
+
+    .left-panel {
+
+        padding: 25px 20px;
+    }
+
+
+    .right-panel {
+
+        padding: 28px 20px;
+    }
+
+
+    .left-panel img {
+
+        height: 200px;
+    }
+
+
+    .join-title {
+
+        font-size: 28px;
+
+        gap: 10px;
+    }
+
+
+    .join-icon {
+
+        width: 48px;
+
+        height: 48px;
+
+        min-width: 48px;
+
+        font-size: 27px;
+    }
+
+
+    .join-icon i {
+
+        font-size: 27px;
+    }
+
+
+    .right-panel h1 {
+
+        font-size: 29px;
+    }
+
+
+    .right-panel h1 i {
+
+        font-size: 30px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="register-section">
+
+    <div class="container-fluid">
+
+        <div class="card register-card">
+
+            <div class="row g-0">
+
+
+                <!-- =================================================
+                     LEFT PANEL
+                ================================================== -->
+
+                <div class="col-lg-4">
+
+                    <div class="left-panel">
+
+
+                        <!-- Laboratory Image -->
+
+                        <img
+                            src="{% static 'image/lab_register.jpg' %}"
+                            class="img-fluid"
+                            alt="Laboratory"
+                        >
+
+
+                        <!-- =================================================
+                             JOIN OUR LABORATORY
+                        ================================================== -->
+
+                        <h2 class="register-join-title">
+
+                            <span class="register-microscope">
+                                🔬
+                            </span>
+
+                            <span class="register-join-text">
+                                Join Our Laboratory<br>
+                                Community
+                            </span>
+
+                        </h2>
+
+
+                        <!-- Description -->
+
+                        <p>
+
+                            Create your account and access
+                            powerful tools to manage chemicals,
+                            equipment, samples and experiments.
+
+                        </p>
+
+
+                        <!-- =================================================
+                             FEATURE 1
+                        ================================================== -->
+
+                        <div class="feature">
+
+                            <i class="bi bi-shield-check"></i>
+
+                            <div>
+
+                                <h5>
+                                    Secure System
+                                </h5>
+
+                                <p>
+                                    Your data is protected.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FEATURE 2
+                        ================================================== -->
+
+                        <div class="feature">
+
+                            <i class="bi bi-clipboard-data"></i>
+
+                            <div>
+
+                                <h5>
+                                    Smart Laboratory
+                                </h5>
+
+                                <p>
+                                    Easy management of lab activities.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FEATURE 3
+                        ================================================== -->
+
+                        <div class="feature">
+
+                            <i class="bi bi-people-fill"></i>
+
+                            <div>
+
+                                <h5>
+                                    Role Based Access
+                                </h5>
+
+                                <p>
+                                    Administrator • Technician • Researcher
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     RIGHT PANEL
+                ================================================== -->
+
+                <div class="col-lg-8">
+
+                    <div class="right-panel">
+
+
+                        <!-- Registration Heading -->
+
+                        <h1>
+
+                            <i class="bi bi-person-plus-fill"></i>
+
+                            User Registration
+
+                        </h1>
+
+
+                        <p class="text-muted">
+
+                            Create your account to access ICLMS
+
+                        </p>
+
+
+                        <hr>
+
+
+                        <!-- =================================================
+                             FORM
+                        ================================================== -->
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+
+                            <div class="row">
+
+
+                                <!-- FIRST NAME -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        First Name
+                                    </label>
+
+                                    {{ form.first_name }}
+
+                                    {{ form.first_name.errors }}
+
+                                </div>
+
+
+                                <!-- LAST NAME -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Last Name
+                                    </label>
+
+                                    {{ form.last_name }}
+
+                                    {{ form.last_name.errors }}
+
+                                </div>
+
+
+                                <!-- USERNAME -->
+
+                                <div class="col-md-12 mb-3">
+
+                                    <label>
+                                        Username
+                                    </label>
+
+                                    {{ form.username }}
+
+                                    {{ form.username.errors }}
+
+                                </div>
+
+
+                                <!-- EMAIL -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Email
+                                    </label>
+
+                                    {{ form.email }}
+
+                                    {{ form.email.errors }}
+
+                                </div>
+
+
+                                <!-- PHONE -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Phone
+                                    </label>
+
+                                    {{ form.phone }}
+
+                                    {{ form.phone.errors }}
+
+                                </div>
+
+
+                                <!-- =================================================
+                                    ROLE
+                                ================================================== -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label for="id_role">
+                                        Role
+                                    </label>
+
+                                    <select
+                                        name="role"
+                                        id="id_role"
+                                        class="form-select"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select Role
+                                        </option>
+
+                                        <option value="CENTRAL_ADMIN">
+                                            Central Administrator
+                                        </option>
+
+                                        <option value="SUB_ADMIN">
+                                            Sub Administrator
+                                        </option>
+
+                                        <option value="RESEARCHER">
+                                            Researcher
+                                        </option>
+
+                                        <option value="TECHNICIAN">
+                                            Technician
+                                        </option>
+
+                                    </select>
+
+                                    {{ form.role.errors }}
+
+                                </div>
+
+
+                                <!-- =================================================
+                                    SUPERVISOR
+                                ================================================== -->
+
+                                <div
+                                    class="col-md-6 mb-3"
+                                    id="supervisor-container"
+                                >
+
+                                    <label for="id_supervisor">
+                                        Supervisor
+                                    </label>
+
+                                    <select
+                                        name="supervisor"
+                                        id="id_supervisor"
+                                        class="form-select"
+                                    >
+
+                                        <option value="">
+                                            Select Supervisor
+                                        </option>
+
+                                        {% for supervisor in form.supervisor.field.queryset %}
+
+                                            <option
+                                                value="{{ supervisor.pk }}"
+                                                data-central="{% if supervisor.is_superuser %}true{% else %}false{% endif %}"
+                                                data-subadmin="{% if supervisor.lab_profile.role == 'SUB_ADMIN' %}true{% else %}false{% endif %}"
+                                            >
+
+                                                {% if supervisor.get_full_name %}
+                                                    {{ supervisor.get_full_name }}
+                                                {% else %}
+                                                    {{ supervisor.username }}
+                                                {% endif %}
+
+                                                {% if supervisor.is_superuser %}
+                                                    — Central Administrator
+                                                {% else %}
+                                                    — Sub Administrator
+                                                {% endif %}
+
+                                            </option>
+
+                                        {% endfor %}
+
+                                    </select>
+
+                                    {{ form.supervisor.errors }}
+
+                                    <small class="text-muted" id="supervisor-help">
+                                        Select the administrator responsible for this user.
+                                    </small>
+
+                                </div>
+
+
+                                <!-- PASSWORD -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Password
+                                    </label>
+
+
+                                    <div class="password-container">
+
+                                        {{ form.password1 }}
+
+
+                                        <button
+                                            type="button"
+                                            class="password-toggle"
+                                            onclick="togglePassword(
+                                                'id_password1',
+                                                this
+                                            )"
+                                        >
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </button>
+
+                                    </div>
+
+
+                                    <div class="password-strength">
+
+                                        <div class="strength-track">
+
+                                            <div
+                                                id="strengthBar"
+                                                class="strength-bar"
+                                            ></div>
+
+                                        </div>
+
+                                        <span
+                                            id="strengthText"
+                                            class="strength-text"
+                                        ></span>
+
+                                    </div>
+
+
+                                    {{ form.password1.errors }}
+
+                                </div>
+
+
+                                <!-- CONFIRM PASSWORD -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Confirm Password
+                                    </label>
+
+
+                                    <div class="password-container">
+
+                                        {{ form.password2 }}
+
+
+                                        <button
+                                            type="button"
+                                            class="password-toggle"
+                                            onclick="togglePassword(
+                                                'id_password2',
+                                                this
+                                            )"
+                                        >
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </button>
+
+                                    </div>
+
+
+                                    {{ form.password2.errors }}
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 REGISTER BUTTON
+                            ================================================== -->
+
+                            <div class="mt-3">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-register w-100"
+                                >
+
+                                    <i
+                                        class="bi bi-person-check-fill me-2"
+                                    ></i>
+
+                                    Register Account
+
+                                </button>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 LOGIN LINK
+                            ================================================== -->
+
+                            <div class="text-center mt-4 login-text">
+
+                                Already have an account?
+
+                                <a href="{% url 'login' %}">
+                                    Login
+                                </a>
+
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+========================================================= */
+
+function togglePassword(id, button) {
+
+    const input = document.getElementById(id);
+
+    if (!input) {
+        return;
+    }
+
+
+    const icon = button.querySelector("i");
+
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        icon.classList.remove("bi-eye");
+
+        icon.classList.add("bi-eye-slash");
+
+    }
+
+    else {
+
+        input.type = "password";
+
+        icon.classList.remove("bi-eye-slash");
+
+        icon.classList.add("bi-eye");
+
+    }
+
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+const password =
+    document.getElementById("id_password1");
+
+
+if (password) {
+
+    const bar =
+        document.getElementById("strengthBar");
+
+    const text =
+        document.getElementById("strengthText");
+
+
+    password.addEventListener(
+        "input",
+        function () {
+
+
+            const value =
+                password.value;
+
+
+            const length =
+                value.length;
+
+
+            /* Empty */
+
+            if (length === 0) {
+
+                bar.style.width = "0%";
+
+                bar.style.background =
+                    "transparent";
+
+                text.innerHTML = "";
+
+                return;
+
+            }
+
+
+            /* Weak */
+
+            if (length < 5) {
+
+                bar.style.width = "30%";
+
+                bar.style.background =
+                    "#ef4444";
+
+                text.innerHTML =
+                    "Weak password";
+
+                text.style.color =
+                    "#ef4444";
+
+            }
+
+
+            /* Medium */
+
+            else if (length < 8) {
+
+                bar.style.width = "60%";
+
+                bar.style.background =
+                    "#f59e0b";
+
+                text.innerHTML =
+                    "Medium password";
+
+                text.style.color =
+                    "#d97706";
+
+            }
+
+
+            /* Strong */
+
+            else {
+
+                bar.style.width = "100%";
+
+                bar.style.background =
+                    "#22c55e";
+
+                text.innerHTML =
+                    "Strong password";
+
+                text.style.color =
+                    "#16a34a";
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+{% endblock %}

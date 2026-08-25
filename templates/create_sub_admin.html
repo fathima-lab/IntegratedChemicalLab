@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Sub-Administrator
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        Create Sub-Administrator
+                    </h3>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <p class="text-muted">
+                        Create a new laboratory branch administrator.
+                    </p>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        {% if form.non_field_errors %}
+
+                            <div class="alert alert-danger">
+
+                                {{ form.non_field_errors }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                First Name
+                            </label>
+
+                            {{ form.first_name }}
+
+                            {{ form.first_name.errors }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Last Name
+                            </label>
+
+                            {{ form.last_name }}
+
+                            {{ form.last_name.errors }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            {{ form.username }}
+
+                            {{ form.username.errors }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            {{ form.email }}
+
+                            {{ form.email.errors }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            {{ form.password }}
+
+                            {{ form.password.errors }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Confirm Password
+                            </label>
+
+                            {{ form.confirm_password }}
+
+                            {{ form.confirm_password.errors }}
+
+                        </div>
+
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                Create Sub-Administrator
+                            </button>
+
+
+                            <a
+                                href="{% url 'dashboard' %}"
+                                class="btn btn-secondary"
+                            >
+                                Cancel
+                            </a>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

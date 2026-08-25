@@ -1,0 +1,466 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Technician Dashboard | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.technician-page {
+    background: #f4f7fc;
+    min-height: calc(100vh - 80px);
+    padding: 45px 6%;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.technician-header {
+    background: linear-gradient(
+        135deg,
+        #123b91,
+        #2563eb
+    );
+
+    color: white;
+    border-radius: 22px;
+    padding: 32px 40px;
+    margin-bottom: 30px;
+
+    box-shadow: 0 10px 30px rgba(18, 59, 145, 0.15);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.header-content p {
+    margin: 10px 0 0;
+    font-size: 18px;
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-btn {
+    background: #dc3545;
+    color: white;
+
+    border: none;
+
+    padding: 12px 24px;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #bb2d3b;
+    transform: translateY(-2px);
+}
+
+
+/* ================================
+   FEATURE CARDS
+================================ */
+
+.feature-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    height: 100%;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.07);
+
+    transition: all 0.25s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 15px 35px rgba(18, 59, 145, 0.15);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background: #eaf2ff;
+
+    color: #1268f3;
+
+    font-size: 34px;
+}
+
+.feature-card h4 {
+    margin-top: 10px;
+
+    color: #172554;
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+.feature-card p {
+    color: #64748b;
+
+    margin-bottom: 25px;
+
+    font-size: 16px;
+}
+
+.feature-card .btn {
+    width: 100%;
+
+    border-radius: 8px;
+
+    padding: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ================================
+   ACTIVITIES
+================================ */
+
+.activity-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+.activity-card h4 {
+    color: #172554;
+
+    margin-bottom: 15px;
+
+    font-weight: 700;
+}
+
+.activity-item {
+    padding: 15px 5px;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item strong {
+    color: #172554;
+}
+
+.activity-item small {
+    color: #94a3b8;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+    .technician-page {
+        padding: 25px 5%;
+    }
+
+    .header-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .header-content h1 {
+        font-size: 30px;
+    }
+
+    .logout-form {
+        width: 100%;
+    }
+
+    .logout-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="technician-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="technician-header">
+
+        <div class="header-content">
+
+            <div>
+
+                <h1>
+                    👨‍🔧 Technician Dashboard
+                </h1>
+
+                <p>
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+                class="logout-form"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="logout-btn"
+                >
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Logout
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         TECHNICIAN MODULES
+    ========================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- =====================================
+             EQUIPMENT
+        ====================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    <i class="bi bi-tools"></i>
+
+                </div>
+
+                <h4>
+                    Equipment
+                </h4>
+
+                <p>
+                    Manage laboratory equipment,
+                    availability and equipment records.
+                </p>
+
+                <a
+                    href="{% url 'equipment' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-right-circle me-1"></i>
+
+                    View Equipment
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             MAINTENANCE
+        ====================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    <i class="bi bi-wrench-adjustable"></i>
+
+                </div>
+
+                <h4>
+                    Maintenance
+                </h4>
+
+                <p>
+                    Schedule and monitor laboratory
+                    equipment maintenance.
+                </p>
+
+                <a
+                    href="{% url 'maintenance' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-right-circle me-1"></i>
+
+                    Maintenance
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             CHEMICALS
+        ====================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    <i class="bi bi-droplet-fill"></i>
+
+                </div>
+
+                <h4>
+                    Chemicals
+                </h4>
+
+                <p>
+                    Manage chemical inventory,
+                    stock levels and safety information.
+                </p>
+
+                <a
+                    href="{% url 'chemicals' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-right-circle me-1"></i>
+
+                    Chemicals
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         RECENT ACTIVITIES
+    ========================================== -->
+
+    <div class="activity-card">
+
+        <h4>
+            📊 My Recent Activities
+        </h4>
+
+
+        {% for activity in activities %}
+
+        <div class="activity-item">
+
+            <strong>
+                {{ activity.get_activity_type_display }}
+            </strong>
+
+            — {{ activity.description }}
+
+            <br>
+
+            <small>
+                {{ activity.created_at|date:"d M Y, h:i A" }}
+            </small>
+
+        </div>
+
+        {% empty %}
+
+        <p class="text-muted">
+            No activities recorded yet.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+
+</div>
+
+{% endblock %}

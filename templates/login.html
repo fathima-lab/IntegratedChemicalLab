@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login | ICLMS{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+.login-section {
+    min-height: calc(100vh - 90px);
+    background: #f3f7ff;
+    padding: 55px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(20, 60, 120, 0.15);
+}
+
+/* LEFT PANEL */
+
+.login-left {
+    background: linear-gradient(
+        145deg,
+        #082b7a,
+        #1457d9,
+        #2878f5
+    );
+
+    color: white;
+    padding: 55px 45px;
+    min-height: 570px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-lab-icon {
+    font-size: 75px;
+    margin-bottom: 25px;
+}
+
+.login-left h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.login-left p {
+    font-size: 17px;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.login-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.login-feature i {
+    font-size: 25px;
+}
+
+.login-feature h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.login-feature p {
+    margin: 4px 0 0;
+    font-size: 14px;
+}
+
+/* RIGHT PANEL */
+
+.login-right {
+    padding: 55px 50px;
+}
+
+.login-right h2 {
+    color: #09276d;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.login-subtitle {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.form-label {
+    color: #09276d;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid #d8e1ef;
+    padding: 12px 16px;
+    font-size: 15px;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.login-btn {
+    background: linear-gradient(
+        90deg,
+        #1555d1,
+        #2563eb
+    );
+
+    color: white;
+    border: none;
+    height: 52px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.register-link {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* ERROR */
+
+.login-error {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #be123c;
+    border-radius: 10px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 991px) {
+
+    .login-left {
+        min-height: auto;
+        padding: 40px 30px;
+    }
+
+    .login-left h1 {
+        font-size: 34px;
+    }
+
+    .login-right {
+        padding: 40px 30px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="login-section">
+
+    <div class="container">
+
+        <div class="login-card">
+
+            <div class="row g-0">
+
+                <!-- LEFT SIDE -->
+
+                <div class="col-lg-5">
+
+                    <div class="login-left">
+
+                        <div class="login-lab-icon">
+                            🔬
+                        </div>
+
+                        <h1>
+                            Welcome Back
+                        </h1>
+
+                        <p>
+                            Sign in to access your Integrated
+                            Chemical Laboratory Management System
+                            and manage your laboratory activities.
+                        </p>
+
+
+                        <div class="login-feature">
+
+                            <i class="bi bi-shield-check"></i>
+
+                            <div>
+
+                                <h5>
+                                    Secure Access
+                                </h5>
+
+                                <p>
+                                    Your laboratory data is protected.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-feature">
+
+                            <i class="bi bi-flask-fill"></i>
+
+                            <div>
+
+                                <h5>
+                                    Smart Laboratory
+                                </h5>
+
+                                <p>
+                                    Manage chemicals, equipment and experiments.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-feature">
+
+                            <i class="bi bi-person-check-fill"></i>
+
+                            <div>
+
+                                <h5>
+                                    Role-Based Access
+                                </h5>
+
+                                <p>
+                                    Administrator • Technician • Researcher
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT SIDE -->
+
+                <div class="col-lg-7">
+
+                    <div class="login-right">
+
+                        <h2>
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Login
+                        </h2>
+
+                        <p class="login-subtitle">
+                            Sign in to continue to ICLMS
+                        </p>
+
+                        <hr class="mb-4">
+
+
+                        {% if form.errors %}
+
+                        <div class="login-error">
+
+                            <i class="bi bi-exclamation-circle-fill"></i>
+
+                            Invalid username or password.
+                            Please try again.
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+
+                            <!-- USERNAME -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+
+                                    <i class="bi bi-person-fill"></i>
+                                    Username
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="username"
+                                    class="form-control"
+                                    placeholder="Enter your username"
+                                    required
+                                    autofocus
+                                >
+
+                            </div>
+
+
+                            <!-- PASSWORD -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+
+                                    <i class="bi bi-lock-fill"></i>
+                                    Password
+
+                                </label>
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    class="form-control"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- LOGIN BUTTON -->
+
+                            <button
+                                type="submit"
+                                class="btn login-btn w-100"
+                            >
+
+                                <i class="bi bi-box-arrow-in-right"></i>
+
+                                Login to ICLMS
+
+                            </button>
+
+
+                            <!-- REGISTER -->
+
+                            <div class="text-center mt-4">
+
+                                Don't have an account?
+
+                                <a
+                                    href="{% url 'register' %}"
+                                    class="register-link"
+                                >
+                                    Create Account
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

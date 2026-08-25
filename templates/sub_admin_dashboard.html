@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sub-Administrator Dashboard | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.subadmin-page {
+    padding: 45px 5%;
+    background: #f4f7ff;
+    min-height: calc(100vh - 100px);
+}
+
+.welcome {
+    background: linear-gradient(135deg, #123b91, #2563eb);
+    color: white;
+    border-radius: 22px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.welcome h1 {
+    font-weight: 700;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(20,60,140,.08);
+}
+
+.stat-card i {
+    font-size: 35px;
+    color: #2563eb;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: 800;
+    color: #123b91;
+}
+
+.member-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(20,60,140,.08);
+    height: 100%;
+}
+
+.member-icon {
+    width: 55px;
+    height: 55px;
+    background: #edf3ff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+.member-card h4 {
+    color: #123b91;
+    font-weight: 700;
+}
+
+.member {
+    padding: 12px;
+    border-bottom: 1px solid #edf0f7;
+}
+
+.member:last-child {
+    border-bottom: none;
+}
+.logout-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #bb2d3b;
+    color: white;
+    transform: translateY(-1px);
+}
+
+</style>
+
+
+<div class="subadmin-page">
+
+
+    <div class="welcome">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+        <div>
+
+            <h1>
+                🛡️ Sub-Administrator Dashboard
+            </h1>
+
+            <p>
+                Welcome,
+                {{ request.user.get_full_name|default:request.user.username }}
+            </p>
+
+        </div>
+
+        <!-- LOGOUT -->
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+                class="logout-form"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="logout-btn"
+                >
+                    <i class="bi bi-box-arrow-right"></i>
+                    Logout
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <a
+        href="{% url 'create_team_member' %}"
+        class="btn btn-primary"
+    >
+        + Add Researcher / Technician
+    </a>
+
+    <!-- STATISTICS -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6">
+
+            <div class="stat-card">
+
+                <i class="bi bi-person-workspace"></i>
+
+                <div class="stat-number">
+                    {{ total_researchers }}
+                </div>
+
+                <div>
+                    Researchers
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="stat-card">
+
+                <i class="bi bi-person-gear"></i>
+
+                <div class="stat-number">
+                    {{ total_technicians }}
+                </div>
+
+                <div>
+                    Technicians
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEAM -->
+
+    <div class="row g-4">
+
+
+        <!-- RESEARCHERS -->
+
+        <div class="col-lg-6">
+
+            <div class="member-card">
+
+                <div class="member-icon">
+                    👨‍🔬
+                </div>
+
+                <h4>
+                    Researchers
+                </h4>
+
+                {% for researcher in researchers %}
+
+                <div class="member">
+
+                    <strong>
+                        {{ researcher.user.get_full_name|default:researcher.user.username }}
+                    </strong>
+
+                    <br>
+
+                    <small class="text-muted">
+                        {{ researcher.user.email }}
+                    </small>
+
+                </div>
+
+                {% empty %}
+
+                <p class="text-muted">
+                    No researchers assigned.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- TECHNICIANS -->
+
+        <div class="col-lg-6">
+
+            <div class="member-card">
+
+                <div class="member-icon">
+                    👨‍🔧
+                </div>
+
+                <h4>
+                    Technicians
+                </h4>
+
+                {% for technician in technicians %}
+
+                <div class="member">
+
+                    <strong>
+                        {{ technician.user.get_full_name|default:technician.user.username }}
+                    </strong>
+
+                    <br>
+
+                    <small class="text-muted">
+                        {{ technician.user.email }}
+                    </small>
+
+                </div>
+
+                {% empty %}
+
+                <p class="text-muted">
+                    No technicians assigned.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIVITIES -->
+
+    <div class="member-card mt-4">
+
+        <h4>
+            📊 Team Activities
+        </h4>
+
+        {% for activity in activities %}
+
+        <div class="member">
+
+            <strong>
+                {{ activity.actor.get_full_name|default:activity.actor.username }}
+            </strong>
+
+            — {{ activity.description }}
+
+            <br>
+
+            <small class="text-muted">
+                {{ activity.created_at|date:"d M Y, h:i A" }}
+            </small>
+
+        </div>
+
+        {% empty %}
+
+        <p class="text-muted">
+            No activities recorded.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+/* Form Labels */
+label{
+    font-weight:600;
+    color:#0b3ea8;
+    margin-bottom:8px;
+}
+
+/* Input Group */
+
+.input-group-text{
+    background:#edf4ff;
+    border-radius:12px 0 0 12px;
+    border:1px solid #ced4da;
+}
+
+.form-control,
+.form-select{
+
+    border-radius:0 12px 12px 0;
+    transition:.3s;
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#2563eb;
+    box-shadow:0 0 10px rgba(37,99,235,.25);
+
+}
+
+/* Card Animation */
+
+.register-card{
+
+    transition:.4s;
+
+}
+
+.register-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+/* Button */
+
+.btn-register{
+
+    transition:.3s;
+
+}
+
+.btn-register:hover{
+
+    transform:scale(1.02);
+
+}
+
+/* Password Strength */
+
+.strength{
+
+    height:8px;
+
+    background:#dee2e6;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.strength-bar{
+
+    width:0%;
+
+    height:100%;
+
+    transition:.5s;
+
+}
+
+/* Left Wave */
+
+.left-panel{
+    background:linear-gradient(160deg,#003f88,#0d6efd,#5fa8ff);
+    color:white;
+    padding:50px;
+    height:100%;
+    position:relative;
+    overflow:hidden;
+}
+
+.left-panel::before{
+
+content:'';
+
+position:absolute;
+
+width:300px;
+
+height:300px;
+
+background:rgba(255,255,255,.12);
+
+border-radius:50%;
+
+top:-100px;
+
+right:-80px;
+
+}
+
+.left-panel::after{
+
+content:'';
+
+position:absolute;
+
+width:250px;
+
+height:250px;
+
+background:rgba(255,255,255,.08);
+
+border-radius:50%;
+
+bottom:-80px;
+
+left:-80px;
+
+}

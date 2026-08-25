@@ -1,0 +1,1161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About | ICLMS{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   ABOUT PAGE
+========================================================= */
+
+.about-page {
+    min-height: calc(100vh - 76px);
+
+    padding: 45px 25px 60px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(37, 99, 235, 0.10),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 70%,
+            rgba(37, 99, 235, 0.08),
+            transparent 25%
+        ),
+        #f3f7ff;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero {
+    max-width: 1400px;
+
+    margin: auto;
+
+    min-height: 390px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #082b83 0%,
+            #1145ad 45%,
+            #1769ed 100%
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(15, 50, 110, .18);
+}
+
+
+/* Hero text */
+
+.about-hero-text {
+
+    width: 55%;
+
+    padding: 55px 50px;
+
+    color: white;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.about-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 18px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    color: white;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+.about-hero h1 {
+
+    font-size: 52px;
+
+    font-weight: 700;
+
+    margin-bottom: 18px;
+}
+
+
+.about-hero p {
+
+    max-width: 700px;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    color:
+        rgba(255,255,255,.90);
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.about-hero-image {
+
+    width: 45%;
+
+    height: 390px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.about-hero-image::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,43,131,.55),
+            transparent 50%
+        );
+}
+
+
+.about-hero-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   INTRODUCTION
+========================================================= */
+
+.about-intro {
+
+    max-width: 1400px;
+
+    margin: 45px auto 0;
+}
+
+
+.about-card {
+
+    height: 100%;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,50,110,.08);
+
+    transition: .3s;
+}
+
+
+.about-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(15,50,110,.13);
+}
+
+
+/* =========================================================
+   ICON BOX
+========================================================= */
+
+.about-icon {
+
+    width: 68px;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eaf2ff,
+            #dceaff
+        );
+
+    color: #2563eb;
+
+    font-size: 31px;
+
+    margin-bottom: 20px;
+}
+
+
+.about-card h3 {
+
+    color: #10265d;
+
+    font-size: 23px;
+
+    font-weight: 600;
+
+    margin-bottom: 12px;
+}
+
+
+.about-card p {
+
+    color: #64748b;
+
+    line-height: 1.7;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   MISSION SECTION
+========================================================= */
+
+.mission-section {
+
+    max-width: 1400px;
+
+    margin: 45px auto 0;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,50,110,.08);
+}
+
+
+.mission-image {
+
+    height: 320px;
+
+    overflow: hidden;
+}
+
+
+.mission-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.mission-content {
+
+    padding: 45px;
+}
+
+
+.mission-content h2 {
+
+    color: #10265d;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    margin-bottom: 18px;
+}
+
+
+.mission-content p {
+
+    color: #64748b;
+
+    line-height: 1.8;
+
+    font-size: 16px;
+}
+
+
+/* Mission points */
+
+.mission-point {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 15px;
+
+    color: #334155;
+
+    font-size: 15px;
+}
+
+
+.mission-point i {
+
+    color: #2563eb;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   MODULES
+========================================================= */
+
+.modules-section {
+
+    max-width: 1400px;
+
+    margin: 50px auto 0;
+}
+
+
+.modules-title {
+
+    text-align: center;
+
+    color: #10265d;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+
+.modules-subtitle {
+
+    text-align: center;
+
+    color: #64748b;
+
+    margin-bottom: 30px;
+}
+
+
+/* Module card */
+
+.module-card {
+
+    height: 100%;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 7px 22px
+        rgba(15,50,110,.07);
+
+    transition: .3s;
+
+    border: 1px solid transparent;
+}
+
+
+.module-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        #d7e5ff;
+
+    box-shadow:
+        0 15px 30px
+        rgba(15,50,110,.12);
+}
+
+
+.module-icon {
+
+    width: 72px;
+
+    height: 72px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #edf4ff;
+
+    color: #2563eb;
+
+    font-size: 31px;
+}
+
+
+.module-card h5 {
+
+    color: #10265d;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    margin-top: 17px;
+
+    margin-bottom: 8px;
+}
+
+
+.module-card p {
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   WHY ICLMS
+========================================================= */
+
+.why-section {
+
+    max-width: 1400px;
+
+    margin: 50px auto 0;
+
+    padding: 45px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #082b83,
+            #1769ed
+        );
+
+    color: white;
+
+    text-align: center;
+}
+
+
+.why-section h2 {
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+.why-section > p {
+
+    max-width: 750px;
+
+    margin:
+        0 auto 35px;
+
+    color:
+        rgba(255,255,255,.85);
+
+    line-height: 1.7;
+}
+
+
+.why-item {
+
+    padding: 20px;
+}
+
+
+.why-item i {
+
+    font-size: 38px;
+
+    color: white;
+
+    margin-bottom: 12px;
+}
+
+
+.why-item h5 {
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+
+.why-item p {
+
+    color:
+        rgba(255,255,255,.78);
+
+    font-size: 13px;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .about-hero {
+
+        display: block;
+    }
+
+
+    .about-hero-text {
+
+        width: 100%;
+
+        padding: 45px 35px;
+    }
+
+
+    .about-hero-image {
+
+        width: 100%;
+
+        height: 300px;
+    }
+
+
+    .mission-image {
+
+        height: 260px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .about-page {
+
+        padding:
+            25px 10px 40px;
+    }
+
+
+    .about-hero-text {
+
+        padding: 35px 25px;
+    }
+
+
+    .about-hero h1 {
+
+        font-size: 38px;
+    }
+
+
+    .about-hero p {
+
+        font-size: 15px;
+    }
+
+
+    .about-hero-image {
+
+        height: 230px;
+    }
+
+
+    .about-card {
+
+        padding: 27px;
+    }
+
+
+    .mission-content {
+
+        padding: 30px 25px;
+    }
+
+
+    .why-section {
+
+        padding: 35px 20px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="about-page">
+
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="about-hero">
+
+        <div class="about-hero-text">
+
+            <div class="about-badge">
+
+                <i class="bi bi-microscope"></i>
+
+                Smart • Secure • Efficient
+
+            </div>
+
+
+            <h1>
+                About ICLMS
+            </h1>
+
+
+            <p>
+
+                The Integrated Chemical Laboratory Management
+                System (ICLMS) is designed to provide a centralized
+                platform for managing laboratory activities,
+                resources and operations efficiently.
+
+            </p>
+
+        </div>
+
+
+        <!-- HERO IMAGE -->
+
+        <div class="about-hero-image">
+
+            <img
+                src="{% static 'image/lab.jpg' %}"
+                alt="Chemical Laboratory"
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INTRODUCTION CARDS
+    ====================================================== -->
+
+    <section class="about-intro">
+
+        <div class="row g-4">
+
+
+            <!-- PURPOSE -->
+
+            <div class="col-lg-4">
+
+                <div class="about-card">
+
+                    <div class="about-icon">
+
+                        <i class="bi bi-bullseye"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Our Purpose
+                    </h3>
+
+
+                    <p>
+
+                        ICLMS provides a centralized environment
+                        for managing chemicals, equipment,
+                        samples, experiments and laboratory
+                        resources.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- EFFICIENCY -->
+
+            <div class="col-lg-4">
+
+                <div class="about-card">
+
+                    <div class="about-icon">
+
+                        <i class="bi bi-lightning-charge-fill"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Efficient Management
+                    </h3>
+
+
+                    <p>
+
+                        Simplify laboratory operations by
+                        organizing important information and
+                        reducing repetitive manual activities.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY -->
+
+            <div class="col-lg-4">
+
+                <div class="about-card">
+
+                    <div class="about-icon">
+
+                        <i class="bi bi-shield-lock-fill"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Secure Access
+                    </h3>
+
+
+                    <p>
+
+                        Role-based access provides appropriate
+                        system functionality for administrators,
+                        technicians and researchers.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MISSION SECTION
+    ====================================================== -->
+
+    <section class="mission-section">
+
+        <div class="row g-0 align-items-center">
+
+
+            <!-- IMAGE -->
+
+            <div class="col-lg-5">
+
+                <div class="mission-image">
+
+                    <img
+                        src="{% static 'image/about.jpg' %}"
+                        alt="Laboratory Equipment"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- TEXT -->
+
+            <div class="col-lg-7">
+
+                <div class="mission-content">
+
+                    <h2>
+                        Our Mission
+                    </h2>
+
+
+                    <p>
+
+                        Our mission is to make laboratory
+                        management simpler, more organized
+                        and more efficient through a centralized
+                        digital platform.
+
+                    </p>
+
+
+                    <div class="mission-point">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <span>
+                            Centralized laboratory information
+                        </span>
+
+                    </div>
+
+
+                    <div class="mission-point">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <span>
+                            Efficient resource management
+                        </span>
+
+                    </div>
+
+
+                    <div class="mission-point">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <span>
+                            Role-based laboratory access
+                        </span>
+
+                    </div>
+
+
+                    <div class="mission-point">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <span>
+                            Improved laboratory organization
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MODULES
+    ====================================================== -->
+
+    <section class="modules-section">
+
+        <h2 class="modules-title">
+            ICLMS Modules
+        </h2>
+
+
+        <p class="modules-subtitle">
+
+            Everything you need to organize your laboratory
+            in one integrated system.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- CHEMICALS -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="module-card">
+
+                    <div class="module-icon">
+                        🧪
+                    </div>
+
+                    <h5>
+                        Chemical Inventory
+                    </h5>
+
+
+                    <p>
+
+                        Manage laboratory chemicals,
+                        quantities, availability and inventory.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- EQUIPMENT -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="module-card">
+
+                    <div class="module-icon">
+                        ⚗️
+                    </div>
+
+
+                    <h5>
+                        Equipment
+                    </h5>
+
+
+                    <p>
+
+                        Track laboratory equipment,
+                        availability and usage.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPERIMENTS -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="module-card">
+
+                    <div class="module-icon">
+                        ⚛️
+                    </div>
+
+
+                    <h5>
+                        Experiments
+                    </h5>
+
+
+                    <p>
+
+                        Organize experiments and
+                        laboratory activities efficiently.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAMPLES -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="module-card">
+
+                    <div class="module-icon">
+
+                        <i class="bi bi-box-seam-fill"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Samples
+                    </h5>
+
+
+                    <p>
+
+                        Manage laboratory samples
+                        and associated information.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         WHY ICLMS
+    ====================================================== -->
+
+    <section class="why-section">
+
+        <h2>
+            Why Choose ICLMS?
+        </h2>
+
+
+        <p>
+
+            A modern laboratory management platform
+            designed to bring essential laboratory
+            activities together in one place.
+
+        </p>
+
+
+        <div class="row">
+
+
+            <div class="col-md-4">
+
+                <div class="why-item">
+
+                    <i class="bi bi-speedometer2"></i>
+
+                    <h5>
+                        Simple
+                    </h5>
+
+                    <p>
+                        Easy-to-use laboratory management.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="why-item">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    <h5>
+                        Secure
+                    </h5>
+
+                    <p>
+                        Role-based access and protected data.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="why-item">
+
+                    <i class="bi bi-bar-chart-fill"></i>
+
+                    <h5>
+                        Organized
+                    </h5>
+
+                    <p>
+                        Better visibility of laboratory resources.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

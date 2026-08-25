@@ -1,0 +1,854 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Features | ICLMS{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   FEATURES PAGE
+========================================================= */
+
+.features-page {
+    min-height: calc(100vh - 75px);
+    padding: 45px 25px 60px;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(37, 99, 235, 0.10),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(37, 99, 235, 0.08),
+            transparent 25%
+        ),
+        #f3f7ff;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.features-hero {
+    max-width: 1400px;
+    min-height: 350px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #082b83,
+            #1245ad,
+            #1769ed
+        );
+
+    box-shadow:
+        0 15px 40px rgba(15, 50, 110, .18);
+}
+
+
+.features-hero-text {
+    width: 55%;
+    padding: 55px;
+
+    color: white;
+}
+
+
+.features-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 9px 18px;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.13);
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+.features-hero h1 {
+    font-size: 52px;
+    font-weight: 700;
+
+    margin-bottom: 18px;
+}
+
+
+.features-hero p {
+    max-width: 700px;
+
+    font-size: 17px;
+    line-height: 1.8;
+
+    color: rgba(255,255,255,.90);
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.features-hero-image {
+    width: 45%;
+    height: 350px;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+
+.features-hero-image::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,43,131,.45),
+            transparent 55%
+        );
+}
+
+
+.features-hero-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.features-title {
+    max-width: 1400px;
+
+    margin: 50px auto 10px;
+
+    text-align: center;
+
+    color: #10265d;
+
+    font-size: 35px;
+
+    font-weight: 700;
+}
+
+
+.features-subtitle {
+    max-width: 700px;
+
+    margin: 0 auto 35px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.feature-card {
+    height: 100%;
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,50,110,.08);
+
+    transition: .3s;
+
+    border: 1px solid transparent;
+}
+
+
+.feature-card:hover {
+    transform: translateY(-8px);
+
+    border-color: #d7e5ff;
+
+    box-shadow:
+        0 15px 35px
+        rgba(15,50,110,.14);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.feature-icon {
+    width: 78px;
+    height: 78px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #edf4ff;
+
+    color: #2563eb;
+
+    font-size: 36px;
+
+    line-height: 1;
+}
+
+
+.feature-card h3 {
+    color: #10265d;
+
+    font-size: 21px;
+
+    font-weight: 600;
+
+    margin-bottom: 12px;
+}
+
+
+.feature-card p {
+    color: #64748b;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   HIGHLIGHT SECTION
+========================================================= */
+
+.highlight-section {
+    max-width: 1400px;
+
+    margin: 50px auto 0;
+
+    padding: 45px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #082b83,
+            #1769ed
+        );
+
+    color: white;
+}
+
+
+.highlight-section h2 {
+    font-size: 32px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+.highlight-section > p {
+    max-width: 750px;
+
+    color: rgba(255,255,255,.82);
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+
+.highlight-item {
+    height: 100%;
+
+    padding: 25px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+}
+
+
+.highlight-item i {
+    font-size: 32px;
+
+    margin-bottom: 15px;
+}
+
+
+.highlight-item h5 {
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+
+.highlight-item p {
+    font-size: 13px;
+
+    color: rgba(255,255,255,.78);
+
+    margin: 0;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .features-hero {
+        display: block;
+    }
+
+    .features-hero-text {
+        width: 100%;
+
+        padding: 45px 35px;
+    }
+
+    .features-hero-image {
+        width: 100%;
+
+        height: 280px;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .features-page {
+        padding: 25px 10px 40px;
+    }
+
+    .features-hero-text {
+        padding: 35px 25px;
+    }
+
+    .features-hero h1 {
+        font-size: 38px;
+    }
+
+    .features-hero p {
+        font-size: 15px;
+    }
+
+    .features-hero-image {
+        height: 220px;
+    }
+
+    .highlight-section {
+        padding: 30px 20px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="features-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="features-hero">
+
+
+        <div class="features-hero-text">
+
+            <div class="features-badge">
+
+                <i class="bi bi-stars"></i>
+
+                Powerful • Organized • Connected
+
+            </div>
+
+
+            <h1>
+                ICLMS Features
+            </h1>
+
+
+            <p>
+
+                Explore the powerful features of the
+                Integrated Chemical Laboratory Management
+                System designed to simplify laboratory
+                operations and improve resource management.
+
+            </p>
+
+        </div>
+
+
+        <div class="features-hero-image">
+
+            <img
+                src="{% static 'image/lab.jpg' %}"
+                alt="Chemical Laboratory"
+            >
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FEATURE TITLE
+    ====================================================== -->
+
+    <h2 class="features-title">
+
+        Everything Your Laboratory Needs
+
+    </h2>
+
+
+    <p class="features-subtitle">
+
+        ICLMS brings essential laboratory activities
+        together in one centralized and easy-to-use
+        management platform.
+
+    </p>
+
+
+
+    <!-- =====================================================
+         FEATURE CARDS
+    ====================================================== -->
+
+    <div class="container-fluid"
+         style="max-width:1400px; margin:auto;">
+
+        <div class="row g-4">
+
+
+            <!-- CHEMICAL INVENTORY -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🧪
+                    </div>
+
+
+                    <h3>
+                        Chemical Inventory
+                    </h3>
+
+
+                    <p>
+
+                        Manage laboratory chemicals,
+                        quantities, availability,
+                        storage information and inventory.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EQUIPMENT -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ⚗️
+                    </div>
+
+
+                    <h3>
+                        Equipment Management
+                    </h3>
+
+
+                    <p>
+
+                        Track laboratory equipment,
+                        availability, usage and
+                        important equipment information.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXPERIMENTS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ⚛️
+                    </div>
+
+
+                    <h3>
+                        Experiment Management
+                    </h3>
+
+
+                    <p>
+
+                        Organize experiments, record
+                        activities and maintain
+                        experiment-related information.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SAMPLES -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🧴
+                    </div>
+
+
+                    <h3>
+                        Sample Management
+                    </h3>
+
+
+                    <p>
+
+                        Maintain laboratory sample
+                        information and organize
+                        sample-related records.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SECURITY -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🛡️
+                    </div>
+
+
+                    <h3>
+                        Secure Access
+                    </h3>
+
+
+                    <p>
+
+                        Role-based authentication helps
+                        ensure that users access the
+                        appropriate laboratory functions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- REPORTS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+
+                    <h3>
+                        Reports & Analytics
+                    </h3>
+
+
+                    <p>
+
+                        Generate useful reports and
+                        gain better visibility into
+                        laboratory resources and activities.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ALERTS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🔔
+                    </div>
+
+
+                    <h3>
+                        Alerts & Notifications
+                    </h3>
+
+
+                    <p>
+
+                        Stay informed about important
+                        laboratory events, inventory
+                        levels and other activities.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- USER MANAGEMENT -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        👥
+                    </div>
+
+
+                    <h3>
+                        User Management
+                    </h3>
+
+
+                    <p>
+
+                        Manage administrators,
+                        technicians and researchers
+                        using role-based access.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CENTRALIZED DATA -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🗂️
+                    </div>
+
+
+                    <h3>
+                        Centralized Data
+                    </h3>
+
+
+                    <p>
+
+                        Keep important laboratory
+                        information organized in
+                        one centralized system.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HIGHLIGHT SECTION
+    ====================================================== -->
+
+    <section class="highlight-section">
+
+
+        <h2>
+            Built for Modern Laboratories
+        </h2>
+
+
+        <p>
+
+            ICLMS helps laboratory teams improve
+            organization, accessibility and efficiency
+            through a centralized digital platform.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="highlight-item">
+
+                    <i class="bi bi-lightning-charge-fill"></i>
+
+                    <h5>
+                        Efficient
+                    </h5>
+
+                    <p>
+                        Reduce manual work and
+                        simplify laboratory operations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="highlight-item">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    <h5>
+                        Secure
+                    </h5>
+
+                    <p>
+                        Protect laboratory information
+                        with role-based access.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="highlight-item">
+
+                    <i class="bi bi-diagram-3-fill"></i>
+
+                    <h5>
+                        Integrated
+                    </h5>
+
+                    <p>
+                        Connect chemicals, equipment,
+                        experiments and samples.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

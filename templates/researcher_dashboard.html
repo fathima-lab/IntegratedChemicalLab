@@ -1,0 +1,597 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Researcher Dashboard | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   RESEARCHER DASHBOARD
+========================================================= */
+
+.researcher-page {
+    background: #f4f7fc;
+    min-height: calc(100vh - 80px);
+    padding: 45px 6%;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.researcher-header {
+    background: linear-gradient(
+        135deg,
+        #123b91,
+        #2563eb
+    );
+
+    color: white;
+
+    border-radius: 22px;
+
+    padding: 32px 40px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(18, 59, 145, 0.18);
+}
+
+
+.header-content {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.header-text h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 700;
+}
+
+
+.header-text p {
+    margin: 10px 0 0;
+
+    font-size: 18px;
+
+    opacity: 0.95;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-form {
+    margin: 0;
+}
+
+
+.logout-btn {
+    background: #dc3545;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 24px;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.logout-btn:hover {
+    background: #bb2d3b;
+
+    color: white;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.feature-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 30px 25px;
+
+    height: 100%;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.07);
+
+    transition: all 0.25s ease;
+}
+
+
+.feature-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 28px rgba(18, 59, 145, 0.13);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.feature-icon {
+    width: 66px;
+
+    height: 66px;
+
+    border-radius: 16px;
+
+    background: #eaf2ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 31px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.feature-card h4 {
+    color: #123b91;
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+
+.feature-card p {
+    color: #64748b;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    min-height: 52px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   CARD BUTTON
+========================================================= */
+
+.feature-card .btn {
+    width: 100%;
+
+    border-radius: 8px;
+
+    padding: 11px;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+
+.feature-card .btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   RECENT ACTIVITIES
+========================================================= */
+
+.activity-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.07);
+}
+
+
+.activity-card h4 {
+    color: #123b91;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
+.activity-item {
+    padding: 15px 5px;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+
+.activity-item strong {
+    color: #172554;
+}
+
+
+.activity-item small {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   EMPTY ACTIVITIES
+========================================================= */
+
+.empty-activities {
+    text-align: center;
+
+    padding: 25px;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .researcher-page {
+        padding: 25px 5%;
+    }
+
+
+    .researcher-header {
+        padding: 28px 25px;
+    }
+
+
+    .header-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .header-text h1 {
+        font-size: 30px;
+    }
+
+
+    .logout-form {
+        width: 100%;
+    }
+
+
+    .logout-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="researcher-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="researcher-header">
+
+        <div class="header-content">
+
+
+            <!-- WELCOME -->
+
+            <div class="header-text">
+
+                <h1>
+                    👨‍🔬 Researcher Dashboard
+                </h1>
+
+                <p>
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGOUT
+            ================================================== -->
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+                class="logout-form"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="logout-btn"
+                >
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Logout
+
+                </button>
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RESEARCHER MODULES
+    ====================================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- =================================================
+             EXPERIMENTS
+        ================================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    🧪
+
+                </div>
+
+
+                <h4>
+                    Experiments
+                </h4>
+
+
+                <p>
+                    Create, manage and monitor
+                    your laboratory experiments.
+                </p>
+
+
+                <a
+                    href="{% url 'experiments' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-right-circle me-1"></i>
+
+                    Open Experiments
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SAMPLES
+        ================================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    🧫
+
+                </div>
+
+
+                <h4>
+                    Samples
+                </h4>
+
+
+                <p>
+                    Register and manage samples
+                    used in your research.
+                </p>
+
+
+                <a
+                    href="{% url 'samples' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-right-circle me-1"></i>
+
+                    Open Samples
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RESEARCH REPORTS
+        ================================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    📄
+
+                </div>
+
+
+                <h4>
+                    Research Reports
+                </h4>
+
+
+                <p>
+                    Create, manage and view your
+                    research reports and results.
+                </p>
+
+
+                <!-- IMPORTANT:
+                     Your urls.py uses name='reports'
+                -->
+
+                <a
+                    href="{% url 'reports' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-right-circle me-1"></i>
+
+                    Open Reports
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         RECENT ACTIVITIES
+    ====================================================== -->
+
+    <div class="activity-card">
+
+
+        <h4>
+            📊 My Recent Activities
+        </h4>
+
+
+        {% for activity in activities %}
+
+
+        <div class="activity-item">
+
+
+            <strong>
+
+                {{ activity.get_activity_type_display }}
+
+            </strong>
+
+
+            — {{ activity.description }}
+
+
+            <br>
+
+
+            <small>
+
+                {{ activity.created_at|date:"d M Y, h:i A" }}
+
+            </small>
+
+
+        </div>
+
+
+        {% empty %}
+
+
+        <div class="empty-activities">
+
+            <i class="bi bi-clipboard-x fs-2"></i>
+
+            <p class="mb-0 mt-2">
+
+                No activities recorded yet.
+
+            </p>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

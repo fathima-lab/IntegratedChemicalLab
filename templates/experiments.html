@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Experiments | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="p-5 rounded-4 text-white"
+         style="background:linear-gradient(135deg,#123b91,#2563eb);">
+
+        <h1>
+            🧪 Experiments
+        </h1>
+
+        <p class="mb-0">
+            Create, manage and monitor your laboratory experiments.
+        </p>
+
+    </div>
+
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mt-4">
+
+        <h3>
+            My Experiments
+        </h3>
+
+        <p class="text-muted">
+            Your experiment management module will appear here.
+        </p>
+
+        <button class="btn btn-primary" disabled>
+            + Create Experiment
+        </button>
+
+    </div>
+
+
+    <a
+        href="{% url 'researcher_dashboard' %}"
+        class="btn btn-outline-primary mt-4"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

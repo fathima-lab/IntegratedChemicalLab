@@ -1,0 +1,566 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Equipment Management | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   EQUIPMENT PAGE
+========================================================= */
+
+.equipment-page {
+    min-height: calc(100vh - 80px);
+    background: #f4f7fc;
+    padding: 45px 6%;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.equipment-header {
+    background: linear-gradient(
+        135deg,
+        #123b91,
+        #2563eb
+    );
+
+    color: white;
+
+    border-radius: 22px;
+
+    padding: 35px 40px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(18, 59, 145, 0.18);
+}
+
+.equipment-header-content {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.equipment-header h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 700;
+}
+
+.equipment-header p {
+    margin: 8px 0 0;
+
+    font-size: 17px;
+
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   ADD EQUIPMENT BUTTON
+========================================================= */
+
+.add-equipment-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    background: white;
+
+    color: #123b91;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+.add-equipment-btn:hover {
+    background: #eef4ff;
+
+    color: #123b91;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.equipment-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+
+    margin-bottom: 30px;
+}
+
+.equipment-stat {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 23px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.06);
+}
+
+.equipment-stat-icon {
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 12px;
+
+    background: #eaf2ff;
+
+    color: #1268f3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+}
+
+.equipment-stat-label {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.equipment-stat-number {
+    color: #172554;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   EQUIPMENT LIST
+========================================================= */
+
+.equipment-container {
+    background: white;
+
+    border-radius: 18px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+}
+
+.equipment-title {
+    padding: 23px 28px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.equipment-title h2 {
+    margin: 0;
+
+    color: #172554;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-equipment {
+    text-align: center;
+
+    padding: 65px 25px;
+
+    color: #64748b;
+}
+
+.empty-icon {
+    width: 75px;
+
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 18px;
+
+    background: #eaf2ff;
+
+    color: #1268f3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 32px;
+}
+
+.empty-equipment h3 {
+    color: #172554;
+
+    margin-bottom: 8px;
+}
+
+.empty-equipment p {
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   EQUIPMENT TABLE
+========================================================= */
+
+.equipment-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.equipment-table th {
+    background: #f8fafc;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    text-align: left;
+
+    padding: 15px 20px;
+}
+
+.equipment-table td {
+    padding: 17px 20px;
+
+    border-top: 1px solid #edf0f5;
+
+    color: #334155;
+}
+
+.status {
+    display: inline-block;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.status-active {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+.status-maintenance {
+    background: #fef3c7;
+
+    color: #92400e;
+}
+
+.status-inactive {
+    background: #fee2e2;
+
+    color: #991b1b;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 25px;
+
+    padding: 10px 18px;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.back-btn:hover {
+    background: #2563eb;
+
+    color: white;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .equipment-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .equipment-header-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .add-equipment-btn {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .equipment-container {
+        overflow-x: auto;
+    }
+
+}
+
+</style>
+
+
+<div class="equipment-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="equipment-header">
+
+        <div class="equipment-header-content">
+
+            <div>
+
+                <h1>
+                    🔧 Equipment Management
+                </h1>
+
+                <p>
+                    Manage and monitor laboratory equipment.
+                </p>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="add-equipment-btn"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Equipment
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <div class="equipment-stats">
+
+
+        <div class="equipment-stat">
+
+            <div class="equipment-stat-icon">
+
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+            </div>
+
+            <div class="equipment-stat-label">
+                Total Equipment
+            </div>
+
+            <div class="equipment-stat-number">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="equipment-stat">
+
+            <div class="equipment-stat-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <div class="equipment-stat-label">
+                Available
+            </div>
+
+            <div class="equipment-stat-number">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="equipment-stat">
+
+            <div class="equipment-stat-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div class="equipment-stat-label">
+                Under Maintenance
+            </div>
+
+            <div class="equipment-stat-number">
+                0
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         EQUIPMENT LIST
+    ====================================================== -->
+
+    <div class="equipment-container">
+
+
+        <div class="equipment-title">
+
+            <h2>
+                Laboratory Equipment
+            </h2>
+
+        </div>
+
+
+        <!-- =================================================
+            FUTURE EQUIPMENT TABLE
+
+            When the database is created, replace the
+            empty section with a Django template loop.
+        ================================================= -->
+
+        <div class="empty-equipment">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+            </div>
+
+            <h3>
+                No Equipment Added
+            </h3>
+
+            <p>
+                Equipment records will appear here once they
+                are added to the laboratory inventory.
+            </p>
+
+            <a
+                href="#"
+                class="btn btn-primary"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add First Equipment
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         BACK TO DASHBOARD
+    ====================================================== -->
+
+    <a
+        href="{% url 'technician_dashboard' %}"
+        class="back-btn"
+    >
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to Technician Dashboard
+
+    </a>
+
+
+</div>
+
+{% endblock %}

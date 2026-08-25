@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Central Administrator Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    {% if access_denied %}
+
+        <div class="alert alert-danger">
+            <h3>Access Denied</h3>
+            <p>
+                You do not have permission to access the
+                Central Administrator Dashboard.
+            </p>
+        </div>
+
+    {% else %}
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1>Central Administrator Dashboard</h1>
+
+                <p class="text-muted">
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+                <p>
+                    Monitor all laboratory branches, users and activities.
+                </p>
+            </div>
+                <a
+                    href="{% url 'create_sub_admin' %}"
+                    class="btn btn-primary mb-4"
+                >
+                    + Add Sub-Administrator
+                </a>
+            </div>
+
+            <div>
+                <a href="{% url 'logout' %}" class="btn btn-danger">
+                    Logout
+                </a>
+            </div>
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- SUMMARY CARDS -->
+        <!-- ================================================= -->
+
+        <div class="row g-3 mb-5">
+
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6>Sub-Administrators</h6>
+                        <h2>{{ total_sub_admins }}</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6>Researchers</h6>
+                        <h2>{{ total_researchers }}</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6>Technicians</h6>
+                        <h2>{{ total_technicians }}</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6>Total Activities</h6>
+                        <h2>{{ total_activities }}</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- LABORATORY BRANCHES -->
+        <!-- ================================================= -->
+
+        <h2 class="mb-4">
+            Laboratory Branches
+        </h2>
+
+
+        {% for branch in sub_admin_data %}
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h4 class="mb-1">
+                    🛡️
+                    {{ branch.user.get_full_name|default:branch.user.username }}
+                </h4>
+
+                <span class="text-muted">
+                    Sub-Administrator
+                </span>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <!-- ============================= -->
+                    <!-- RESEARCHERS -->
+                    <!-- ============================= -->
+
+                    <div class="col-md-6">
+
+                        <h5>
+                            👨‍🔬 Researchers
+                        </h5>
+
+                        {% if branch.researchers %}
+
+                            <ul class="list-group mb-4">
+
+                                {% for researcher in branch.researchers %}
+
+                                    <li class="list-group-item">
+
+                                        {{ researcher.user.get_full_name|default:researcher.user.username }}
+
+                                    </li>
+
+                                {% endfor %}
+
+                            </ul>
+
+                        {% else %}
+
+                            <p class="text-muted">
+                                No researchers assigned.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ============================= -->
+                    <!-- TECHNICIANS -->
+                    <!-- ============================= -->
+
+                    <div class="col-md-6">
+
+                        <h5>
+                            👨‍🔧 Technicians
+                        </h5>
+
+                        {% if branch.technicians %}
+
+                            <ul class="list-group mb-4">
+
+                                {% for technician in branch.technicians %}
+
+                                    <li class="list-group-item">
+
+                                        {{ technician.user.get_full_name|default:technician.user.username }}
+
+                                    </li>
+
+                                {% endfor %}
+
+                            </ul>
+
+                        {% else %}
+
+                            <p class="text-muted">
+                                No technicians assigned.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================================= -->
+                <!-- BRANCH ACTIVITIES -->
+                <!-- ========================================= -->
+
+                <hr>
+
+                <h5>
+                    📊 Recent Branch Activities
+                </h5>
+
+                {% if branch.activities %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered">
+
+                            <thead>
+
+                                <tr>
+                                    <th>User</th>
+                                    <th>Activity</th>
+                                    <th>Date</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for activity in branch.activities %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ activity.actor.username }}
+                                    </td>
+
+                                    <td>
+                                        {{ activity }}
+                                    </td>
+
+                                    <td>
+                                        {{ activity.created_at }}
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <p class="text-muted">
+                        No recent activities.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+            <div class="alert alert-info">
+
+                No Sub-Administrators have been registered yet.
+
+            </div>
+
+        {% endfor %}
+
+
+        <!-- ================================================= -->
+        <!-- ALL RECENT ACTIVITIES -->
+        <!-- ================================================= -->
+
+        <h2 class="mt-5 mb-3">
+            Recent Laboratory Activities
+        </h2>
+
+
+        {% if recent_activities %}
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-bordered">
+
+                    <thead>
+
+                        <tr>
+                            <th>User</th>
+                            <th>Activity</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for activity in recent_activities %}
+
+                        <tr>
+
+                            <td>
+                                {{ activity.actor.username }}
+                            </td>
+
+                            <td>
+                                {{ activity }}
+                            </td>
+
+                            <td>
+                                {{ activity.created_at }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-secondary">
+
+                No laboratory activities recorded yet.
+
+            </div>
+
+        {% endif %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
