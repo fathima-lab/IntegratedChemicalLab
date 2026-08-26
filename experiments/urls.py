@@ -17,6 +17,12 @@ urlpatterns = [
     ),
 
     path(
+        'view/<int:experiment_id>/',
+        views.view_experiment,
+        name='view_experiment'
+    ),
+
+    path(
         'edit/<int:experiment_id>/',
         views.edit_experiment,
         name='edit_experiment'

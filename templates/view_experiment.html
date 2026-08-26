@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}
+View Experiment | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow-sm">
+
+        <!-- HEADER -->
+
+        <div class="card-header bg-primary text-white">
+
+            <h2 class="mb-1">
+                🧪 {{ experiment.name }}
+            </h2>
+
+            <p class="mb-0">
+                Experiment Details
+            </p>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="mb-4">
+
+                <h5 class="text-primary">
+                    📋 Description
+                </h5>
+
+                {% if experiment.description %}
+
+                    <div class="p-3 bg-light rounded">
+                        {{ experiment.description|linebreaks }}
+                    </div>
+
+                {% else %}
+
+                    <p class="text-muted">
+                        No description provided.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <div class="mb-4">
+
+                <h5 class="text-primary">
+                    📊 Results & Observations
+                </h5>
+
+                {% if experiment.results_observations %}
+
+                    <div class="p-3 bg-light rounded">
+                        {{ experiment.results_observations|linebreaks }}
+                    </div>
+
+                {% else %}
+
+                    <p class="text-muted">
+                        No results or observations recorded.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- CONCLUSION -->
+
+            <div class="mb-4">
+
+                <h5 class="text-primary">
+                    📝 Conclusion
+                </h5>
+
+                {% if experiment.conclusion %}
+
+                    <div class="p-3 bg-light rounded">
+                        {{ experiment.conclusion|linebreaks }}
+                    </div>
+
+                {% else %}
+
+                    <p class="text-muted">
+                        No conclusion recorded.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="mb-4">
+
+                <h5 class="text-primary">
+                    📌 Status
+                </h5>
+
+                {% if experiment.status == 'PLANNED' %}
+
+                    <span class="badge bg-warning text-dark">
+                        Planned
+                    </span>
+
+                {% elif experiment.status == 'ONGOING' %}
+
+                    <span class="badge bg-primary">
+                        Ongoing
+                    </span>
+
+                {% elif experiment.status == 'COMPLETED' %}
+
+                    <span class="badge bg-success">
+                        Completed
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- DATES -->
+
+            <div class="row mb-4">
+
+                <div class="col-md-4">
+
+                    <strong>
+                        Start Date
+                    </strong>
+
+                    <br>
+
+                    <span class="text-muted">
+
+                        {% if experiment.start_date %}
+                            {{ experiment.start_date|date:"d M Y" }}
+                        {% else %}
+                            —
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <strong>
+                        End Date
+                    </strong>
+
+                    <br>
+
+                    <span class="text-muted">
+
+                        {% if experiment.end_date %}
+                            {{ experiment.end_date|date:"d M Y" }}
+                        {% else %}
+                            —
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <strong>
+                        Created
+                    </strong>
+
+                    <br>
+
+                    <span class="text-muted">
+                        {{ experiment.created_at|date:"d M Y, h:i A" }}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- ACTIONS -->
+
+            <div class="d-flex gap-2">
+
+                <a
+                    href="{% url 'edit_experiment' experiment.id %}"
+                    class="btn btn-warning"
+                >
+                    ✏️ Edit
+                </a>
+
+                <a
+                    href="{% url 'delete_experiment' experiment.id %}"
+                    class="btn btn-danger"
+                >
+                    🗑️ Delete
+                </a>
+
+                <a
+                    href="{% url 'experiments' %}"
+                    class="btn btn-secondary"
+                >
+                    ← Back to Experiments
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

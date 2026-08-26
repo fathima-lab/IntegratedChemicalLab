@@ -76,6 +76,26 @@ def create_experiment(request):
     )
 
 # ==========================================================
+# VIEW EXPERIMENT
+# ==========================================================
+
+@login_required
+def view_experiment(request, experiment_id):
+
+    experiment = get_object_or_404(
+        Experiment,
+        id=experiment_id,
+        researcher=request.user
+    )
+
+    return render(
+        request,
+        'view_experiment.html',
+        {
+            'experiment': experiment
+        }
+    )
+# ==========================================================
 # EDIT EXPERIMENT
 # ==========================================================
 

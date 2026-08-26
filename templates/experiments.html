@@ -320,6 +320,12 @@ Experiments | ICLMS
                 <div class="d-flex gap-2">
 
                     <a
+                        href="{% url 'view_experiment' experiment.id %}"
+                        class="btn btn-primary btn-sm"
+                    >
+                        👁️ View
+                    </a>
+                    <a
                         href="{% url 'edit_experiment' experiment.id %}"
                         class="btn btn-warning btn-sm"
                     >
