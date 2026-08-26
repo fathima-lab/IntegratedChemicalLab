@@ -47,6 +47,36 @@ class RegisterForm(UserCreationForm):
         })
     )
 
+    # =====================================================
+    # INSTITUTION / COMPANY
+    # =====================================================
+
+    institution = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter institution / company name'
+        }),
+        label='Institution / Company'
+    )
+
+    # =====================================================
+    # LOCATION
+    # =====================================================
+
+    location = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter city / location'
+        }),
+        label='Location / Place'
+    )
+
+    # =====================================================
+    # ROLE
+    # =====================================================
+
     role = forms.ChoiceField(
         choices=[
             ('CENTRAL_ADMIN', 'Central Administrator'),
@@ -60,6 +90,10 @@ class RegisterForm(UserCreationForm):
         })
     )
 
+    # =====================================================
+    # SUPERVISOR
+    # =====================================================
+
     supervisor = forms.ModelChoiceField(
         queryset=User.objects.filter(
             Q(is_superuser=True) |
@@ -72,6 +106,10 @@ class RegisterForm(UserCreationForm):
             'id': 'id_supervisor'
         })
     )
+
+    # =====================================================
+    # PASSWORD
+    # =====================================================
 
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={
@@ -97,6 +135,8 @@ class RegisterForm(UserCreationForm):
             'username',
             'email',
             'phone',
+            'institution',
+            'location',
             'role',
             'supervisor',
             'password1',
@@ -110,40 +150,43 @@ class RegisterForm(UserCreationForm):
         role = cleaned_data.get('role')
         supervisor = cleaned_data.get('supervisor')
 
-        # ----------------------------------------------
-        # RESEARCHER / TECHNICIAN MUST HAVE SUPERVISOR
-        # ----------------------------------------------
+        # =================================================
+        # RESEARCHER / TECHNICIAN
+        # =================================================
 
         if role in ['RESEARCHER', 'TECHNICIAN']:
 
             if supervisor is None:
 
                 raise forms.ValidationError(
-                    'Please select a supervisor for Researcher or Technician.'
+                    'Please select a supervisor for '
+                    'Researcher or Technician.'
                 )
 
-        # ----------------------------------------------
-        # SUB ADMIN DOES NOT NEED SUPERVISOR
-        # ----------------------------------------------
+        # =================================================
+        # SUB ADMIN
+        # =================================================
 
         if role == 'SUB_ADMIN':
 
             if supervisor is not None:
 
                 raise forms.ValidationError(
-                    'Sub Administrator should not have a supervisor.'
+                    'Sub Administrator should not have '
+                    'a supervisor.'
                 )
 
-        # ----------------------------------------------
-        # CENTRAL ADMIN DOES NOT NEED SUPERVISOR
-        # ----------------------------------------------
+        # =================================================
+        # CENTRAL ADMIN
+        # =================================================
 
         if role == 'CENTRAL_ADMIN':
 
             if supervisor is not None:
 
                 raise forms.ValidationError(
-                    'Central Administrator should not have a supervisor.'
+                    'Central Administrator should not have '
+                    'a supervisor.'
                 )
 
         return cleaned_data

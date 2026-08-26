@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-
 User = get_user_model()
 
 
@@ -49,6 +48,9 @@ class ExternalRegistrationForm(forms.ModelForm):
             'username',
             'email',
             'phone',
+            'external_type',
+            'institution',
+            'location',
         ]
 
         widgets = {
@@ -87,6 +89,20 @@ class ExternalRegistrationForm(forms.ModelForm):
                     'placeholder': 'Enter phone number'
                 }
             ),
+
+            'institution': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'School, College, University or Company'
+                }
+            ),
+
+            'location': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Enter city / location'
+                }
+            ),
         }
 
         labels = {
@@ -95,8 +111,9 @@ class ExternalRegistrationForm(forms.ModelForm):
             'username': 'Username',
             'email': 'Email Address',
             'phone': 'Phone Number',
+            'institution': 'Institution / Company',
+            'location': 'Location / Place',
         }
-
 
     def clean_username(self):
 
@@ -112,7 +129,6 @@ class ExternalRegistrationForm(forms.ModelForm):
 
         return username
 
-
     def clean_email(self):
 
         email = self.cleaned_data['email']
@@ -127,18 +143,12 @@ class ExternalRegistrationForm(forms.ModelForm):
 
         return email
 
-
     def clean(self):
 
         cleaned_data = super().clean()
 
-        password = cleaned_data.get(
-            'password'
-        )
-
-        confirm_password = cleaned_data.get(
-            'confirm_password'
-        )
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
 
         if (
             password

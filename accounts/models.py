@@ -9,6 +9,16 @@ class CustomUser(AbstractUser):
         blank=True
     )
 
+    institution = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    location = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
     role = models.CharField(
         max_length=30,
         default='RESEARCHER'
