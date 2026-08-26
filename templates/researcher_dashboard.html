@@ -396,43 +396,93 @@ Researcher Dashboard | ICLMS
 
         <div class="col-lg-4 col-md-6">
 
-            <div class="feature-card">
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧪
+            </div>
+
+            <h4>
+                Experiments
+            </h4>
+
+            <p>
+                Create, manage and monitor your laboratory experiments.
+            </p>
 
 
-                <div class="feature-icon">
+            {% for experiment in experiments %}
 
-                    🧪
+                <div class="border rounded p-3 mb-3">
+
+                    <strong>
+                        🧪 {{ experiment.name }}
+                    </strong>
+
+                    <div class="mt-2">
+
+                        {% if experiment.status == 'PLANNED' %}
+
+                            <span class="badge bg-warning text-dark">
+                                Planned
+                            </span>
+
+                        {% elif experiment.status == 'ONGOING' %}
+
+                            <span class="badge bg-primary">
+                                Ongoing
+                            </span>
+
+                        {% elif experiment.status == 'COMPLETED' %}
+
+                            <span class="badge bg-success">
+                                Completed
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="mt-3">
+
+                        <a
+                            href="{% url 'edit_experiment' experiment.id %}"
+                            class="btn btn-warning btn-sm"
+                        >
+                            ✏️ Edit
+                        </a>
+
+                        <a
+                            href="{% url 'delete_experiment' experiment.id %}"
+                            class="btn btn-danger btn-sm"
+                        >
+                            🗑️ Delete
+                        </a>
+
+                    </div>
 
                 </div>
 
+            {% empty %}
 
-                <h4>
-                    Experiments
-                </h4>
+                <div class="text-muted mb-3">
+                    No experiments created yet.
+                </div>
 
-
-                <p>
-                    Create, manage and monitor
-                    your laboratory experiments.
-                </p>
+            {% endfor %}
 
 
-                <a
-                    href="{% url 'experiments' %}"
-                    class="btn btn-primary"
-                >
-
-                    <i class="bi bi-arrow-right-circle me-1"></i>
-
-                    Open Experiments
-
-                </a>
-
-
-            </div>
+            <a
+                href="{% url 'create_experiment' %}"
+                class="btn btn-primary"
+            >
+                + Create Experiment
+            </a>
 
         </div>
 
+    </div>
 
         <!-- =================================================
              SAMPLES

@@ -4,6 +4,7 @@ from django.contrib import messages
 
 from .models import LabProfile, LabActivity
 from .forms import SubAdminForm, TeamMemberForm
+from experiments.models import Experiment
 
 # ==========================================================
 # HOME
@@ -287,18 +288,20 @@ def sub_admin_dashboard(request):
 @login_required
 def researcher_dashboard(request):
 
-    activities = (
-        LabActivity.objects
-        .filter(actor=request.user)
-        .select_related('actor')
-        .order_by('-created_at')[:15]
-    )
+    experiments = Experiment.objects.filter(
+        researcher=request.user
+    ).order_by('-created_at')
+
+    activities = LabActivity.objects.filter(
+        actor=request.user
+    ).order_by('-created_at')[:10]
 
     return render(
         request,
         'researcher_dashboard.html',
         {
-            'activities': activities
+            'experiments': experiments,
+            'activities': activities,
         }
     )
 
