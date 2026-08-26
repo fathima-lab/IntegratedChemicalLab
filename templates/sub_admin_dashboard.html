@@ -71,13 +71,14 @@ Sub-Administrator Dashboard | ICLMS
 }
 
 .member {
-    padding: 12px;
+    padding: 15px 5px;
     border-bottom: 1px solid #edf0f7;
 }
 
 .member:last-child {
     border-bottom: none;
 }
+
 .logout-btn {
     background: #dc3545;
     color: white;
@@ -96,30 +97,48 @@ Sub-Administrator Dashboard | ICLMS
     transform: translateY(-1px);
 }
 
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
 </style>
 
 
 <div class="subadmin-page">
 
 
+    <!-- ================================================= -->
+    <!-- WELCOME HEADER -->
+    <!-- ================================================= -->
+
     <div class="welcome">
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="d-flex justify-content-between
+                    align-items-center
+                    flex-wrap
+                    gap-3">
 
-        <div>
+            <div>
 
-            <h1>
-                🛡️ Sub-Administrator Dashboard
-            </h1>
+                <h1>
+                    🛡️ Sub-Administrator Dashboard
+                </h1>
 
-            <p>
-                Welcome,
-                {{ request.user.get_full_name|default:request.user.username }}
-            </p>
+                <p class="mb-0">
 
-        </div>
+                    Welcome,
 
-        <!-- LOGOUT -->
+                    {{ request.user.get_full_name|default:request.user.username }}
+
+                </p>
+
+            </div>
+
+
+            <!-- LOGOUT -->
 
             <form
                 method="POST"
@@ -133,8 +152,11 @@ Sub-Administrator Dashboard | ICLMS
                     type="submit"
                     class="logout-btn"
                 >
+
                     <i class="bi bi-box-arrow-right"></i>
+
                     Logout
+
                 </button>
 
             </form>
@@ -143,16 +165,56 @@ Sub-Administrator Dashboard | ICLMS
 
     </div>
 
-    <a
-        href="{% url 'create_team_member' %}"
-        class="btn btn-primary"
-    >
-        + Add Researcher / Technician
-    </a>
 
+
+    <!-- ================================================= -->
+    <!-- CREATE TEAM MEMBER -->
+    <!-- ================================================= -->
+
+    <div class="d-flex
+                justify-content-between
+                align-items-center
+                flex-wrap
+                gap-3
+                mb-4">
+
+        <div>
+
+            <h3>
+                My Laboratory Team
+            </h3>
+
+            <p class="text-muted mb-0">
+
+                Manage the Researchers and Technicians
+                assigned to your laboratory.
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'create_team_member' %}"
+            class="btn btn-primary"
+        >
+
+            ➕ Add Researcher / Technician
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
     <!-- STATISTICS -->
+    <!-- ================================================= -->
 
     <div class="row g-4 mb-4">
+
+
+        <!-- RESEARCHERS -->
 
         <div class="col-md-6">
 
@@ -172,6 +234,8 @@ Sub-Administrator Dashboard | ICLMS
 
         </div>
 
+
+        <!-- TECHNICIANS -->
 
         <div class="col-md-6">
 
@@ -194,12 +258,17 @@ Sub-Administrator Dashboard | ICLMS
     </div>
 
 
-    <!-- TEAM -->
+
+    <!-- ================================================= -->
+    <!-- TEAM MEMBERS -->
+    <!-- ================================================= -->
 
     <div class="row g-4">
 
 
+        <!-- ================================================= -->
         <!-- RESEARCHERS -->
+        <!-- ================================================= -->
 
         <div class="col-lg-6">
 
@@ -209,31 +278,99 @@ Sub-Administrator Dashboard | ICLMS
                     👨‍🔬
                 </div>
 
-                <h4>
-                    Researchers
-                </h4>
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-3">
+
+                    <h4 class="mb-0">
+                        Researchers
+                    </h4>
+
+                    <span class="badge bg-primary">
+                        {{ total_researchers }}
+                    </span>
+
+                </div>
+
 
                 {% for researcher in researchers %}
 
                 <div class="member">
 
-                    <strong>
-                        {{ researcher.user.get_full_name|default:researcher.user.username }}
-                    </strong>
+                    <div class="d-flex
+                                justify-content-between
+                                align-items-start
+                                gap-3">
 
-                    <br>
+                        <div>
 
-                    <small class="text-muted">
-                        {{ researcher.user.email }}
-                    </small>
+                            <strong>
+
+                                {{ researcher.user.get_full_name|default:researcher.user.username }}
+
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                @{{ researcher.user.username }}
+
+                            </small>
+
+                            {% if researcher.user.email %}
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ researcher.user.email }}
+
+                            </small>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+
+                    <div class="action-buttons">
+
+                        <a
+                            href="{% url 'edit_team_member' researcher.user.id %}"
+                            class="btn btn-warning btn-sm"
+                        >
+
+                            ✏️ Edit
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'delete_team_member' researcher.user.id %}"
+                            class="btn btn-danger btn-sm"
+                        >
+
+                            🗑️ Remove
+
+                        </a>
+
+                    </div>
 
                 </div>
 
+
                 {% empty %}
 
-                <p class="text-muted">
+                <div class="alert alert-secondary">
+
                     No researchers assigned.
-                </p>
+
+                </div>
 
                 {% endfor %}
 
@@ -242,7 +379,10 @@ Sub-Administrator Dashboard | ICLMS
         </div>
 
 
+
+        <!-- ================================================= -->
         <!-- TECHNICIANS -->
+        <!-- ================================================= -->
 
         <div class="col-lg-6">
 
@@ -252,31 +392,99 @@ Sub-Administrator Dashboard | ICLMS
                     👨‍🔧
                 </div>
 
-                <h4>
-                    Technicians
-                </h4>
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-3">
+
+                    <h4 class="mb-0">
+                        Technicians
+                    </h4>
+
+                    <span class="badge bg-success">
+                        {{ total_technicians }}
+                    </span>
+
+                </div>
+
 
                 {% for technician in technicians %}
 
                 <div class="member">
 
-                    <strong>
-                        {{ technician.user.get_full_name|default:technician.user.username }}
-                    </strong>
+                    <div class="d-flex
+                                justify-content-between
+                                align-items-start
+                                gap-3">
 
-                    <br>
+                        <div>
 
-                    <small class="text-muted">
-                        {{ technician.user.email }}
-                    </small>
+                            <strong>
+
+                                {{ technician.user.get_full_name|default:technician.user.username }}
+
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                @{{ technician.user.username }}
+
+                            </small>
+
+                            {% if technician.user.email %}
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ technician.user.email }}
+
+                            </small>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+
+                    <div class="action-buttons">
+
+                        <a
+                            href="{% url 'edit_team_member' technician.user.id %}"
+                            class="btn btn-warning btn-sm"
+                        >
+
+                            ✏️ Edit
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'delete_team_member' technician.user.id %}"
+                            class="btn btn-danger btn-sm"
+                        >
+
+                            🗑️ Remove
+
+                        </a>
+
+                    </div>
 
                 </div>
 
+
                 {% empty %}
 
-                <p class="text-muted">
+                <div class="alert alert-secondary">
+
                     No technicians assigned.
-                </p>
+
+                </div>
 
                 {% endfor %}
 
@@ -287,20 +495,33 @@ Sub-Administrator Dashboard | ICLMS
     </div>
 
 
-    <!-- ACTIVITIES -->
+
+    <!-- ================================================= -->
+    <!-- TEAM ACTIVITIES -->
+    <!-- ================================================= -->
 
     <div class="member-card mt-4">
 
-        <h4>
-            📊 Team Activities
-        </h4>
+        <div class="d-flex
+                    justify-content-between
+                    align-items-center
+                    mb-3">
+
+            <h4 class="mb-0">
+                📊 Team Activities
+            </h4>
+
+        </div>
+
 
         {% for activity in activities %}
 
         <div class="member">
 
             <strong>
+
                 {{ activity.actor.get_full_name|default:activity.actor.username }}
+
             </strong>
 
             — {{ activity.description }}
@@ -308,20 +529,26 @@ Sub-Administrator Dashboard | ICLMS
             <br>
 
             <small class="text-muted">
+
                 {{ activity.created_at|date:"d M Y, h:i A" }}
+
             </small>
 
         </div>
 
+
         {% empty %}
 
-        <p class="text-muted">
+        <div class="alert alert-secondary mb-0">
+
             No activities recorded.
-        </p>
+
+        </div>
 
         {% endfor %}
 
     </div>
+
 
 </div>
 

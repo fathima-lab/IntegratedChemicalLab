@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Equipment | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .equipment-page {
+        min-height: calc(100vh - 80px);
+        background: #f4f7fc;
+        padding: 45px 6%;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 22px;
+        padding: 35px 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(18, 59, 145, .15);
+    }
+
+    .page-header h1 {
+        margin: 0;
+        font-size: 34px;
+        font-weight: 700;
+    }
+
+    .page-header p {
+        margin-top: 8px;
+        opacity: .9;
+    }
+
+    .equipment-container {
+        background: white;
+        border-radius: 18px;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, .06);
+    }
+
+    .equipment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 22px;
+    }
+
+    .equipment-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 23px;
+        background: white;
+        transition: .2s ease;
+    }
+
+    .equipment-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    }
+
+    .equipment-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 14px;
+        background: #eaf2ff;
+        color: #2563eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+
+    .equipment-name {
+        color: #172554;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .equipment-info {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .book-btn {
+        display: block;
+        width: 100%;
+        padding: 11px;
+        margin-top: 16px;
+        background: #2563eb;
+        color: white;
+        text-align: center;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .book-btn:hover {
+        background: #123b91;
+        color: white;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #64748b;
+    }
+
+    .empty-icon {
+        font-size: 45px;
+        margin-bottom: 15px;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 25px;
+        padding: 10px 18px;
+        border: 1px solid #2563eb;
+        border-radius: 8px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .back-btn:hover {
+        background: #2563eb;
+        color: white;
+    }
+</style>
+
+
+<div class="equipment-page">
+
+    <div class="page-header">
+        <h1>🔬 Laboratory Equipment</h1>
+        <p>
+            Browse available laboratory equipment
+            and request equipment bookings.
+        </p>
+    </div>
+
+
+    <div class="equipment-container">
+
+        <h2 style="color:#172554; margin-bottom:25px;">
+            Available Equipment
+        </h2>
+
+
+        {% if equipment %}
+
+            <div class="equipment-grid">
+
+                {% for item in equipment %}
+
+                    <div class="equipment-card">
+
+                        <div class="equipment-icon">
+                            🔬
+                        </div>
+
+                        <div class="equipment-name">
+                            {{ item.name }}
+                        </div>
+
+
+                        {% if item.description %}
+                            <div class="equipment-info">
+                                {{ item.description }}
+                            </div>
+                        {% endif %}
+
+
+                        {% if item.equipment_id %}
+                            <div class="equipment-info">
+                                Equipment ID:
+                                {{ item.equipment_id }}
+                            </div>
+                        {% endif %}
+
+
+                        {% if item.status %}
+                            <div class="equipment-info">
+                                Status:
+                                {{ item.status }}
+                            </div>
+                        {% endif %}
+
+
+                        <a href="#"
+                           class="book-btn">
+
+                            Book Equipment
+
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🔬
+                </div>
+
+                <h3>
+                    No Equipment Available
+                </h3>
+
+                <p>
+                    There is currently no laboratory
+                    equipment available for booking.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <a href="{% url 'external_dashboard' %}"
+       class="back-btn">
+
+        ← Back 
+
+    </a>
+
+</div>
+
+{% endblock %}

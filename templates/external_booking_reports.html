@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Booking Reports | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .reports-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .reports-card {
+        max-width: 1100px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .reports-header {
+        background: linear-gradient(
+            135deg,
+            #123b91,
+            #2563eb
+        );
+
+        color: white;
+        border-radius: 18px;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .reports-header h1 {
+        font-weight: 700;
+    }
+
+    .booking-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+    }
+
+    .booking-table th {
+        background: #123b91;
+        color: white;
+        padding: 14px;
+        text-align: left;
+    }
+
+    .booking-table td {
+        padding: 14px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+</style>
+
+
+<div class="reports-page">
+
+    <div class="reports-card">
+
+        <div class="reports-header">
+
+            <h1>
+                📑 Booking Reports
+            </h1>
+
+            <p class="mb-0">
+                Your equipment booking and usage records.
+            </p>
+
+        </div>
+
+
+        {% if bookings %}
+
+            <div class="table-responsive">
+
+                <table class="booking-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Equipment
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for booking in bookings %}
+
+                            <tr>
+
+                                <td>
+                                    {{ booking.equipment.name }}
+                                </td>
+
+                                <td>
+                                    {{ booking.booking_date }}
+                                </td>
+
+                                <td>
+                                    {{ booking.status }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info">
+
+                You have no equipment bookings yet.
+
+            </div>
+
+        {% endif %}
+
+
+        <a
+            href="{% url 'external_reports' %}"
+            class="btn btn-secondary mt-4"
+        >
+            ← Back to Reports
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

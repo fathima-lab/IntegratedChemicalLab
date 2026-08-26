@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'equipment',
     'experiments',
     'samples',
+    'reports',
+    'external',
+    'payment',
 ]
 
 MIDDLEWARE = [

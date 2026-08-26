@@ -1,419 +1,123 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Equipment Management | ICLMS
+Equipment | ICLMS
 {% endblock %}
 
 {% block content %}
 
 <style>
 
-/* =========================================================
-   EQUIPMENT PAGE
-========================================================= */
-
-.equipment-page {
-    min-height: calc(100vh - 80px);
-    background: #f4f7fc;
-    padding: 45px 6%;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.equipment-header {
-    background: linear-gradient(
-        135deg,
-        #123b91,
-        #2563eb
-    );
-
-    color: white;
-
-    border-radius: 22px;
-
-    padding: 35px 40px;
-
-    margin-bottom: 30px;
-
-    box-shadow:
-        0 10px 30px rgba(18, 59, 145, 0.18);
-}
-
-.equipment-header-content {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
-}
-
-.equipment-header h1 {
-    margin: 0;
-
-    font-size: 38px;
-
-    font-weight: 700;
-}
-
-.equipment-header p {
-    margin: 8px 0 0;
-
-    font-size: 17px;
-
-    opacity: 0.9;
-}
-
-
-/* =========================================================
-   ADD EQUIPMENT BUTTON
-========================================================= */
-
-.add-equipment-btn {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    padding: 12px 20px;
-
-    background: white;
-
-    color: #123b91;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
-    font-weight: 600;
-
-    transition: 0.2s ease;
-}
-
-.add-equipment-btn:hover {
-    background: #eef4ff;
-
-    color: #123b91;
-
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   STATISTICS
-========================================================= */
-
-.equipment-stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 22px;
-
-    margin-bottom: 30px;
-}
-
-.equipment-stat {
-    background: white;
-
-    border-radius: 16px;
-
-    padding: 23px;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.06);
-}
-
-.equipment-stat-icon {
-    width: 50px;
-
-    height: 50px;
-
-    border-radius: 12px;
-
-    background: #eaf2ff;
-
-    color: #1268f3;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-}
-
-.equipment-stat-label {
-    color: #64748b;
-
-    font-size: 14px;
-
-    margin-bottom: 5px;
-}
-
-.equipment-stat-number {
-    color: #172554;
-
-    font-size: 30px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   EQUIPMENT LIST
-========================================================= */
-
-.equipment-container {
-    background: white;
-
-    border-radius: 18px;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.06);
-
-    overflow: hidden;
-}
-
-.equipment-title {
-    padding: 23px 28px;
-
-    border-bottom: 1px solid #e5e7eb;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-}
-
-.equipment-title h2 {
-    margin: 0;
-
-    color: #172554;
-
-    font-size: 22px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   EMPTY STATE
-========================================================= */
-
-.empty-equipment {
-    text-align: center;
-
-    padding: 65px 25px;
-
-    color: #64748b;
-}
-
-.empty-icon {
-    width: 75px;
-
-    height: 75px;
-
-    margin: 0 auto 20px;
-
-    border-radius: 18px;
-
-    background: #eaf2ff;
-
-    color: #1268f3;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 32px;
-}
-
-.empty-equipment h3 {
-    color: #172554;
-
-    margin-bottom: 8px;
-}
-
-.empty-equipment p {
-    margin-bottom: 25px;
-}
-
-
-/* =========================================================
-   EQUIPMENT TABLE
-========================================================= */
-
-.equipment-table {
-    width: 100%;
-
-    border-collapse: collapse;
-}
-
-.equipment-table th {
-    background: #f8fafc;
-
-    color: #475569;
-
-    font-size: 14px;
-
-    text-align: left;
-
-    padding: 15px 20px;
-}
-
-.equipment-table td {
-    padding: 17px 20px;
-
-    border-top: 1px solid #edf0f5;
-
-    color: #334155;
-}
-
-.status {
-    display: inline-block;
-
-    padding: 5px 11px;
-
-    border-radius: 20px;
-
-    font-size: 12px;
-
-    font-weight: 600;
-}
-
-.status-active {
-    background: #dcfce7;
-
-    color: #166534;
-}
-
-.status-maintenance {
-    background: #fef3c7;
-
-    color: #92400e;
-}
-
-.status-inactive {
-    background: #fee2e2;
-
-    color: #991b1b;
-}
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-.back-btn {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin-top: 25px;
-
-    padding: 10px 18px;
-
-    border: 1px solid #2563eb;
-
-    border-radius: 8px;
-
-    color: #2563eb;
-
-    text-decoration: none;
-
-    font-weight: 600;
-}
-
-.back-btn:hover {
-    background: #2563eb;
-
-    color: white;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 800px) {
-
-    .equipment-stats {
-        grid-template-columns: 1fr;
+    .equipment-page {
+        padding: 40px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
     }
 
-    .equipment-header-content {
-        flex-direction: column;
-
-        align-items: flex-start;
+    .page-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
     }
 
-    .add-equipment-btn {
-        width: 100%;
-
-        justify-content: center;
+    .page-header h1 {
+        font-weight: 700;
     }
 
-    .equipment-container {
-        overflow-x: auto;
+    .equipment-card {
+        background: white;
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
     }
 
-}
+    .equipment-card h4 {
+        color: #123b91;
+        font-weight: 700;
+    }
+
+    .equipment-id {
+        display: inline-block;
+        background: #edf3ff;
+        color: #123b91;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .status-available {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .status-in-use {
+        background: #cfe2ff;
+        color: #084298;
+    }
+
+    .status-maintenance {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-out {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #123b91;
+    }
 
 </style>
 
 
 <div class="equipment-page">
 
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+    <div class="page-header">
 
-    <div class="equipment-header">
-
-        <div class="equipment-header-content">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
             <div>
 
                 <h1>
-                    🔧 Equipment Management
+                    🔬 Laboratory Equipment
                 </h1>
 
-                <p>
-                    Manage and monitor laboratory equipment.
+                <p class="mb-1">
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+                <p class="mb-0">
+                    Register, manage and monitor your laboratory equipment.
                 </p>
 
             </div>
 
 
             <a
-                href="#"
-                class="add-equipment-btn"
+                href="{% url 'create_equipment' %}"
+                class="btn btn-light"
             >
-
-                <i class="fa-solid fa-plus"></i>
-
-                Add Equipment
-
+                + Register Equipment
             </a>
 
         </div>
@@ -421,145 +125,325 @@ Equipment Management | ICLMS
     </div>
 
 
-    <!-- =====================================================
-         STATISTICS
-    ====================================================== -->
+    <!-- ================================================= -->
+    <!-- MESSAGES -->
+    <!-- ================================================= -->
 
-    <div class="equipment-stats">
+    {% if messages %}
 
+        {% for message in messages %}
 
-        <div class="equipment-stat">
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
 
-            <div class="equipment-stat-icon">
+                {{ message }}
 
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-
-            </div>
-
-            <div class="equipment-stat-label">
-                Total Equipment
-            </div>
-
-            <div class="equipment-stat-number">
-                0
-            </div>
-
-        </div>
-
-
-        <div class="equipment-stat">
-
-            <div class="equipment-stat-icon">
-
-                <i class="fa-solid fa-circle-check"></i>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
 
             </div>
 
-            <div class="equipment-stat-label">
-                Available
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- EQUIPMENT LIST -->
+    <!-- ================================================= -->
+
+    {% if equipment %}
+
+        {% for item in equipment %}
+
+            <div class="equipment-card">
+
+                <!-- TOP SECTION -->
+
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                    <div>
+
+                        <h4>
+                            🔬 {{ item.name }}
+                        </h4>
+
+                        <span class="equipment-id">
+                            ID: {{ item.equipment_id }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div>
+
+                        {% if item.status == 'AVAILABLE' %}
+
+                            <span class="status-badge status-available">
+                                Available
+                            </span>
+
+                        {% elif item.status == 'IN_USE' %}
+
+                            <span class="status-badge status-in-use">
+                                In Use
+                            </span>
+
+                        {% elif item.status == 'MAINTENANCE' %}
+
+                            <span class="status-badge status-maintenance">
+                                Under Maintenance
+                            </span>
+
+                        {% elif item.status == 'OUT_OF_SERVICE' %}
+
+                            <span class="status-badge status-out">
+                                Out of Service
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <hr>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="mb-3">
+
+                    <span class="detail-label">
+                        Description
+                    </span>
+
+                    <br>
+
+                    {% if item.description %}
+
+                        <span class="text-muted">
+                            {{ item.description }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="text-muted">
+                            No description provided.
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Manufacturer
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if item.manufacturer %}
+                                {{ item.manufacturer }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Model Number
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if item.model_number %}
+                                {{ item.model_number }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Location
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if item.location %}
+                                {{ item.location }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Purchase Date
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if item.purchase_date %}
+                                {{ item.purchase_date|date:"d M Y" }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Last Maintenance
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if item.last_maintenance %}
+                                {{ item.last_maintenance|date:"d M Y" }}
+                            {% else %}
+                                Not recorded
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Next Maintenance
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if item.next_maintenance %}
+                                {{ item.next_maintenance|date:"d M Y" }}
+                            {% else %}
+                                Not scheduled
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div class="d-flex gap-2 flex-wrap">
+
+                    <a
+                        href="{% url 'edit_equipment' item.id %}"
+                        class="btn btn-warning btn-sm"
+                    >
+                        ✏️ Edit
+                    </a>
+
+
+                    <a
+                        href="{% url 'delete_equipment' item.id %}"
+                        class="btn btn-danger btn-sm"
+                    >
+                        🗑️ Remove
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="equipment-stat-number">
-                0
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- ================================================= -->
+        <!-- NO EQUIPMENT -->
+        <!-- ================================================= -->
+
+        <div class="card shadow-sm border-0 text-center p-5">
+
+            <div style="font-size: 55px;">
+                🔬
             </div>
 
-        </div>
-
-
-        <div class="equipment-stat">
-
-            <div class="equipment-stat-icon">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-            </div>
-
-            <div class="equipment-stat-label">
-                Under Maintenance
-            </div>
-
-            <div class="equipment-stat-number">
-                0
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <!-- =====================================================
-         EQUIPMENT LIST
-    ====================================================== -->
-
-    <div class="equipment-container">
-
-
-        <div class="equipment-title">
-
-            <h2>
-                Laboratory Equipment
-            </h2>
-
-        </div>
-
-
-        <!-- =================================================
-            FUTURE EQUIPMENT TABLE
-
-            When the database is created, replace the
-            empty section with a Django template loop.
-        ================================================= -->
-
-        <div class="empty-equipment">
-
-            <div class="empty-icon">
-
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-
-            </div>
-
-            <h3>
-                No Equipment Added
+            <h3 class="mt-3">
+                No Equipment Registered
             </h3>
 
-            <p>
-                Equipment records will appear here once they
-                are added to the laboratory inventory.
+            <p class="text-muted">
+                You have not registered any laboratory equipment yet.
             </p>
 
-            <a
-                href="#"
-                class="btn btn-primary"
-            >
+            <div>
 
-                <i class="fa-solid fa-plus"></i>
+                <a
+                    href="{% url 'create_equipment' %}"
+                    class="btn btn-primary"
+                >
+                    + Register Your First Equipment
+                </a>
 
-                Add First Equipment
-
-            </a>
+            </div>
 
         </div>
 
+    {% endif %}
 
-    </div>
 
-
-    <!-- =====================================================
-         BACK TO DASHBOARD
-    ====================================================== -->
+    <!-- BACK -->
 
     <a
         href="{% url 'technician_dashboard' %}"
-        class="back-btn"
+        class="btn btn-outline-primary mt-4"
     >
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-        Back to Technician Dashboard
-
+        ← Back 
     </a>
-
 
 </div>
 

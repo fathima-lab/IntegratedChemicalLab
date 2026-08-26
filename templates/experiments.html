@@ -6,45 +6,384 @@ Experiments | ICLMS
 
 {% block content %}
 
-<div class="container py-5">
+<style>
 
-    <div class="p-5 rounded-4 text-white"
-         style="background:linear-gradient(135deg,#123b91,#2563eb);">
+    .experiments-page {
+        padding: 40px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
 
-        <h1>
-            🧪 Experiments
-        </h1>
+    .welcome-card {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 22px;
+        padding: 35px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .12);
+    }
 
-        <p class="mb-0">
-            Create, manage and monitor your laboratory experiments.
-        </p>
+    .welcome-card h1 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .welcome-card p {
+        margin-bottom: 0;
+        opacity: .95;
+    }
+
+    .experiment-card {
+        background: white;
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+</style>
+
+
+<div class="experiments-page">
+
+
+    <!-- ================================================= -->
+    <!-- WELCOME -->
+    <!-- ================================================= -->
+
+    <div class="welcome-card">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <div>
+
+                <h1>
+                    🧪 Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}!
+                </h1>
+
+                <p>
+                    Manage and monitor your laboratory experiments.
+                </p>
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-light"
+                >
+                    🚪 Logout
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
 
 
-    <div class="card border-0 shadow-sm rounded-4 p-4 mt-4">
+    <!-- ================================================= -->
+    <!-- EXPERIMENT HEADER -->
+    <!-- ================================================= -->
 
-        <h3>
-            My Experiments
-        </h3>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-        <p class="text-muted">
-            Your experiment management module will appear here.
-        </p>
+        <div>
 
-        <button class="btn btn-primary" disabled>
+            <h2>
+                🧪 My Experiments
+            </h2>
+
+            <p class="text-muted mb-0">
+                Create, update and manage your laboratory experiments.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'create_experiment' %}"
+            class="btn btn-primary"
+        >
             + Create Experiment
-        </button>
+        </a>
 
     </div>
 
+
+    <!-- ================================================= -->
+    <!-- MESSAGES -->
+    <!-- ================================================= -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- EXPERIMENTS -->
+    <!-- ================================================= -->
+
+    {% if experiments %}
+
+        {% for experiment in experiments %}
+
+            <div class="experiment-card">
+
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                    <div>
+
+                        <h4>
+                            🧪 {{ experiment.name }}
+                        </h4>
+
+                        {% if experiment.description %}
+
+                            <p class="text-muted">
+                                {{ experiment.description }}
+                            </p>
+
+                        {% else %}
+
+                            <p class="text-muted">
+                                No description provided.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                        {% if experiment.results_observations %}
+
+                        <div class="mt-3">
+
+                            <h5 class="text-primary">
+                                📊 Results & Observations
+                            </h5>
+
+                            <div class="p-3 bg-light rounded">
+                                {{ experiment.results_observations|linebreaks }}
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if experiment.conclusion %}
+
+                        <div class="mt-3">
+
+                            <h5 class="text-primary">
+                                📝 Conclusion
+                            </h5>
+
+                            <div class="p-3 bg-light rounded">
+                                {{ experiment.conclusion|linebreaks }}
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                   
+                    <!-- STATUS -->
+
+                    <div>
+
+                        {% if experiment.status == 'PLANNED' %}
+
+                            <span class="badge bg-warning text-dark">
+                                Planned
+                            </span>
+
+                        {% elif experiment.status == 'ONGOING' %}
+
+                            <span class="badge bg-primary">
+                                Ongoing
+                            </span>
+
+                        {% elif experiment.status == 'COMPLETED' %}
+
+                            <span class="badge bg-success">
+                                Completed
+                            </span>
+
+                        {% elif experiment.status == 'CANCELLED' %}
+
+                            <span class="badge bg-danger">
+                                Cancelled
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <hr>
+
+
+                <!-- DETAILS -->
+
+                <div class="row mb-3">
+
+                    <div class="col-md-4">
+
+                        <strong>
+                            Start Date
+                        </strong>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if experiment.start_date %}
+                                {{ experiment.start_date|date:"d M Y" }}
+                            {% else %}
+                                —
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <strong>
+                            End Date
+                        </strong>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if experiment.end_date %}
+                                {{ experiment.end_date|date:"d M Y" }}
+                            {% else %}
+                                —
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <strong>
+                            Created
+                        </strong>
+
+                        <br>
+
+                        <span class="text-muted">
+                            {{ experiment.created_at|date:"d M Y, h:i A" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="d-flex gap-2">
+
+                    <a
+                        href="{% url 'edit_experiment' experiment.id %}"
+                        class="btn btn-warning btn-sm"
+                    >
+                        ✏️ Edit
+                    </a>
+
+
+                    <a
+                        href="{% url 'delete_experiment' experiment.id %}"
+                        class="btn btn-danger btn-sm"
+                    >
+                        🗑️ Remove
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- ================================================= -->
+        <!-- EMPTY -->
+        <!-- ================================================= -->
+
+        <div class="card border-0 shadow-sm rounded-4 text-center p-5">
+
+            <div style="font-size:60px;">
+                🧪
+            </div>
+
+            <h3 class="mt-3">
+                No Experiments Yet
+            </h3>
+
+            <p class="text-muted">
+                You haven't created any experiments yet.
+            </p>
+
+            <a
+                href="{% url 'create_experiment' %}"
+                class="btn btn-primary"
+            >
+                + Create Your First Experiment
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- BACK -->
+    <!-- ================================================= -->
 
     <a
         href="{% url 'researcher_dashboard' %}"
         class="btn btn-outline-primary mt-4"
     >
-        ← Back to Dashboard
+        ← Back 
     </a>
+
 
 </div>
 

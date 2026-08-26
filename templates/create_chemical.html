@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register Chemical | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow border-0 rounded-4">
+
+        <div
+            class="card-header text-white p-4"
+            style="background:linear-gradient(135deg,#123b91,#2563eb);"
+        >
+
+            <h2 class="mb-1">
+                🧪 Register Laboratory Chemical
+            </h2>
+
+            <p class="mb-0">
+                Welcome,
+                {{ request.user.get_full_name|default:request.user.username }}
+            </p>
+
+        </div>
+
+
+        <div class="card-body p-4">
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- CHEMICAL NAME -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Chemical Name
+                    </label>
+
+                    {{ form.name }}
+
+                    {% if form.name.errors %}
+                        <div class="text-danger">
+                            {{ form.name.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CHEMICAL ID -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Chemical ID
+                    </label>
+
+                    {{ form.chemical_id }}
+
+                    {% if form.chemical_id.errors %}
+                        <div class="text-danger">
+                            {{ form.chemical_id.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- FORMULA -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Chemical Formula
+                    </label>
+
+                    {{ form.formula }}
+
+                    {% if form.formula.errors %}
+                        <div class="text-danger">
+                            {{ form.formula.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CAS NUMBER -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        CAS Number
+                    </label>
+
+                    {{ form.cas_number }}
+
+                    {% if form.cas_number.errors %}
+                        <div class="text-danger">
+                            {{ form.cas_number.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Description
+                    </label>
+
+                    {{ form.description }}
+
+                    {% if form.description.errors %}
+                        <div class="text-danger">
+                            {{ form.description.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Quantity
+                        </label>
+
+                        {{ form.quantity }}
+
+                        {% if form.quantity.errors %}
+                            <div class="text-danger">
+                                {{ form.quantity.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Unit
+                        </label>
+
+                        {{ form.unit }}
+
+                        {% if form.unit.errors %}
+                            <div class="text-danger">
+                                {{ form.unit.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- STORAGE -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Storage Location
+                    </label>
+
+                    {{ form.storage_location }}
+
+                    {% if form.storage_location.errors %}
+                        <div class="text-danger">
+                            {{ form.storage_location.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- HAZARD -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Hazard & Safety Information
+                    </label>
+
+                    {{ form.hazard_information }}
+
+                    {% if form.hazard_information.errors %}
+                        <div class="text-danger">
+                            {{ form.hazard_information.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Status
+                    </label>
+
+                    {{ form.status }}
+
+                    {% if form.status.errors %}
+                        <div class="text-danger">
+                            {{ form.status.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DATES -->
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Purchase Date
+                        </label>
+
+                        {{ form.purchase_date }}
+
+                        {% if form.purchase_date.errors %}
+                            <div class="text-danger">
+                                {{ form.purchase_date.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Expiry Date
+                        </label>
+
+                        {{ form.expiry_date }}
+
+                        {% if form.expiry_date.errors %}
+                            <div class="text-danger">
+                                {{ form.expiry_date.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="d-flex gap-2 mt-4">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        🧪 Register Chemical
+                    </button>
+
+
+                    <a
+                        href="{% url 'chemicals' %}"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

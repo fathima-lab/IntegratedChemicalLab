@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Payment Successful | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div
+        class="card border-0 shadow-sm rounded-4 text-center p-5"
+        style="max-width:650px;margin:auto;"
+    >
+
+        <div style="font-size:65px;">
+            ✅
+        </div>
+
+        <h1 class="text-success mt-3">
+            Payment Successful
+        </h1>
+
+        <p class="text-muted">
+            Your payment has been successfully processed.
+        </p>
+
+
+        <hr>
+
+
+        <p>
+            <strong>Transaction ID</strong>
+            <br>
+            {{ payment.transaction_id }}
+        </p>
+
+
+        <p>
+            <strong>Amount</strong>
+            <br>
+            ₹{{ payment.amount }}
+        </p>
+
+
+        <p>
+            <strong>Payment Method</strong>
+            <br>
+            {{ payment.get_payment_method_display }}
+        </p>
+
+
+        <a
+            href="{% url 'external_dashboard' %}"
+            class="btn btn-primary mt-3"
+        >
+            ← Back 
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

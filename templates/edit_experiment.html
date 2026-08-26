@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Experiment | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <!-- HEADER -->
+                <div class="card-header bg-warning py-3">
+
+                    <h3 class="mb-0">
+                        ✏️ Edit Experiment
+                    </h3>
+
+                    <small>
+                        Update the details of your experiment
+                    </small>
+
+                </div>
+
+
+                <!-- BODY -->
+                <div class="card-body p-4">
+
+                    {% if form.non_field_errors %}
+
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+
+                    {% endif %}
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <!-- EXPERIMENT NAME -->
+                        <div class="mb-3">
+
+                            <label
+                                for="{{ form.name.id_for_label }}"
+                                class="form-label fw-semibold"
+                            >
+                                Experiment Name
+                            </label>
+
+                            {{ form.name }}
+
+                            {% if form.name.errors %}
+
+                                <div class="text-danger small mt-1">
+                                    {{ form.name.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+                        <div class="mb-3">
+
+                            <label
+                                for="{{ form.description.id_for_label }}"
+                                class="form-label fw-semibold"
+                            >
+                                Description
+                            </label>
+
+                            {{ form.description }}
+
+                            {% if form.description.errors %}
+
+                                <div class="text-danger small mt-1">
+                                    {{ form.description.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- DATES -->
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label
+                                    for="{{ form.start_date.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    Start Date
+                                </label>
+
+                                {{ form.start_date }}
+
+                                {% if form.start_date.errors %}
+
+                                    <div class="text-danger small mt-1">
+                                        {{ form.start_date.errors }}
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="col-md-6 mb-3">
+
+                                <label
+                                    for="{{ form.end_date.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    End Date
+                                </label>
+
+                                {{ form.end_date }}
+
+                                {% if form.end_date.errors %}
+
+                                    <div class="text-danger small mt-1">
+                                        {{ form.end_date.errors }}
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+                        <div class="mb-4">
+
+                            <label
+                                for="{{ form.status.id_for_label }}"
+                                class="form-label fw-semibold"
+                            >
+                                Status
+                            </label>
+
+                            {{ form.status }}
+
+                            {% if form.status.errors %}
+
+                                <div class="text-danger small mt-1">
+                                    {{ form.status.errors }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- BUTTONS -->
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-warning"
+                            >
+                                💾 Update Experiment
+                            </button>
+
+
+                            <a
+                                href="{% url 'experiments' %}"
+                                class="btn btn-secondary"
+                            >
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

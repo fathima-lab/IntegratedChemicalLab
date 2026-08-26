@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Laboratory Reports | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .reports-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .reports-card {
+        max-width: 1100px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .reports-header {
+        background: linear-gradient(
+            135deg,
+            #123b91,
+            #2563eb
+        );
+
+        color: white;
+        border-radius: 18px;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .reports-header h1 {
+        font-weight: 700;
+    }
+
+    .report-item {
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 15px;
+    }
+
+    .report-item h4 {
+        color: #123b91;
+        font-weight: 700;
+    }
+
+</style>
+
+
+<div class="reports-page">
+
+    <div class="reports-card">
+
+        <div class="reports-header">
+
+            <h1>
+                📋 Laboratory Reports
+            </h1>
+
+            <p class="mb-0">
+                Reports available for your account.
+            </p>
+
+        </div>
+
+
+        <div class="alert alert-info">
+
+            Laboratory reports purchased by you
+            will appear here.
+
+        </div>
+
+
+        <!-- REPORTS WILL BE DISPLAYED HERE -->
+
+        <div class="report-item">
+
+            <h4>
+                No Reports Available
+            </h4>
+
+            <p class="text-muted">
+                You have not purchased or received access
+                to any laboratory reports yet.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'external_reports' %}"
+            class="btn btn-secondary"
+        >
+            ← Back to Reports
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

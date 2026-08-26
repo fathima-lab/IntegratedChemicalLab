@@ -7,8 +7,10 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         {% block title %}ICLMS{% endblock %}
@@ -21,7 +23,8 @@
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
 
     <!-- =====================================================
@@ -30,7 +33,8 @@
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
 
     <!-- =====================================================
@@ -39,7 +43,8 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
 
     <!-- =====================================================
@@ -47,6 +52,10 @@
     ====================================================== -->
 
     <style>
+
+        /* =================================================
+           GLOBAL
+        ================================================= */
 
         * {
             font-family: 'Poppins', sans-serif;
@@ -261,12 +270,16 @@
                 background .25s ease,
                 transform .25s ease;
 
+            text-decoration: none !important;
+
         }
 
 
         .main-navbar .nav-link i {
 
             font-size: 16px;
+
+            color: white !important;
 
         }
 
@@ -280,6 +293,20 @@
 
             transform:
                 translateY(-1px);
+
+        }
+
+
+        .main-navbar .nav-link:visited {
+
+            color: white !important;
+
+        }
+
+
+        .main-navbar .nav-link:active {
+
+            color: white !important;
 
         }
 
@@ -306,6 +333,33 @@
 
             background:
                 rgba(255, 255, 255, .23) !important;
+
+        }
+
+
+        /* =================================================
+           REGISTER LINK
+           
+           IMPORTANT:
+           This is outside the mobile media query,
+           so it works on desktop as well.
+        ================================================= */
+
+        .main-navbar .register-link,
+        .main-navbar .register-link:visited,
+        .main-navbar .register-link:hover,
+        .main-navbar .register-link:active {
+
+            color: #ffffff !important;
+
+            text-decoration: none !important;
+
+        }
+
+
+        .main-navbar .register-link i {
+
+            color: #ffffff !important;
 
         }
 
@@ -663,8 +717,13 @@
                         class="nav-link"
                         href="{% url 'about' %}"
                     >
+
                         <i class="bi bi-info-circle-fill"></i>
-                        <span>About</span>
+
+                        <span>
+                            About
+                        </span>
+
                     </a>
 
                 </li>
@@ -692,7 +751,7 @@
 
                 <!-- CONTACT -->
 
-                 <li class="nav-item">
+                <li class="nav-item">
 
                     <a
                         class="nav-link"
@@ -701,11 +760,14 @@
 
                         <i class="bi bi-envelope-fill"></i>
 
-                        Contact
+                        <span>
+                            Contact
+                        </span>
 
                     </a>
 
                 </li>
+
 
                 <!-- LOGIN -->
 
@@ -732,8 +794,8 @@
                 <li class="nav-item">
 
                     <a
-                        class="nav-link register-nav"
-                        href="{% url 'register' %}"
+                        href="{% url 'registration_choice' %}"
+                        class="nav-link register-link"
                     >
 
                         <i class="bi bi-person-plus-fill"></i>
@@ -803,4 +865,3 @@
 </body>
 
 </html>
-

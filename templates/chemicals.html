@@ -1,475 +1,136 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Chemical Inventory | ICLMS
+Chemicals | ICLMS
 {% endblock %}
 
 {% block content %}
 
 <style>
 
-/* =========================================================
-   CHEMICAL INVENTORY PAGE
-========================================================= */
-
-.chemicals-page {
-    min-height: calc(100vh - 80px);
-    background: #f4f7fc;
-    padding: 45px 6%;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.chemicals-header {
-    background: linear-gradient(
-        135deg,
-        #123b91,
-        #2563eb
-    );
-
-    color: white;
-
-    border-radius: 22px;
-
-    padding: 35px 40px;
-
-    margin-bottom: 30px;
-
-    box-shadow: 0 10px 30px rgba(18, 59, 145, 0.18);
-}
-
-.chemicals-header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.chemicals-header h1 {
-    margin: 0;
-    font-size: 38px;
-    font-weight: 700;
-}
-
-.chemicals-header p {
-    margin: 8px 0 0;
-    font-size: 17px;
-    opacity: 0.9;
-}
-
-
-/* =========================================================
-   ADD CHEMICAL BUTTON
-========================================================= */
-
-.add-chemical-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 12px 20px;
-
-    background: white;
-    color: #123b91;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-    font-weight: 600;
-
-    transition: 0.2s ease;
-}
-
-.add-chemical-btn:hover {
-    background: #eef4ff;
-    color: #123b91;
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   STATISTICS
-========================================================= */
-
-.chemical-stats {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 22px;
-
-    margin-bottom: 30px;
-}
-
-.chemical-stat {
-    background: white;
-
-    border-radius: 16px;
-
-    padding: 23px;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
-}
-
-.chemical-stat-icon {
-    width: 50px;
-    height: 50px;
-
-    border-radius: 12px;
-
-    background: #eaf2ff;
-    color: #1268f3;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-}
-
-.chemical-stat-label {
-    color: #64748b;
-
-    font-size: 14px;
-
-    margin-bottom: 5px;
-}
-
-.chemical-stat-number {
-    color: #172554;
-
-    font-size: 30px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   SEARCH BAR
-========================================================= */
-
-.chemical-tools {
-    background: white;
-
-    padding: 20px 25px;
-
-    border-radius: 16px;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
-
-    margin-bottom: 25px;
-}
-
-.chemical-search {
-    width: 100%;
-
-    padding: 12px 16px;
-
-    border: 1px solid #dbe2ea;
-
-    border-radius: 8px;
-
-    outline: none;
-
-    font-size: 15px;
-}
-
-.chemical-search:focus {
-    border-color: #2563eb;
-
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-}
-
-
-/* =========================================================
-   INVENTORY CONTAINER
-========================================================= */
-
-.chemical-container {
-    background: white;
-
-    border-radius: 18px;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
-
-    overflow: hidden;
-}
-
-.chemical-title {
-    padding: 23px 28px;
-
-    border-bottom: 1px solid #e5e7eb;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-}
-
-.chemical-title h2 {
-    margin: 0;
-
-    color: #172554;
-
-    font-size: 22px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   EMPTY STATE
-========================================================= */
-
-.empty-chemicals {
-    text-align: center;
-
-    padding: 65px 25px;
-
-    color: #64748b;
-}
-
-.empty-icon {
-    width: 75px;
-    height: 75px;
-
-    margin: 0 auto 20px;
-
-    border-radius: 18px;
-
-    background: #eaf2ff;
-
-    color: #1268f3;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 32px;
-}
-
-.empty-chemicals h3 {
-    color: #172554;
-
-    margin-bottom: 8px;
-}
-
-.empty-chemicals p {
-    margin-bottom: 25px;
-}
-
-
-/* =========================================================
-   CHEMICAL TABLE
-========================================================= */
-
-.chemical-table {
-    width: 100%;
-
-    border-collapse: collapse;
-}
-
-.chemical-table th {
-    background: #f8fafc;
-
-    color: #475569;
-
-    font-size: 14px;
-
-    text-align: left;
-
-    padding: 15px 20px;
-}
-
-.chemical-table td {
-    padding: 17px 20px;
-
-    border-top: 1px solid #edf0f5;
-
-    color: #334155;
-}
-
-
-/* =========================================================
-   STOCK STATUS
-========================================================= */
-
-.stock-status {
-    display: inline-block;
-
-    padding: 5px 11px;
-
-    border-radius: 20px;
-
-    font-size: 12px;
-
-    font-weight: 600;
-}
-
-.stock-good {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.stock-low {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.stock-out {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-
-/* =========================================================
-   HAZARD STATUS
-========================================================= */
-
-.hazard {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    padding: 5px 10px;
-
-    border-radius: 20px;
-
-    background: #fff7ed;
-
-    color: #c2410c;
-
-    font-size: 12px;
-
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-.back-btn {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin-top: 25px;
-
-    padding: 10px 18px;
-
-    border: 1px solid #2563eb;
-
-    border-radius: 8px;
-
-    color: #2563eb;
-
-    text-decoration: none;
-
-    font-weight: 600;
-}
-
-.back-btn:hover {
-    background: #2563eb;
-
-    color: white;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1000px) {
-
-    .chemical-stats {
-        grid-template-columns: repeat(2, 1fr);
+    .chemicals-page {
+        padding: 40px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
     }
 
-}
-
-@media (max-width: 800px) {
-
-    .chemicals-header-content {
-        flex-direction: column;
-
-        align-items: flex-start;
+    .page-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
     }
 
-    .add-chemical-btn {
-        width: 100%;
-
-        justify-content: center;
+    .page-header h1 {
+        font-weight: 700;
     }
 
-    .chemical-container {
-        overflow-x: auto;
+    .chemical-card {
+        background: white;
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
     }
 
-}
-
-@media (max-width: 600px) {
-
-    .chemical-stats {
-        grid-template-columns: 1fr;
+    .chemical-card h4 {
+        color: #123b91;
+        font-weight: 700;
     }
 
-}
+    .chemical-id {
+        display: inline-block;
+        background: #edf3ff;
+        color: #123b91;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .formula {
+        font-size: 16px;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .status-available {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .status-low {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-expired {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .status-disposed {
+        background: #e2e3e5;
+        color: #41464b;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .hazard-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 12px 15px;
+        border-radius: 8px;
+    }
 
 </style>
 
 
 <div class="chemicals-page">
 
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+    <div class="page-header">
 
-    <div class="chemicals-header">
-
-        <div class="chemicals-header-content">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
             <div>
 
                 <h1>
-                    🧪 Chemical Inventory
+                    🧪 Laboratory Chemicals
                 </h1>
 
-                <p>
-                    Manage laboratory chemicals, stock levels
-                    and safety information.
+                <p class="mb-1">
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+                <p class="mb-0">
+                    Register, manage and monitor your laboratory chemicals.
                 </p>
 
             </div>
 
 
             <a
-                href="#"
-                class="add-chemical-btn"
+                href="{% url 'create_chemical' %}"
+                class="btn btn-light"
             >
-
-                <i class="fa-solid fa-plus"></i>
-
-                Add Chemical
-
+                + Register Chemical
             </a>
 
         </div>
@@ -477,185 +138,355 @@ Chemical Inventory | ICLMS
     </div>
 
 
-    <!-- =====================================================
-         STATISTICS
-    ====================================================== -->
+    <!-- ================================================= -->
+    <!-- MESSAGES -->
+    <!-- ================================================= -->
 
-    <div class="chemical-stats">
+    {% if messages %}
 
+        {% for message in messages %}
 
-        <!-- TOTAL CHEMICALS -->
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
 
-        <div class="chemical-stat">
+                {{ message }}
 
-            <div class="chemical-stat-icon">
-
-                <i class="fa-solid fa-flask"></i>
-
-            </div>
-
-            <div class="chemical-stat-label">
-                Total Chemicals
-            </div>
-
-            <div class="chemical-stat-number">
-                0
-            </div>
-
-        </div>
-
-
-        <!-- AVAILABLE -->
-
-        <div class="chemical-stat">
-
-            <div class="chemical-stat-icon">
-
-                <i class="fa-solid fa-box-open"></i>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
 
             </div>
 
-            <div class="chemical-stat-label">
-                Available Stock
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- CHEMICAL LIST -->
+    <!-- ================================================= -->
+
+    {% if chemicals %}
+
+        {% for chemical in chemicals %}
+
+            <div class="chemical-card">
+
+                <!-- TOP -->
+
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                    <div>
+
+                        <h4>
+                            🧪 {{ chemical.name }}
+                        </h4>
+
+                        <span class="chemical-id">
+                            ID: {{ chemical.chemical_id }}
+                        </span>
+
+                        {% if chemical.formula %}
+
+                            <span class="formula ms-2">
+                                {{ chemical.formula }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div>
+
+                        {% if chemical.status == 'AVAILABLE' %}
+
+                            <span class="status-badge status-available">
+                                Available
+                            </span>
+
+                        {% elif chemical.status == 'LOW_STOCK' %}
+
+                            <span class="status-badge status-low">
+                                Low Stock
+                            </span>
+
+                        {% elif chemical.status == 'EXPIRED' %}
+
+                            <span class="status-badge status-expired">
+                                Expired
+                            </span>
+
+                        {% elif chemical.status == 'DISPOSED' %}
+
+                            <span class="status-badge status-disposed">
+                                Disposed
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <hr>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="mb-3">
+
+                    <span class="detail-label">
+                        Description
+                    </span>
+
+                    <br>
+
+                    {% if chemical.description %}
+
+                        <span class="text-muted">
+                            {{ chemical.description }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="text-muted">
+                            No description provided.
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="row g-3 mb-4">
+
+                    <!-- QUANTITY -->
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Quantity
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {{ chemical.quantity }}
+                            {{ chemical.unit }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- CAS NUMBER -->
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            CAS Number
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if chemical.cas_number %}
+                                {{ chemical.cas_number }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- STORAGE -->
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Storage Location
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if chemical.storage_location %}
+                                {{ chemical.storage_location }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- PURCHASE DATE -->
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Purchase Date
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if chemical.purchase_date %}
+                                {{ chemical.purchase_date|date:"d M Y" }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- EXPIRY DATE -->
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Expiry Date
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {% if chemical.expiry_date %}
+                                {{ chemical.expiry_date|date:"d M Y" }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- CREATED -->
+
+                    <div class="col-md-4">
+
+                        <span class="detail-label">
+                            Registered
+                        </span>
+
+                        <br>
+
+                        <span class="text-muted">
+
+                            {{ chemical.created_at|date:"d M Y, h:i A" }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HAZARD INFORMATION -->
+
+                {% if chemical.hazard_information %}
+
+                    <div class="hazard-box mb-4">
+
+                        <strong>
+                            ⚠️ Hazard & Safety Information
+                        </strong>
+
+                        <br>
+
+                        <span>
+                            {{ chemical.hazard_information }}
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div class="d-flex gap-2 flex-wrap">
+
+                    <a
+                        href="{% url 'edit_chemical' chemical.id %}"
+                        class="btn btn-warning btn-sm"
+                    >
+                        ✏️ Edit
+                    </a>
+
+
+                    <a
+                        href="{% url 'delete_chemical' chemical.id %}"
+                        class="btn btn-danger btn-sm"
+                    >
+                        🗑️ Remove
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="chemical-stat-number">
-                0
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- ================================================= -->
+        <!-- NO CHEMICALS -->
+        <!-- ================================================= -->
+
+        <div class="card shadow-sm border-0 text-center p-5">
+
+            <div style="font-size: 55px;">
+                🧪
             </div>
 
-        </div>
-
-
-        <!-- LOW STOCK -->
-
-        <div class="chemical-stat">
-
-            <div class="chemical-stat-icon">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-            </div>
-
-            <div class="chemical-stat-label">
-                Low Stock
-            </div>
-
-            <div class="chemical-stat-number">
-                0
-            </div>
-
-        </div>
-
-
-        <!-- EXPIRING -->
-
-        <div class="chemical-stat">
-
-            <div class="chemical-stat-icon">
-
-                <i class="fa-solid fa-calendar-xmark"></i>
-
-            </div>
-
-            <div class="chemical-stat-label">
-                Expiring Soon
-            </div>
-
-            <div class="chemical-stat-number">
-                0
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         SEARCH
-    ====================================================== -->
-
-    <div class="chemical-tools">
-
-        <input
-            type="text"
-            class="chemical-search"
-            placeholder="🔍 Search chemicals by name, CAS number or category..."
-        >
-
-    </div>
-
-
-    <!-- =====================================================
-         CHEMICAL INVENTORY
-    ====================================================== -->
-
-    <div class="chemical-container">
-
-
-        <div class="chemical-title">
-
-            <h2>
-                Chemical Inventory
-            </h2>
-
-        </div>
-
-
-        <!-- =================================================
-             FUTURE CHEMICAL TABLE
-
-             Database records can be displayed here later.
-        ================================================== -->
-
-        <div class="empty-chemicals">
-
-            <div class="empty-icon">
-
-                <i class="fa-solid fa-flask"></i>
-
-            </div>
-
-            <h3>
-                No Chemicals Added
+            <h3 class="mt-3">
+                No Chemicals Registered
             </h3>
 
-            <p>
-                Chemical inventory records will appear here
-                once chemicals are added.
+            <p class="text-muted">
+                You have not registered any laboratory chemicals yet.
             </p>
 
             <a
-                href="#"
+                href="{% url 'create_chemical' %}"
                 class="btn btn-primary"
             >
-
-                <i class="fa-solid fa-plus"></i>
-
-                Add First Chemical
-
+                + Register Your First Chemical
             </a>
 
         </div>
 
+    {% endif %}
 
-    </div>
 
-
-    <!-- =====================================================
-         BACK TO TECHNICIAN DASHBOARD
-    ====================================================== -->
-
+    <!-- BACK  -->
+    
     <a
         href="{% url 'technician_dashboard' %}"
-        class="back-btn"
+        class="btn btn-outline-primary mt-4"
     >
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-        Back to Technician Dashboard
-
+        ← Back 
     </a>
-
 
 </div>
 

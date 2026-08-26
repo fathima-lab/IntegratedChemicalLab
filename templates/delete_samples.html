@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete Sample | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-danger text-white">
+
+                    <h3 class="mb-0">
+                        🗑️ Delete Sample
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4 text-center">
+
+                    <div style="font-size: 55px;">
+                        ⚠️
+                    </div>
+
+                    <h4 class="mt-3">
+                        Are you sure you want to delete this sample?
+                    </h4>
+
+                    <p class="text-muted mt-3">
+                        You are about to permanently delete:
+                    </p>
+
+                    <div class="alert alert-warning">
+
+                        <strong>
+                            {{ sample.name }}
+                        </strong>
+
+                        {% if sample.sample_code %}
+                            <br>
+                            Sample Code:
+                            {{ sample.sample_code }}
+                        {% endif %}
+
+                    </div>
+
+                    <p class="text-danger">
+                        This action cannot be undone.
+                    </p>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="d-flex justify-content-center gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger"
+                            >
+                                🗑️ Yes, Delete Sample
+                            </button>
+
+                            <a
+                                href="{% url 'samples' %}"
+                                class="btn btn-secondary"
+                            >
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

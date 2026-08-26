@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register Sample | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .sample-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .sample-card {
+        max-width: 750px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .sample-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 11px;
+    }
+
+</style>
+
+
+<div class="sample-page">
+
+    <div class="sample-card">
+
+        <!-- HEADER -->
+
+        <div class="sample-header">
+
+            <h2>
+                🧫 Register New Sample
+            </h2>
+
+            <p class="mb-0">
+                Welcome,
+                {{ request.user.get_full_name|default:request.user.username }}
+            </p>
+
+            <small>
+                Enter the details of the laboratory sample.
+            </small>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- SAMPLE NAME -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Sample Name
+                </label>
+
+                {{ form.name }}
+
+                {% if form.name.errors %}
+
+                    <div class="text-danger small">
+                        {{ form.name.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- SAMPLE CODE -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Sample Code
+                </label>
+
+                {{ form.sample_code }}
+
+                {% if form.sample_code.errors %}
+
+                    <div class="text-danger small">
+                        {{ form.sample_code.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                {{ form.description }}
+
+                {% if form.description.errors %}
+
+                    <div class="text-danger small">
+                        {{ form.description.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- COLLECTION DATE -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Collection Date
+                </label>
+
+                {{ form.collection_date }}
+
+                {% if form.collection_date.errors %}
+
+                    <div class="text-danger small">
+                        {{ form.collection_date.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                {{ form.status }}
+
+                {% if form.status.errors %}
+
+                    <div class="text-danger small">
+                        {{ form.status.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex gap-2">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    🧫 Register Sample
+                </button>
+
+
+                <a
+                    href="{% url 'samples' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

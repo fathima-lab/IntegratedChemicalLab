@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Report | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .report-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .report-card {
+        max-width: 850px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .report-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 30px;
+    }
+
+    .report-header h1 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 11px;
+    }
+
+    textarea.form-control {
+        min-height: 130px;
+    }
+
+    .section-title {
+        color: #123b91;
+        font-weight: 700;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+</style>
+
+
+<div class="report-page">
+
+    <div class="report-card">
+
+        <!-- HEADER -->
+
+        <div class="report-header">
+
+            <h1>
+                📊 Create Laboratory Report
+            </h1>
+
+            <p class="mb-1">
+                Welcome,
+                {{ request.user.get_full_name|default:request.user.username }}
+            </p>
+
+            <p class="mb-0">
+                Record the observations, results and conclusion of your experiment.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- FORM ERRORS -->
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- EXPERIMENT -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Experiment
+                </label>
+
+                {{ form.experiment }}
+
+                {% if form.experiment.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.experiment.errors }}
+                    </div>
+
+                {% endif %}
+
+                <small class="text-muted">
+                    Select the experiment associated with this report.
+                </small>
+
+            </div>
+
+
+            <!-- REPORT TITLE -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Report Title
+                </label>
+
+                {{ form.title }}
+
+                {% if form.title.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.title.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- REPORT DATE -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Report Date
+                </label>
+
+                {{ form.report_date }}
+
+                {% if form.report_date.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.report_date.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- OBSERVATIONS -->
+
+            <h4 class="section-title">
+                🔬 Observations
+            </h4>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Observations Obtained
+                </label>
+
+                {{ form.observations }}
+
+                {% if form.observations.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.observations.errors }}
+                    </div>
+
+                {% endif %}
+
+                <small class="text-muted">
+                    Record what you observed during the experiment.
+                </small>
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <h4 class="section-title">
+                📈 Results
+            </h4>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Results Obtained
+                </label>
+
+                {{ form.results }}
+
+                {% if form.results.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.results.errors }}
+                    </div>
+
+                {% endif %}
+
+                <small class="text-muted">
+                    Enter measurements, calculations and other results obtained.
+                </small>
+
+            </div>
+
+
+            <!-- CONCLUSION -->
+
+            <h4 class="section-title">
+                ✅ Conclusion
+            </h4>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Conclusion
+                </label>
+
+                {{ form.conclusion }}
+
+                {% if form.conclusion.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.conclusion.errors }}
+                    </div>
+
+                {% endif %}
+
+                <small class="text-muted">
+                    Provide the final interpretation or conclusion of the experiment.
+                </small>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex gap-2 flex-wrap mt-4">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    📊 Save Report
+                </button>
+
+
+                <a
+                    href="{% url 'reports' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

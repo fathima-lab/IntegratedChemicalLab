@@ -1,0 +1,376 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update Chemical | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .chemical-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .chemical-card {
+        max-width: 850px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .chemical-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 30px;
+    }
+
+    .chemical-header h1 {
+        font-weight: 700;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 11px;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .section-title {
+        color: #123b91;
+        font-weight: 700;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+</style>
+
+
+<div class="chemical-page">
+
+    <div class="chemical-card">
+
+        <!-- HEADER -->
+
+        <div class="chemical-header">
+
+            <h1>
+                ✏️ Update Laboratory Chemical
+            </h1>
+
+            <p class="mb-1">
+                Welcome,
+                {{ request.user.get_full_name|default:request.user.username }}
+            </p>
+
+            <p class="mb-0">
+                Update the details of your laboratory chemical.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- CHEMICAL INFORMATION -->
+
+            <h4 class="section-title">
+                🧪 Chemical Information
+            </h4>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Chemical Name
+                </label>
+
+                {{ form.name }}
+
+                {% if form.name.errors %}
+                    <div class="text-danger small">
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Chemical ID
+                    </label>
+
+                    {{ form.chemical_id }}
+
+                    {% if form.chemical_id.errors %}
+                        <div class="text-danger small">
+                            {{ form.chemical_id.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Chemical Formula
+                    </label>
+
+                    {{ form.formula }}
+
+                    {% if form.formula.errors %}
+                        <div class="text-danger small">
+                            {{ form.formula.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    CAS Number
+                </label>
+
+                {{ form.cas_number }}
+
+                {% if form.cas_number.errors %}
+                    <div class="text-danger small">
+                        {{ form.cas_number.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                {{ form.description }}
+
+                {% if form.description.errors %}
+                    <div class="text-danger small">
+                        {{ form.description.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- QUANTITY & STORAGE -->
+
+            <h4 class="section-title">
+                📦 Quantity & Storage
+            </h4>
+
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Quantity
+                    </label>
+
+                    {{ form.quantity }}
+
+                    {% if form.quantity.errors %}
+                        <div class="text-danger small">
+                            {{ form.quantity.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Unit
+                    </label>
+
+                    {{ form.unit }}
+
+                    {% if form.unit.errors %}
+                        <div class="text-danger small">
+                            {{ form.unit.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Storage Location
+                </label>
+
+                {{ form.storage_location }}
+
+                {% if form.storage_location.errors %}
+                    <div class="text-danger small">
+                        {{ form.storage_location.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- SAFETY -->
+
+            <h4 class="section-title">
+                ⚠️ Safety Information
+            </h4>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Hazard & Safety Information
+                </label>
+
+                {{ form.hazard_information }}
+
+                {% if form.hazard_information.errors %}
+                    <div class="text-danger small">
+                        {{ form.hazard_information.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                {{ form.status }}
+
+                {% if form.status.errors %}
+                    <div class="text-danger small">
+                        {{ form.status.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- DATES -->
+
+            <h4 class="section-title">
+                📅 Chemical Dates
+            </h4>
+
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Purchase Date
+                    </label>
+
+                    {{ form.purchase_date }}
+
+                    {% if form.purchase_date.errors %}
+                        <div class="text-danger small">
+                            {{ form.purchase_date.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Expiry Date
+                    </label>
+
+                    {{ form.expiry_date }}
+
+                    {% if form.expiry_date.errors %}
+                        <div class="text-danger small">
+                            {{ form.expiry_date.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex gap-2 flex-wrap mt-4">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 Update Chemical
+                </button>
+
+
+                <a
+                    href="{% url 'chemicals' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

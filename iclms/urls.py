@@ -19,6 +19,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from dashboard.views import registration_choice
 
 
 urlpatterns = [
@@ -34,9 +35,50 @@ urlpatterns = [
     ),
 
     path(
+        'experiments/',
+        include('experiments.urls')
+    ),
+
+    path(
         '',
         include('accounts.urls')
     ),
+
+    path(
+        'samples/',
+        include('samples.urls')
+    ),
+    
+    path(
+        'reports/',
+        include('reports.urls')
+    ),
+
+    path(
+        'equipment/',
+        include('equipment.urls')
+    ),
+
+    path(
+        'chemicals/',
+        include('chemicals.urls')
+    ),
+
+    path(
+        'external/',
+        include('external.urls')
+    ),
+
+    path(
+        'registration-choice/',
+        registration_choice,
+        name='registration_choice'
+    ),
+
+    path(
+        'payment/',
+        include('payment.urls')
+   ),
 
 ]
 

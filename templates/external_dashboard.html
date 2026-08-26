@@ -1,0 +1,602 @@
+{% extends 'base.html' %}
+
+{% block title %}
+External User Dashboard | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .external-page {
+        min-height: calc(100vh - 80px);
+        background: #f4f7ff;
+        padding: 45px 5%;
+    }
+
+    .external-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 22px;
+        padding: 35px;
+        margin-bottom: 30px;
+    }
+
+    .external-header h1 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .external-header p {
+        margin-bottom: 5px;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 18px;
+        padding: 25px;
+        height: 100%;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+        transition: .2s;
+    }
+
+    .service-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        background: #edf3ff;
+        color: #2563eb;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        margin-bottom: 18px;
+    }
+
+    .service-card h4 {
+        color: #123b91;
+        font-weight: 700;
+    }
+
+    .section-card {
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+        overflow: hidden;
+    }
+
+    .section-header {
+        padding: 22px 25px;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .section-header h3 {
+        margin: 0;
+        color: #123b91;
+        font-weight: 700;
+    }
+
+    .order-row {
+        padding: 18px 25px;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .order-row:last-child {
+        border-bottom: none;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 11px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-paid,
+    .status-confirmed {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .status-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-cancelled {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .status-completed {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .empty-state {
+        padding: 40px 25px;
+        text-align: center;
+        color: #64748b;
+    }
+
+</style>
+
+
+<div class="external-page">
+
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <div class="external-header">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <div>
+
+                <h1>
+                    🌐 External User Dashboard
+                </h1>
+
+                <p>
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+                {% if profile.external_type %}
+
+                    <p class="mb-0">
+                        Account Type:
+                        <strong>
+                            {{ profile.get_external_type_display }}
+                        </strong>
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                >
+                    <i class="bi bi-box-arrow-right"></i>
+                    Logout
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MESSAGES -->
+    <!-- ================================================= -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- SERVICES -->
+    <!-- ================================================= -->
+
+    <div class="row g-4 mb-5">
+
+
+        <!-- CHEMICALS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    🧪
+                </div>
+
+                <h4>
+                    Chemicals
+                </h4>
+
+                <p class="text-muted">
+                    Browse laboratory chemicals and purchase
+                    the required quantities.
+                </p>
+
+                <a
+                    href="{% url 'external_chemicals' %}"
+                    class="btn btn-primary"
+                >
+                    Browse Chemicals
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- EQUIPMENT -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    🔬
+                </div>
+
+                <h4>
+                    Equipment
+                </h4>
+
+                <p class="text-muted">
+                    View laboratory equipment available
+                    for external users.
+                </p>
+
+                <a
+                    href="{% url 'external_equipment' %}"
+                    class="btn btn-primary"
+                >
+                    View Equipment
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- SCHEDULE -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    📅
+                </div>
+
+                <h4>
+                    Schedule Equipment
+                </h4>
+
+                <p class="text-muted">
+                    Book available laboratory equipment
+                    for a selected date and time.
+                </p>
+
+                <a
+                    href="{% url 'external_equipment_booking' %}"
+                    class="btn btn-primary"
+                >
+                    Schedule
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- REPORTS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    📊
+                </div>
+
+                <h4>
+                    Reports
+                </h4>
+
+                <p class="text-muted">
+                    Purchase access to laboratory reports
+                    and view your reports.
+                </p>
+
+                <a
+                    href="{% url 'external_reports' %}"
+                    class="btn btn-primary"
+                >
+                    View Reports
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MY EQUIPMENT BOOKINGS -->
+    <!-- ================================================= -->
+
+    <div class="section-card mb-4">
+
+        <div class="section-header">
+
+            <h3>
+                📅 My Equipment Bookings
+            </h3>
+
+        </div>
+
+
+        {% if bookings %}
+
+            {% for booking in bookings %}
+
+                <div class="order-row">
+
+                    <div class="row align-items-center g-3">
+
+                        <div class="col-md-4">
+
+                            <strong>
+                                {{ booking.equipment.name }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                ID:
+                                {{ booking.equipment.equipment_id }}
+                            </small>
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <strong>
+                                Date
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ booking.booking_date|date:"d M Y" }}
+                            </small>
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <strong>
+                                Time
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ booking.start_time|time:"h:i A" }}
+                                -
+                                {{ booking.end_time|time:"h:i A" }}
+
+                            </small>
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            {% if booking.status == 'CONFIRMED' %}
+
+                                <span class="status status-confirmed">
+                                    Confirmed
+                                </span>
+
+                            {% elif booking.status == 'PENDING' %}
+
+                                <span class="status status-pending">
+                                    Pending
+                                </span>
+
+                            {% elif booking.status == 'COMPLETED' %}
+
+                                <span class="status status-completed">
+                                    Completed
+                                </span>
+
+                            {% elif booking.status == 'CANCELLED' %}
+
+                                <span class="status status-cancelled">
+                                    Cancelled
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div style="font-size:45px;">
+                    📅
+                </div>
+
+                <p class="mb-0">
+                    You have no equipment bookings yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MY ORDERS -->
+    <!-- ================================================= -->
+
+    <div class="section-card">
+
+        <div class="section-header">
+
+            <h3>
+                🧾 My Orders
+            </h3>
+
+        </div>
+
+
+        {% if orders %}
+
+            {% for order in orders %}
+
+                <div class="order-row">
+
+                    <div class="row align-items-center g-3">
+
+                        <div class="col-md-3">
+
+                            <strong>
+                                {{ order.get_order_type_display }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <span class="text-muted">
+                                {{ order.description }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <strong>
+                                ₹{{ order.amount }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            {% if order.status == 'PAID' %}
+
+                                <span class="status status-paid">
+                                    ✓ Paid
+                                </span>
+
+                            {% elif order.status == 'PENDING' %}
+
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+
+                                    <span class="status status-pending">
+                                        Pending
+                                    </span>
+
+                                    <a
+                                        href="{% url 'payment_checkout' order.id %}"
+                                        class="btn btn-sm btn-primary"
+                                    >
+                                        💳 Pay Now
+                                    </a>
+
+                                </div>
+
+                            {% elif order.status == 'COMPLETED' %}
+
+                                <span class="status status-completed">
+                                    Completed
+                                </span>
+
+                            {% elif order.status == 'CANCELLED' %}
+
+                                <span class="status status-cancelled">
+                                    Cancelled
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-md-1">
+
+                            <small class="text-muted">
+                                {{ order.created_at|date:"d M Y" }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div style="font-size:45px;">
+                    🧾
+                </div>
+
+                <p class="mb-0">
+                    You have not placed any orders yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+{% endblock %}

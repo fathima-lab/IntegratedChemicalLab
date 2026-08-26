@@ -4,345 +4,880 @@
 Central Administrator Dashboard
 {% endblock %}
 
+
 {% block content %}
 
-<div class="container mt-4">
+<div class="container-fluid py-4">
 
     {% if access_denied %}
 
-        <div class="alert alert-danger">
-            <h3>Access Denied</h3>
-            <p>
-                You do not have permission to access the
-                Central Administrator Dashboard.
-            </p>
+        <!-- ================================================= -->
+        <!-- ACCESS DENIED -->
+        <!-- ================================================= -->
+
+        <div class="container">
+
+            <div class="alert alert-danger shadow-sm">
+
+                <h3 class="mb-3">
+                    🚫 Access Denied
+                </h3>
+
+                <p class="mb-0">
+                    You do not have permission to access the
+                    Central Administrator Dashboard.
+                </p>
+
+            </div>
+
         </div>
 
     {% else %}
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h1>Central Administrator Dashboard</h1>
 
-                <p class="text-muted">
-                    Welcome,
-                    {{ request.user.get_full_name|default:request.user.username }}
-                </p>
+        <!-- ================================================= -->
+        <!-- HEADER -->
+        <!-- ================================================= -->
 
-                <p>
-                    Monitor all laboratory branches, users and activities.
-                </p>
-            </div>
-                <a
-                    href="{% url 'create_sub_admin' %}"
-                    class="btn btn-primary mb-4"
-                >
-                    + Add Sub-Administrator
-                </a>
+        <div class="container-fluid">
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-body">
+
+                    <div class="d-flex flex-wrap
+                                justify-content-between
+                                align-items-center">
+
+                        <div>
+
+                            <h1 class="mb-2">
+                                🧪 Central Administrator Dashboard
+                            </h1>
+
+                            <p class="text-muted mb-1">
+
+                                Welcome,
+
+                                <strong>
+                                    {{ request.user.get_full_name|default:request.user.username }}
+                                </strong>
+
+                            </p>
+
+                            <p class="text-muted mb-0">
+
+                                Monitor all laboratory branches,
+                                users and activities.
+
+                            </p>
+
+                        </div>
+
+
+                        <!-- HEADER BUTTONS -->
+
+                        <div class="d-flex gap-2 mt-3 mt-md-0">
+
+                            <a
+                                href="{% url 'create_sub_admin' %}"
+                                class="btn btn-primary"
+                            >
+                                ➕ Add Sub-Administrator
+                            </a>
+
+
+                            <a
+                                href="{% url 'logout' %}"
+                                class="btn btn-danger"
+                            >
+                                🚪 Logout
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div>
-                <a href="{% url 'logout' %}" class="btn btn-danger">
-                    Logout
-                </a>
-            </div>
         </div>
+
 
 
         <!-- ================================================= -->
         <!-- SUMMARY CARDS -->
         <!-- ================================================= -->
 
-        <div class="row g-3 mb-5">
+        <div class="container-fluid">
 
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h6>Sub-Administrators</h6>
-                        <h2>{{ total_sub_admins }}</h2>
+            <div class="row g-4 mb-5">
+
+
+                <!-- SUB-ADMINISTRATORS -->
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center">
+
+                                <div>
+
+                                    <h6 class="text-muted">
+                                        Sub-Administrators
+                                    </h6>
+
+                                    <h2 class="mb-0">
+                                        {{ total_sub_admins }}
+                                    </h2>
+
+                                </div>
+
+                                <div
+                                    style="
+                                    font-size: 40px;
+                                    "
+                                >
+                                    🛡️
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
-            </div>
 
 
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h6>Researchers</h6>
-                        <h2>{{ total_researchers }}</h2>
+
+                <!-- RESEARCHERS -->
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center">
+
+                                <div>
+
+                                    <h6 class="text-muted">
+                                        Researchers
+                                    </h6>
+
+                                    <h2 class="mb-0">
+                                        {{ total_researchers }}
+                                    </h2>
+
+                                </div>
+
+                                <div
+                                    style="
+                                    font-size: 40px;
+                                    "
+                                >
+                                    👨‍🔬
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
-            </div>
 
 
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h6>Technicians</h6>
-                        <h2>{{ total_technicians }}</h2>
+
+                <!-- TECHNICIANS -->
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center">
+
+                                <div>
+
+                                    <h6 class="text-muted">
+                                        Technicians
+                                    </h6>
+
+                                    <h2 class="mb-0">
+                                        {{ total_technicians }}
+                                    </h2>
+
+                                </div>
+
+                                <div
+                                    style="
+                                    font-size: 40px;
+                                    "
+                                >
+                                    👨‍🔧
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
-            </div>
 
 
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h6>Total Activities</h6>
-                        <h2>{{ total_activities }}</h2>
+
+                <!-- ACTIVITIES -->
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center">
+
+                                <div>
+
+                                    <h6 class="text-muted">
+                                        Total Activities
+                                    </h6>
+
+                                    <h2 class="mb-0">
+                                        {{ total_activities }}
+                                    </h2>
+
+                                </div>
+
+                                <div
+                                    style="
+                                    font-size: 40px;
+                                    "
+                                >
+                                    📊
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
 
         </div>
+
 
 
         <!-- ================================================= -->
         <!-- LABORATORY BRANCHES -->
         <!-- ================================================= -->
 
-        <h2 class="mb-4">
-            Laboratory Branches
-        </h2>
+        <div class="container-fluid">
 
+            <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        mb-4">
 
-        {% for branch in sub_admin_data %}
+                <div>
 
-        <div class="card shadow-sm mb-4">
+                    <h2 class="mb-1">
+                        🏢 Laboratory Branches
+                    </h2>
 
-            <div class="card-header">
+                    <p class="text-muted">
+                        Manage laboratory Sub-Administrators
+                        and monitor their teams.
+                    </p>
 
-                <h4 class="mb-1">
-                    🛡️
-                    {{ branch.user.get_full_name|default:branch.user.username }}
-                </h4>
-
-                <span class="text-muted">
-                    Sub-Administrator
-                </span>
+                </div>
 
             </div>
 
 
-            <div class="card-body">
 
-                <div class="row">
+            {% for branch in sub_admin_data %}
 
-                    <!-- ============================= -->
-                    <!-- RESEARCHERS -->
-                    <!-- ============================= -->
 
-                    <div class="col-md-6">
+                <!-- ========================================= -->
+                <!-- BRANCH CARD -->
+                <!-- ========================================= -->
 
-                        <h5>
-                            👨‍🔬 Researchers
-                        </h5>
+                <div class="card shadow-sm mb-4">
 
-                        {% if branch.researchers %}
 
-                            <ul class="list-group mb-4">
+                    <!-- BRANCH HEADER -->
 
-                                {% for researcher in branch.researchers %}
+                    <div class="card-header bg-light">
 
-                                    <li class="list-group-item">
+                        <div class="d-flex
+                                    flex-wrap
+                                    justify-content-between
+                                    align-items-center">
 
-                                        {{ researcher.user.get_full_name|default:researcher.user.username }}
+                            <div>
 
-                                    </li>
+                                <h4 class="mb-1">
 
-                                {% endfor %}
+                                    🛡️
 
-                            </ul>
+                                    {{ branch.user.get_full_name|default:branch.user.username }}
 
-                        {% else %}
+                                </h4>
 
-                            <p class="text-muted">
-                                No researchers assigned.
-                            </p>
+                                <span class="text-muted">
 
-                        {% endif %}
+                                    Sub-Administrator
+
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- ================================= -->
+                            <!-- SUB-ADMIN ACTIONS -->
+                            <!-- ================================= -->
+
+                            <div class="d-flex gap-2 mt-2 mt-md-0">
+
+
+                                <!-- EDIT -->
+
+                                <a
+                                    href="{% url 'edit_sub_admin' branch.user.id %}"
+                                    class="btn btn-warning btn-sm"
+                                >
+
+                                    ✏️ Edit
+
+                                </a>
+
+
+
+                                <!-- DELETE -->
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'delete_sub_admin' branch.user.id %}"
+                                    style="display:inline;"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm(
+                                            'Are you sure you want to remove this Sub-Administrator?'
+                                        );"
+                                    >
+
+                                        🗑️ Remove
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
 
-                    <!-- ============================= -->
-                    <!-- TECHNICIANS -->
-                    <!-- ============================= -->
 
-                    <div class="col-md-6">
+                    <!-- BRANCH BODY -->
 
-                        <h5>
-                            👨‍🔧 Technicians
+                    <div class="card-body">
+
+
+                        <div class="row g-4">
+
+
+                            <!-- ================================= -->
+                            <!-- RESEARCHERS -->
+                            <!-- ================================= -->
+
+                            <div class="col-lg-6">
+
+                                <div class="card border-0 bg-light h-100">
+
+                                    <div class="card-body">
+
+                                        <h5 class="mb-3">
+
+                                            👨‍🔬 Researchers
+
+                                        </h5>
+
+
+                                        {% if branch.researchers %}
+
+
+                                            <div class="list-group">
+
+
+                                                {% for researcher in branch.researchers %}
+
+
+                                                    <div
+                                                        class="
+                                                        list-group-item
+                                                        d-flex
+                                                        justify-content-between
+                                                        align-items-center
+                                                        "
+                                                    >
+
+                                                        <div>
+
+                                                            <strong>
+
+                                                                {{ researcher.user.get_full_name|default:researcher.user.username }}
+
+                                                            </strong>
+
+                                                            {% if researcher.user.email %}
+
+                                                                <br>
+
+                                                                <small
+                                                                    class="text-muted"
+                                                                >
+
+                                                                    {{ researcher.user.email }}
+
+                                                                </small>
+
+                                                            {% endif %}
+
+                                                        </div>
+
+
+                                                        <span
+                                                            class="badge bg-primary"
+                                                        >
+
+                                                            Researcher
+
+                                                        </span>
+
+                                                    </div>
+
+
+                                                {% endfor %}
+
+
+                                            </div>
+
+
+                                        {% else %}
+
+
+                                            <div class="alert alert-secondary mb-0">
+
+                                                No researchers assigned.
+
+                                            </div>
+
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- ================================= -->
+                            <!-- TECHNICIANS -->
+                            <!-- ================================= -->
+
+                            <div class="col-lg-6">
+
+                                <div class="card border-0 bg-light h-100">
+
+                                    <div class="card-body">
+
+                                        <h5 class="mb-3">
+
+                                            👨‍🔧 Technicians
+
+                                        </h5>
+
+
+                                        {% if branch.technicians %}
+
+
+                                            <div class="list-group">
+
+
+                                                {% for technician in branch.technicians %}
+
+
+                                                    <div
+                                                        class="
+                                                        list-group-item
+                                                        d-flex
+                                                        justify-content-between
+                                                        align-items-center
+                                                        "
+                                                    >
+
+                                                        <div>
+
+                                                            <strong>
+
+                                                                {{ technician.user.get_full_name|default:technician.user.username }}
+
+                                                            </strong>
+
+
+                                                            {% if technician.user.email %}
+
+                                                                <br>
+
+                                                                <small
+                                                                    class="text-muted"
+                                                                >
+
+                                                                    {{ technician.user.email }}
+
+                                                                </small>
+
+                                                            {% endif %}
+
+                                                        </div>
+
+
+                                                        <span
+                                                            class="badge bg-success"
+                                                        >
+
+                                                            Technician
+
+                                                        </span>
+
+                                                    </div>
+
+
+                                                {% endfor %}
+
+
+                                            </div>
+
+
+                                        {% else %}
+
+
+                                            <div class="alert alert-secondary mb-0">
+
+                                                No technicians assigned.
+
+                                            </div>
+
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ========================================= -->
+                        <!-- BRANCH ACTIVITIES -->
+                        <!-- ========================================= -->
+
+                        <hr class="my-4">
+
+
+                        <h5 class="mb-3">
+
+                            📊 Recent Branch Activities
+
                         </h5>
 
-                        {% if branch.technicians %}
 
-                            <ul class="list-group mb-4">
+                        {% if branch.activities %}
 
-                                {% for technician in branch.technicians %}
 
-                                    <li class="list-group-item">
+                            <div class="table-responsive">
 
-                                        {{ technician.user.get_full_name|default:technician.user.username }}
+                                <table
+                                    class="
+                                    table
+                                    table-bordered
+                                    table-hover
+                                    align-middle
+                                    "
+                                >
 
-                                    </li>
+                                    <thead class="table-light">
 
-                                {% endfor %}
+                                        <tr>
 
-                            </ul>
+                                            <th>
+                                                User
+                                            </th>
+
+                                            <th>
+                                                Activity
+                                            </th>
+
+                                            <th>
+                                                Date
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody>
+
+
+                                        {% for activity in branch.activities %}
+
+
+                                            <tr>
+
+                                                <td>
+
+                                                    {{ activity.actor.username }}
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    {{ activity }}
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    {{ activity.created_at }}
+
+                                                </td>
+
+                                            </tr>
+
+
+                                        {% endfor %}
+
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
 
                         {% else %}
 
-                            <p class="text-muted">
-                                No technicians assigned.
-                            </p>
+
+                            <div class="alert alert-secondary">
+
+                                No recent activities for this branch.
+
+                            </div>
+
 
                         {% endif %}
+
 
                     </div>
 
                 </div>
 
 
-                <!-- ========================================= -->
-                <!-- BRANCH ACTIVITIES -->
-                <!-- ========================================= -->
+            {% empty %}
 
-                <hr>
 
-                <h5>
-                    📊 Recent Branch Activities
-                </h5>
+                <!-- NO SUB ADMINS -->
 
-                {% if branch.activities %}
+                <div class="alert alert-info shadow-sm">
 
-                    <div class="table-responsive">
+                    <h5>
+                        ℹ️ No Sub-Administrators
+                    </h5>
 
-                        <table class="table table-bordered">
+                    <p class="mb-3">
 
-                            <thead>
+                        No Sub-Administrators have been
+                        registered yet.
 
-                                <tr>
-                                    <th>User</th>
-                                    <th>Activity</th>
-                                    <th>Date</th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                {% for activity in branch.activities %}
-
-                                <tr>
-
-                                    <td>
-                                        {{ activity.actor.username }}
-                                    </td>
-
-                                    <td>
-                                        {{ activity }}
-                                    </td>
-
-                                    <td>
-                                        {{ activity.created_at }}
-                                    </td>
-
-                                </tr>
-
-                                {% endfor %}
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                {% else %}
-
-                    <p class="text-muted">
-                        No recent activities.
                     </p>
 
-                {% endif %}
 
-            </div>
+                    <a
+                        href="{% url 'create_sub_admin' %}"
+                        class="btn btn-primary"
+                    >
+
+                        ➕ Add Sub-Administrator
+
+                    </a>
+
+                </div>
+
+
+            {% endfor %}
 
         </div>
 
-        {% empty %}
-
-            <div class="alert alert-info">
-
-                No Sub-Administrators have been registered yet.
-
-            </div>
-
-        {% endfor %}
 
 
         <!-- ================================================= -->
         <!-- ALL RECENT ACTIVITIES -->
         <!-- ================================================= -->
 
-        <h2 class="mt-5 mb-3">
-            Recent Laboratory Activities
-        </h2>
+        <div class="container-fluid mt-5">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-light">
+
+                    <h3 class="mb-0">
+
+                        📋 Recent Laboratory Activities
+
+                    </h3>
+
+                </div>
 
 
-        {% if recent_activities %}
+                <div class="card-body">
 
-            <div class="table-responsive">
 
-                <table class="table table-striped table-bordered">
+                    {% if recent_activities %}
 
-                    <thead>
 
-                        <tr>
-                            <th>User</th>
-                            <th>Activity</th>
-                            <th>Date</th>
-                        </tr>
+                        <div class="table-responsive">
 
-                    </thead>
+                            <table
+                                class="
+                                table
+                                table-striped
+                                table-bordered
+                                table-hover
+                                align-middle
+                                "
+                            >
 
-                    <tbody>
+                                <thead class="table-dark">
 
-                        {% for activity in recent_activities %}
+                                    <tr>
 
-                        <tr>
+                                        <th>
+                                            User
+                                        </th>
 
-                            <td>
-                                {{ activity.actor.username }}
-                            </td>
+                                        <th>
+                                            Activity
+                                        </th>
 
-                            <td>
-                                {{ activity }}
-                            </td>
+                                        <th>
+                                            Date
+                                        </th>
 
-                            <td>
-                                {{ activity.created_at }}
-                            </td>
+                                    </tr>
 
-                        </tr>
+                                </thead>
 
-                        {% endfor %}
 
-                    </tbody>
+                                <tbody>
 
-                </table>
+
+                                    {% for activity in recent_activities %}
+
+
+                                        <tr>
+
+                                            <td>
+
+                                                <strong>
+                                                    {{ activity.actor.username }}
+                                                </strong>
+
+                                            </td>
+
+
+                                            <td>
+
+                                                {{ activity }}
+
+                                            </td>
+
+
+                                            <td>
+
+                                                {{ activity.created_at }}
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    {% endfor %}
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <div class="alert alert-secondary mb-0">
+
+                            No laboratory activities
+                            have been recorded yet.
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                </div>
 
             </div>
 
-        {% else %}
+        </div>
 
-            <div class="alert alert-secondary">
-
-                No laboratory activities recorded yet.
-
-            </div>
-
-        {% endif %}
 
     {% endif %}
 

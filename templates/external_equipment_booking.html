@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Schedule Equipment | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .booking-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .booking-card {
+        max-width: 850px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .booking-header {
+        background: linear-gradient(
+            135deg,
+            #123b91,
+            #2563eb
+        );
+
+        color: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 30px;
+    }
+
+    .booking-header h1 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .section-title {
+        color: #123b91;
+        font-weight: 700;
+        margin-top: 25px;
+        margin-bottom: 18px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 12px;
+    }
+
+    .equipment-select {
+        margin-bottom: 25px;
+    }
+
+    .info-box {
+        background: #f4f7ff;
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 25px;
+    }
+
+    .submit-btn {
+        background: linear-gradient(
+            135deg,
+            #123b91,
+            #2563eb
+        );
+
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 12px 25px;
+        font-weight: 600;
+    }
+
+    .submit-btn:hover {
+        opacity: .9;
+    }
+
+    .cancel-btn {
+        border-radius: 10px;
+        padding: 12px 25px;
+    }
+
+    .empty-box {
+        background: #fff3cd;
+        border: 1px solid #ffe69c;
+        color: #664d03;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+</style>
+
+
+<div class="booking-page">
+
+    <div class="booking-card">
+
+        <!-- HEADER -->
+
+        <div class="booking-header">
+
+            <h1>
+                📅 Schedule Equipment
+            </h1>
+
+            <p class="mb-0">
+                Book laboratory equipment for your required
+                date and time.
+            </p>
+
+        </div>
+
+
+        <!-- USER INFORMATION -->
+
+        <div class="info-box">
+
+            <strong>
+                External User:
+            </strong>
+
+            {{ request.user.get_full_name|default:request.user.username }}
+
+            <br>
+
+            <small class="text-muted">
+                Select an available equipment and choose
+                your preferred schedule.
+            </small>
+
+        </div>
+
+
+        {% if equipment %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- EQUIPMENT -->
+
+            <h4 class="section-title">
+                🔬 Equipment
+            </h4>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Select Equipment
+                </label>
+
+                <select
+                    name="equipment"
+                    class="form-select equipment-select"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Equipment --
+                    </option>
+
+                    {% for item in equipment %}
+
+                        <option value="{{ item.id }}">
+
+                            {{ item.name }}
+
+                            {% if item.equipment_id %}
+                                - {{ item.equipment_id }}
+                            {% endif %}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- DATE AND TIME -->
+
+            <h4 class="section-title">
+                🕐 Schedule
+            </h4>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Booking Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="booking_date"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Booking Time
+                    </label>
+
+                    <input
+                        type="time"
+                        name="booking_time"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PURPOSE -->
+
+            <h4 class="section-title">
+                📝 Booking Purpose
+            </h4>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Purpose
+                </label>
+
+                <textarea
+                    name="purpose"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Explain the purpose of using the equipment..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex gap-2 flex-wrap mt-4">
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    💳 Continue to Payment
+                </button>
+
+
+                <a
+                    href="{% url 'external_dashboard' %}"
+                    class="btn btn-secondary cancel-btn"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+        {% else %}
+
+            <div class="empty-box">
+
+                <h5>
+                    ⚠️ No Equipment Available
+                </h5>
+
+                <p class="mb-0">
+                    There are currently no laboratory equipment
+                    items available for external users.
+                    Please try again later.
+                </p>
+
+            </div>
+
+            <div class="mt-4">
+
+                <a
+                    href="{% url 'external_dashboard' %}"
+                    class="btn btn-primary"
+                >
+                    ← Back 
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

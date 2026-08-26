@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Choose Registration | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .registration-page {
+        min-height: calc(100vh - 100px);
+        background: #f4f7ff;
+        padding: 70px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .registration-container {
+        width: 100%;
+        max-width: 900px;
+    }
+
+    .registration-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .registration-header h1 {
+        color: #123b91;
+        font-weight: 700;
+        font-size: 38px;
+    }
+
+    .registration-header p {
+        color: #64748b;
+        font-size: 17px;
+    }
+
+    .registration-card {
+        background: white;
+        border-radius: 22px;
+        padding: 35px;
+        height: 100%;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(20, 60, 140, .10);
+        border: 1px solid #e5e7eb;
+        transition: .25s ease;
+    }
+
+    .registration-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(20, 60, 140, .15);
+    }
+
+    .registration-icon {
+        width: 85px;
+        height: 85px;
+        margin: 0 auto 20px;
+        border-radius: 20px;
+        background: #eaf2ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 42px;
+    }
+
+    .registration-card h3 {
+        color: #123b91;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .registration-card p {
+        color: #64748b;
+        min-height: 60px;
+    }
+
+    .registration-card .btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    .back-button {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+</style>
+
+
+<div class="registration-page">
+
+    <div class="registration-container">
+
+
+        <!-- HEADER -->
+
+        <div class="registration-header">
+
+            <h1>
+                👤 Choose Registration Type
+            </h1>
+
+            <p>
+                Select the type of account you want to create.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- ========================================= -->
+            <!-- NORMAL USER -->
+            <!-- ========================================= -->
+
+            <div class="col-md-6">
+
+                <div class="registration-card">
+
+                    <div class="registration-icon">
+                        👤
+                    </div>
+
+                    <h3>
+                        User Registration
+                    </h3>
+
+                    <p>
+                        Register as an ICLMS laboratory team member,
+                        such as a researcher or technician.
+                    </p>
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="btn btn-primary"
+                    >
+                        User Registration
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- EXTERNAL USER -->
+            <!-- ========================================= -->
+
+            <div class="col-md-6">
+
+                <div class="registration-card">
+
+                    <div class="registration-icon">
+                        🌐
+                    </div>
+
+                    <h3>
+                        External Registration
+                    </h3>
+
+                    <p>
+                        Register as a teacher, student, or other
+                        external user to access laboratory services.
+                    </p>
+
+                    <a
+                        href="{% url 'external_register' %}"
+                        class="btn btn-primary"
+                    >
+                        External Registration
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACK -->
+
+        <div class="back-button">
+
+            <a
+                href="{% url 'home' %}"
+                class="btn btn-outline-primary"
+            >
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

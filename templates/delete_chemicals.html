@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Remove Chemical | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .remove-page {
+        padding: 60px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .remove-card {
+        max-width: 650px;
+        width: 100%;
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .10);
+    }
+
+    .remove-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .remove-card h1 {
+        color: #842029;
+        font-weight: 700;
+    }
+
+    .chemical-name {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 18px;
+        margin: 20px 0;
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .chemical-id {
+        color: #6c757d;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+</style>
+
+
+<div class="remove-page">
+
+    <div class="remove-card">
+
+        <!-- WARNING ICON -->
+
+        <div class="remove-icon">
+            ⚠️
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h1>
+            Remove Chemical?
+        </h1>
+
+
+        <p class="text-muted mt-3">
+
+            Are you sure you want to permanently remove
+            this chemical from your laboratory records?
+
+        </p>
+
+
+        <!-- CHEMICAL DETAILS -->
+
+        <div class="chemical-name">
+
+            🧪 {{ chemical.name }}
+
+            <div class="chemical-id">
+
+                Chemical ID:
+                {{ chemical.chemical_id }}
+
+            </div>
+
+        </div>
+
+
+        <!-- WARNING -->
+
+        <div class="alert alert-danger text-start">
+
+            <strong>Warning:</strong>
+
+            This action cannot be undone.
+            The chemical record will be permanently deleted.
+
+        </div>
+
+
+        <!-- DELETE FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="d-flex justify-content-center gap-2 flex-wrap mt-4">
+
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                >
+                    🗑️ Yes, Remove Chemical
+                </button>
+
+
+                <a
+                    href="{% url 'chemicals' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

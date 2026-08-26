@@ -410,6 +410,145 @@ def create_sub_admin(request):
     )
 
 # ==========================================================
+# EDIT SUB-ADMINISTRATOR
+# ==========================================================
+
+@login_required
+def edit_sub_admin(request, user_id):
+
+    # Central Administrator only
+    if not request.user.is_superuser:
+        return render(
+            request,
+            'edit_sub_admin.html',
+            {
+                'access_denied': True
+            }
+        )
+
+    # Get the Sub-Administrator
+    try:
+        profile = LabProfile.objects.select_related('user').get(
+            user_id=user_id,
+            role='SUB_ADMIN'
+        )
+
+    except LabProfile.DoesNotExist:
+        messages.error(
+            request,
+            'Sub-Administrator not found.'
+        )
+        return redirect('dashboard')
+
+    user = profile.user
+
+    # ------------------------------------------------------
+    # POST
+    # ------------------------------------------------------
+
+    if request.method == 'POST':
+
+        form = SubAdminForm(
+            request.POST,
+            instance=user
+        )
+
+        if form.is_valid():
+
+            updated_user = form.save()
+
+            # Record activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='OTHER',
+                description=(
+                    f'Updated Sub-Administrator: '
+                    f'{updated_user.username}'
+                )
+            )
+
+            messages.success(
+                request,
+                f'Sub-Administrator "{updated_user.username}" '
+                f'updated successfully.'
+            )
+
+            return redirect('dashboard')
+
+    else:
+
+        form = SubAdminForm(instance=user)
+
+    return render(
+        request,
+        'edit_sub_admin.html',
+        {
+            'form': form,
+            'profile': profile,
+            'user': user
+        }
+    )
+
+# ==========================================================
+# DELETE SUB-ADMINISTRATOR
+# ==========================================================
+
+@login_required
+def delete_sub_admin(request, user_id):
+
+    # Central Administrator only
+    if not request.user.is_superuser:
+        return render(
+            request,
+            'delete_sub_admin.html',
+            {
+                'access_denied': True
+            }
+        )
+
+    # Only allow POST
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    try:
+
+        profile = LabProfile.objects.select_related('user').get(
+            user_id=user_id,
+            role='SUB_ADMIN'
+        )
+
+    except LabProfile.DoesNotExist:
+
+        messages.error(
+            request,
+            'Sub-Administrator not found.'
+        )
+
+        return redirect('dashboard')
+
+    user = profile.user
+    username = user.username
+
+    # Record activity BEFORE deleting the user
+    LabActivity.objects.create(
+        actor=request.user,
+        activity_type='OTHER',
+        description=(
+            f'Removed Sub-Administrator: '
+            f'{username}'
+        )
+    )
+
+    # Delete the user
+    user.delete()
+
+    messages.success(
+        request,
+        f'Sub-Administrator "{username}" removed successfully.'
+    )
+
+    return redirect('dashboard')
+# ==========================================================
 # CREATE RESEARCHER / TECHNICIAN
 # ==========================================================
 
@@ -509,6 +648,198 @@ def create_team_member(request):
     )
 
 # ==========================================================
+# EDIT RESEARCHER / TECHNICIAN
+# ==========================================================
+
+@login_required
+def edit_team_member(request, user_id):
+
+    # ------------------------------------------------------
+    # SUB-ADMINISTRATOR ONLY
+    # ------------------------------------------------------
+
+    try:
+        sub_admin_profile = LabProfile.objects.get(
+            user=request.user,
+            role='SUB_ADMIN'
+        )
+
+    except LabProfile.DoesNotExist:
+
+        return render(
+            request,
+            'edit_team_member.html',
+            {
+                'access_denied': True
+            }
+        )
+
+
+    # ------------------------------------------------------
+    # GET TEAM MEMBER
+    # ------------------------------------------------------
+
+    try:
+
+        profile = LabProfile.objects.select_related('user').get(
+            user_id=user_id,
+            supervisor=request.user,
+            role__in=['RESEARCHER', 'TECHNICIAN']
+        )
+
+    except LabProfile.DoesNotExist:
+
+        messages.error(
+            request,
+            'Researcher/Technician not found.'
+        )
+
+        return redirect('sub_admin_dashboard')
+
+
+    user = profile.user
+
+
+    # ------------------------------------------------------
+    # UPDATE
+    # ------------------------------------------------------
+
+    if request.method == 'POST':
+
+        form = TeamMemberForm(
+            request.POST,
+            instance=user
+        )
+
+        if form.is_valid():
+
+            updated_user = form.save()
+
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='OTHER',
+                description=(
+                    f'Updated '
+                    f'{"Researcher" if profile.role == "RESEARCHER" else "Technician"} '
+                    f'{updated_user.username}'
+                )
+            )
+
+            messages.success(
+                request,
+                f'{updated_user.username} updated successfully.'
+            )
+
+            return redirect('sub_admin_dashboard')
+
+    else:
+
+        form = TeamMemberForm(
+            instance=user
+        )
+
+
+    return render(
+        request,
+        'edit_team_member.html',
+        {
+            'form': form,
+            'profile': profile,
+            'user': user
+        }
+    )
+
+# ==========================================================
+# DELETE RESEARCHER / TECHNICIAN
+# ==========================================================
+
+@login_required
+def delete_team_member(request, user_id):
+
+    # ------------------------------------------------------
+    # SUB-ADMINISTRATOR ONLY
+    # ------------------------------------------------------
+
+    try:
+
+        sub_admin_profile = LabProfile.objects.get(
+            user=request.user,
+            role='SUB_ADMIN'
+        )
+
+    except LabProfile.DoesNotExist:
+
+        return redirect('sub_admin_dashboard')
+
+
+    # ------------------------------------------------------
+    # ONLY DELETE MEMBERS BELONGING TO THIS SUB-ADMIN
+    # ------------------------------------------------------
+
+    try:
+
+        profile = LabProfile.objects.select_related('user').get(
+            user_id=user_id,
+            supervisor=request.user,
+            role__in=['RESEARCHER', 'TECHNICIAN']
+        )
+
+    except LabProfile.DoesNotExist:
+
+        messages.error(
+            request,
+            'Researcher/Technician not found.'
+        )
+
+        return redirect('sub_admin_dashboard')
+
+
+    user = profile.user
+    username = user.username
+
+    role_name = (
+        'Researcher'
+        if profile.role == 'RESEARCHER'
+        else 'Technician'
+    )
+
+
+    # ------------------------------------------------------
+    # DELETE ONLY THROUGH POST
+    # ------------------------------------------------------
+
+    if request.method == 'POST':
+
+        # Record activity before deleting
+        LabActivity.objects.create(
+            actor=request.user,
+            activity_type='OTHER',
+            description=(
+                f'Removed {role_name}: {username}'
+            )
+        )
+
+        user.delete()
+
+        messages.success(
+            request,
+            f'{role_name} "{username}" removed successfully.'
+        )
+
+        return redirect('sub_admin_dashboard')
+
+
+    # GET → show confirmation page
+
+    return render(
+        request,
+        'delete_team_member.html',
+        {
+            'user': user,
+            'profile': profile
+        }
+    )
+# ==========================================================
 # RESEARCHER - EXPERIMENTS
 # ==========================================================
 
@@ -559,3 +890,9 @@ def maintenance(request):
 @login_required
 def chemicals(request):
     return render(request, 'chemicals.html')
+
+def registration_choice(request):
+    return render(
+        request,
+        'registration_choice.html'
+    )

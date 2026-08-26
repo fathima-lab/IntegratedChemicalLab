@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update Equipment | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .equipment-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
+
+    .equipment-card {
+        max-width: 850px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
+
+    .equipment-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 30px;
+    }
+
+    .equipment-header h1 {
+        font-weight: 700;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 11px;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .section-title {
+        color: #123b91;
+        font-weight: 700;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+</style>
+
+
+<div class="equipment-page">
+
+    <div class="equipment-card">
+
+        <!-- HEADER -->
+
+        <div class="equipment-header">
+
+            <h1>
+                ✏️ Update Laboratory Equipment
+            </h1>
+
+            <p class="mb-1">
+                Welcome,
+                {{ request.user.get_full_name|default:request.user.username }}
+            </p>
+
+            <p class="mb-0">
+                Update the details and maintenance information of your equipment.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- EQUIPMENT INFORMATION -->
+
+            <h4 class="section-title">
+                🔬 Equipment Information
+            </h4>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Equipment Name
+                </label>
+
+                {{ form.name }}
+
+                {% if form.name.errors %}
+                    <div class="text-danger small">
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Equipment ID
+                </label>
+
+                {{ form.equipment_id }}
+
+                {% if form.equipment_id.errors %}
+                    <div class="text-danger small">
+                        {{ form.equipment_id.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                {{ form.description }}
+
+                {% if form.description.errors %}
+                    <div class="text-danger small">
+                        {{ form.description.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- MANUFACTURER -->
+
+            <h4 class="section-title">
+                🏭 Manufacturer Details
+            </h4>
+
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Manufacturer
+                    </label>
+
+                    {{ form.manufacturer }}
+
+                    {% if form.manufacturer.errors %}
+                        <div class="text-danger small">
+                            {{ form.manufacturer.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Model Number
+                    </label>
+
+                    {{ form.model_number }}
+
+                    {% if form.model_number.errors %}
+                        <div class="text-danger small">
+                            {{ form.model_number.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <h4 class="section-title">
+                📍 Equipment Status
+            </h4>
+
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Location
+                    </label>
+
+                    {{ form.location }}
+
+                    {% if form.location.errors %}
+                        <div class="text-danger small">
+                            {{ form.location.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    {{ form.status }}
+
+                    {% if form.status.errors %}
+                        <div class="text-danger small">
+                            {{ form.status.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- MAINTENANCE -->
+
+            <h4 class="section-title">
+                📅 Maintenance Information
+            </h4>
+
+
+            <div class="row">
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Purchase Date
+                    </label>
+
+                    {{ form.purchase_date }}
+
+                    {% if form.purchase_date.errors %}
+                        <div class="text-danger small">
+                            {{ form.purchase_date.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Last Maintenance
+                    </label>
+
+                    {{ form.last_maintenance }}
+
+                    {% if form.last_maintenance.errors %}
+                        <div class="text-danger small">
+                            {{ form.last_maintenance.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Next Maintenance
+                    </label>
+
+                    {{ form.next_maintenance }}
+
+                    {% if form.next_maintenance.errors %}
+                        <div class="text-danger small">
+                            {{ form.next_maintenance.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex gap-2 flex-wrap mt-4">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 Update Equipment
+                </button>
+
+
+                <a
+                    href="{% url 'equipment' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
