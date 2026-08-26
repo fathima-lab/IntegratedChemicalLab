@@ -4,6 +4,7 @@ from django.contrib import messages
 
 from .models import Experiment
 from .forms import ExperimentForm
+from dashboard.models import LabActivity
 
 
 # ==========================================================
@@ -39,12 +40,21 @@ def create_experiment(request):
 
         if form.is_valid():
 
+            # Create experiment without saving first
             experiment = form.save(commit=False)
 
             # Assign the logged-in researcher
             experiment.researcher = request.user
 
+            # Save experiment
             experiment.save()
+
+            # Record researcher activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='EXPERIMENT',
+                description=f'Created experiment: {experiment.name}'
+            )
 
             messages.success(
                 request,
@@ -64,7 +74,6 @@ def create_experiment(request):
             'form': form
         }
     )
-
 
 # ==========================================================
 # EDIT EXPERIMENT
