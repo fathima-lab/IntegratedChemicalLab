@@ -6,260 +6,380 @@ Edit Sample | ICLMS
 
 {% block content %}
 
-<div class="container py-5">
+<style>
 
-    <div class="row justify-content-center">
+    .sample-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
 
-        <div class="col-lg-8">
+    .sample-card {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
 
-            <div class="card shadow border-0">
+    .sample-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
 
-                <div class="card-header bg-warning">
+    .sample-header h2 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
 
-                    <h3 class="mb-0">
-                        ✏️ Edit Sample
-                    </h3>
+    .form-label {
+        font-weight: 600;
+        color: #123b91;
+    }
 
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+        padding: 11px;
+        border: 1px solid #d6deeb;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .15);
+    }
+
+    .btn-iclms {
+        background: #1677ff;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 10px 18px;
+    }
+
+    .btn-iclms:hover {
+        background: #1268df;
+        color: white;
+    }
+
+    .btn-secondary {
+        border-radius: 8px;
+        padding: 10px 18px;
+    }
+
+</style>
+
+
+<div class="sample-page">
+
+    <div class="sample-card">
+
+        <!-- HEADER -->
+
+        <div class="sample-header">
+
+            <h2>
+                🧫 Edit Sample
+            </h2>
+
+            <p class="mb-0">
+                Update the details of your laboratory sample.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
                 </div>
 
-                <div class="card-body p-4">
+            {% endif %}
 
-                    <p class="text-muted">
-                        Update the details of your laboratory sample.
-                    </p>
 
-                    <form method="POST">
+            <!-- SAMPLE NAME -->
 
-                        {% csrf_token %}
+            <div class="mb-3">
 
-                        {% if form.non_field_errors %}
+                <label
+                    for="{{ form.name.id_for_label }}"
+                    class="form-label"
+                >
+                    Sample Name
+                </label>
 
-                            <div class="alert alert-danger">
-                                {{ form.non_field_errors }}
-                            </div>
+                {{ form.name }}
 
-                        {% endif %}
+                {% if form.name.errors %}
 
+                    <div class="text-danger small mt-1">
+                        {{ form.name.errors }}
+                    </div>
 
-                        <!-- SAMPLE NAME -->
-
-                        <div class="mb-3">
-
-                            <label
-                                for="{{ form.name.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Sample Name
-                            </label>
-
-                            {{ form.name }}
-
-                            {% if form.name.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.name.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-
-                        <!-- SAMPLE CODE -->
-
-                        {% if form.sample_code %}
-
-                        <div class="mb-3">
-
-                            <label
-                                for="{{ form.sample_code.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Sample Code
-                            </label>
-
-                            {{ form.sample_code }}
-
-                            {% if form.sample_code.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.sample_code.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        {% endif %}
-
-
-                        <!-- DESCRIPTION -->
-
-                        {% if form.description %}
-
-                        <div class="mb-3">
-
-                            <label
-                                for="{{ form.description.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Description
-                            </label>
-
-                            {{ form.description }}
-
-                            {% if form.description.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.description.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        {% endif %}
-
-
-                        <!-- SAMPLE TYPE -->
-
-                        {% if form.sample_type %}
-
-                        <div class="mb-3">
-
-                            <label
-                                for="{{ form.sample_type.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Sample Type
-                            </label>
-
-                            {{ form.sample_type }}
-
-                            {% if form.sample_type.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.sample_type.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        {% endif %}
-
-
-                        <!-- QUANTITY -->
-
-                        {% if form.quantity %}
-
-                        <div class="mb-3">
-
-                            <label
-                                for="{{ form.quantity.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Quantity
-                            </label>
-
-                            {{ form.quantity }}
-
-                            {% if form.quantity.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.quantity.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        {% endif %}
-
-
-                        <!-- COLLECTION DATE -->
-
-                        {% if form.collection_date %}
-
-                        <div class="mb-3">
-
-                            <label
-                                for="{{ form.collection_date.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Collection Date
-                            </label>
-
-                            {{ form.collection_date }}
-
-                            {% if form.collection_date.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.collection_date.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        {% endif %}
-
-
-                        <!-- STATUS -->
-
-                        {% if form.status %}
-
-                        <div class="mb-4">
-
-                            <label
-                                for="{{ form.status.id_for_label }}"
-                                class="form-label fw-semibold"
-                            >
-                                Status
-                            </label>
-
-                            {{ form.status }}
-
-                            {% if form.status.errors %}
-
-                                <div class="text-danger small mt-1">
-                                    {{ form.status.errors }}
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        {% endif %}
-
-
-                        <!-- BUTTONS -->
-
-                        <div class="d-flex gap-2">
-
-                            <button
-                                type="submit"
-                                class="btn btn-warning"
-                            >
-                                💾 Save Changes
-                            </button>
-
-                            <a
-                                href="{% url 'samples' %}"
-                                class="btn btn-secondary"
-                            >
-                                Cancel
-                            </a>
-
-                        </div>
-
-                    </form>
-
-                </div>
+                {% endif %}
 
             </div>
 
-        </div>
+
+            <!-- SAMPLE CODE -->
+
+            {% if form.sample_code %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.sample_code.id_for_label }}"
+                    class="form-label"
+                >
+                    Sample Code
+                </label>
+
+                {{ form.sample_code }}
+
+                {% if form.sample_code.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.sample_code.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- DESCRIPTION -->
+
+            {% if form.description %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.description.id_for_label }}"
+                    class="form-label"
+                >
+                    Description
+                </label>
+
+                {{ form.description }}
+
+                {% if form.description.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.description.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- SAMPLE TYPE -->
+
+            {% if form.sample_type %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.sample_type.id_for_label }}"
+                    class="form-label"
+                >
+                    Sample Type
+                </label>
+
+                {{ form.sample_type }}
+
+                {% if form.sample_type.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.sample_type.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- QUANTITY -->
+
+            {% if form.quantity %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.quantity.id_for_label }}"
+                    class="form-label"
+                >
+                    Quantity
+                </label>
+
+                {{ form.quantity }}
+
+                {% if form.quantity.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.quantity.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- UNIT -->
+
+            {% if form.unit %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.unit.id_for_label }}"
+                    class="form-label"
+                >
+                    Unit
+                </label>
+
+                {{ form.unit }}
+
+                {% if form.unit.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.unit.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- STORAGE CONDITION -->
+
+            {% if form.storage_condition %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.storage_condition.id_for_label }}"
+                    class="form-label"
+                >
+                    Storage Condition
+                </label>
+
+                {{ form.storage_condition }}
+
+                {% if form.storage_condition.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.storage_condition.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- COLLECTION DATE -->
+
+            {% if form.collection_date %}
+
+            <div class="mb-3">
+
+                <label
+                    for="{{ form.collection_date.id_for_label }}"
+                    class="form-label"
+                >
+                    Collection Date
+                </label>
+
+                {{ form.collection_date }}
+
+                {% if form.collection_date.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.collection_date.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- STATUS -->
+
+            {% if form.status %}
+
+            <div class="mb-4">
+
+                <label
+                    for="{{ form.status.id_for_label }}"
+                    class="form-label"
+                >
+                    Status
+                </label>
+
+                {{ form.status }}
+
+                {% if form.status.errors %}
+
+                    <div class="text-danger small mt-1">
+                        {{ form.status.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- BUTTONS -->
+
+            <div class="d-flex gap-2">
+
+                <button
+                    type="submit"
+                    class="btn btn-iclms"
+                >
+                    💾 Save Changes
+                </button>
+
+                <a
+                    href="{% url 'samples' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
 
     </div>
 

@@ -6,82 +6,188 @@ Delete Sample | ICLMS
 
 {% block content %}
 
-<div class="container py-5">
+<style>
 
-    <div class="row justify-content-center">
+    .sample-page {
+        padding: 45px 5%;
+        background: #f4f7ff;
+        min-height: calc(100vh - 100px);
+    }
 
-        <div class="col-lg-6">
+    .sample-card {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+    }
 
-            <div class="card shadow border-0">
+    .sample-header {
+        background: linear-gradient(135deg, #123b91, #2563eb);
+        color: white;
+        padding: 25px 30px;
+    }
 
-                <div class="card-header bg-danger text-white">
+    .sample-header h3 {
+        margin: 0;
+        font-weight: 700;
+    }
 
-                    <h3 class="mb-0">
-                        🗑️ Delete Sample
-                    </h3>
+    .sample-body {
+        padding: 40px;
+        text-align: center;
+    }
 
-                </div>
+    .warning-icon {
+        font-size: 55px;
+        margin-bottom: 10px;
+    }
 
-                <div class="card-body p-4 text-center">
+    .sample-body h4 {
+        color: #123b91;
+        font-weight: 700;
+    }
 
-                    <div style="font-size: 55px;">
-                        ⚠️
-                    </div>
+    .sample-details {
+        background: #f4f7ff;
+        border: 1px solid #d6e2f5;
+        border-radius: 12px;
+        padding: 18px;
+        margin: 25px 0;
+        color: #123b91;
+    }
 
-                    <h4 class="mt-3">
-                        Are you sure you want to delete this sample?
-                    </h4>
+    .sample-details strong {
+        font-size: 18px;
+    }
 
-                    <p class="text-muted mt-3">
-                        You are about to permanently delete:
-                    </p>
+    .warning-text {
+        color: #dc3545;
+        font-weight: 600;
+    }
 
-                    <div class="alert alert-warning">
+    .btn-iclms {
+        background: #1677ff;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 10px 18px;
+    }
 
-                        <strong>
-                            {{ sample.name }}
-                        </strong>
+    .btn-iclms:hover {
+        background: #1268df;
+        color: white;
+    }
 
-                        {% if sample.sample_code %}
-                            <br>
-                            Sample Code:
-                            {{ sample.sample_code }}
+    .btn-secondary {
+        border-radius: 8px;
+        padding: 10px 18px;
+    }
+
+</style>
+
+
+<div class="sample-page">
+
+    <div class="sample-card">
+
+        <!-- HEADER -->
+
+        <div class="sample-header">
+
+            <h3>
+                🗑️ Delete Sample
+            </h3>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="sample-body">
+
+            <div class="warning-icon">
+                ⚠️
+            </div>
+
+
+            <h4>
+                Are you sure you want to delete this sample?
+            </h4>
+
+
+            <p class="text-muted mt-3">
+                You are about to permanently delete:
+            </p>
+
+
+            <!-- SAMPLE DETAILS -->
+
+            <div class="sample-details">
+
+                <strong>
+                    {{ sample.name }}
+                </strong>
+
+                {% if sample.sample_code %}
+
+                    <br>
+
+                    <span>
+                        Sample Code: {{ sample.sample_code }}
+                    </span>
+
+                {% endif %}
+
+                {% if sample.quantity %}
+
+                    <br>
+
+                    <span>
+                        Quantity: {{ sample.quantity }}
+                        {% if sample.unit %}
+                            {{ sample.unit }}
                         {% endif %}
+                    </span>
 
-                    </div>
-
-                    <p class="text-danger">
-                        This action cannot be undone.
-                    </p>
-
-
-                    <form method="POST">
-
-                        {% csrf_token %}
-
-                        <div class="d-flex justify-content-center gap-2">
-
-                            <button
-                                type="submit"
-                                class="btn btn-danger"
-                            >
-                                🗑️ Yes, Delete Sample
-                            </button>
-
-                            <a
-                                href="{% url 'samples' %}"
-                                class="btn btn-secondary"
-                            >
-                                Cancel
-                            </a>
-
-                        </div>
-
-                    </form>
-
-                </div>
+                {% endif %}
 
             </div>
+
+
+            <p class="warning-text">
+                This action cannot be undone.
+            </p>
+
+
+            <!-- DELETE FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="d-flex justify-content-center gap-2 mt-4">
+
+                    <button
+                        type="submit"
+                        class="btn btn-iclms"
+                    >
+                        🗑️ Yes, Delete Sample
+                    </button>
+
+
+                    <a
+                        href="{% url 'samples' %}"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
 
         </div>
 

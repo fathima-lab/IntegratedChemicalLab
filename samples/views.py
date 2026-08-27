@@ -113,7 +113,7 @@ def edit_sample(request, sample_id):
 
     return render(
         request,
-        'edit_sample.html',
+        'edit_samples.html',
         {
             'form': form,
             'sample': sample
@@ -149,7 +149,7 @@ def delete_sample(request, sample_id):
 
     return render(
         request,
-        'delete_sample.html',
+        'delete_samples.html',
         {
             'sample': sample
         }
