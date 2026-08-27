@@ -31,6 +31,11 @@ Register Sample | ICLMS
         margin-bottom: 30px;
     }
 
+    .sample-header h2 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
     .form-label {
         font-weight: 600;
         color: #123b91;
@@ -40,6 +45,12 @@ Register Sample | ICLMS
     .form-select {
         border-radius: 10px;
         padding: 11px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .15);
     }
 
 </style>
@@ -57,7 +68,7 @@ Register Sample | ICLMS
                 🧫 Register New Sample
             </h2>
 
-            <p class="mb-0">
+            <p class="mb-1">
                 Welcome,
                 {{ request.user.get_full_name|default:request.user.username }}
             </p>
@@ -79,9 +90,7 @@ Register Sample | ICLMS
             {% if form.non_field_errors %}
 
                 <div class="alert alert-danger">
-
                     {{ form.non_field_errors }}
-
                 </div>
 
             {% endif %}
@@ -98,11 +107,9 @@ Register Sample | ICLMS
                 {{ form.name }}
 
                 {% if form.name.errors %}
-
                     <div class="text-danger small">
                         {{ form.name.errors }}
                     </div>
-
                 {% endif %}
 
             </div>
@@ -119,11 +126,9 @@ Register Sample | ICLMS
                 {{ form.sample_code }}
 
                 {% if form.sample_code.errors %}
-
                     <div class="text-danger small">
                         {{ form.sample_code.errors }}
                     </div>
-
                 {% endif %}
 
             </div>
@@ -140,11 +145,68 @@ Register Sample | ICLMS
                 {{ form.description }}
 
                 {% if form.description.errors %}
-
                     <div class="text-danger small">
                         {{ form.description.errors }}
                     </div>
+                {% endif %}
 
+            </div>
+
+
+            <!-- QUANTITY + UNIT -->
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Quantity
+                    </label>
+
+                    {{ form.quantity }}
+
+                    {% if form.quantity.errors %}
+                        <div class="text-danger small">
+                            {{ form.quantity.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Unit
+                    </label>
+
+                    {{ form.unit }}
+
+                    {% if form.unit.errors %}
+                        <div class="text-danger small">
+                            {{ form.unit.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- STORAGE CONDITION -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Storage Condition
+                </label>
+
+                {{ form.storage_condition }}
+
+                {% if form.storage_condition.errors %}
+                    <div class="text-danger small">
+                        {{ form.storage_condition.errors }}
+                    </div>
                 {% endif %}
 
             </div>
@@ -161,11 +223,9 @@ Register Sample | ICLMS
                 {{ form.collection_date }}
 
                 {% if form.collection_date.errors %}
-
                     <div class="text-danger small">
                         {{ form.collection_date.errors }}
                     </div>
-
                 {% endif %}
 
             </div>
@@ -182,11 +242,9 @@ Register Sample | ICLMS
                 {{ form.status }}
 
                 {% if form.status.errors %}
-
                     <div class="text-danger small">
                         {{ form.status.errors }}
                     </div>
-
                 {% endif %}
 
             </div>

@@ -30,6 +30,22 @@ class Sample(models.Model):
     description = models.TextField(
         blank=True
     )
+    quantity = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True
+   )
+
+    unit = models.CharField(
+        max_length=50,
+        blank=True
+    )
+
+    storage_condition = models.CharField(
+        max_length=255,
+        blank=True
+    )
 
     collection_date = models.DateField()
 
