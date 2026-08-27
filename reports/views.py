@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Report
 from .forms import ReportForm
-
+from dashboard.models import LabActivity
 
 # ======================================================
 # REPORTS LIST
@@ -52,6 +52,13 @@ def create_report(request):
             report.researcher = request.user
 
             report.save()
+
+            # Record report activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='REPORT',
+                description=f'Created report: {report.title}'
+            )
 
             messages.success(
                 request,
