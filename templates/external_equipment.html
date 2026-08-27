@@ -4,209 +4,646 @@
 Equipment | ICLMS
 {% endblock %}
 
+
 {% block content %}
 
 <style>
+
+    /* =====================================================
+       PAGE
+    ====================================================== */
+
     .equipment-page {
         min-height: calc(100vh - 80px);
+
         background: #f4f7fc;
-        padding: 45px 6%;
+
+        padding: 40px 5%;
     }
 
-    .page-header {
-        background: linear-gradient(135deg, #123b91, #2563eb);
+
+    /* =====================================================
+       HEADER
+    ====================================================== */
+
+    .equipment-header {
+        background: linear-gradient(
+            135deg,
+            #123b91,
+            #2563eb
+        );
+
         color: white;
+
         border-radius: 22px;
+
         padding: 35px 40px;
+
         margin-bottom: 30px;
-        box-shadow: 0 10px 30px rgba(18, 59, 145, .15);
+
+        box-shadow:
+            0 10px 30px rgba(18, 59, 145, 0.15);
     }
 
-    .page-header h1 {
+
+    .equipment-header h1 {
         margin: 0;
-        font-size: 34px;
+
+        font-size: 36px;
+
         font-weight: 700;
     }
 
-    .page-header p {
-        margin-top: 8px;
-        opacity: .9;
+
+    .equipment-header p {
+        margin: 10px 0 0;
+
+        font-size: 17px;
+
+        opacity: 0.95;
     }
+
+
+    /* =====================================================
+       MAIN CARD
+    ====================================================== */
 
     .equipment-container {
         background: white;
-        border-radius: 18px;
+
+        border-radius: 20px;
+
         padding: 30px;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 5px 18px rgba(0, 0, 0, .06);
+
+        border: 1px solid #e1e5ec;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.06);
     }
+
+
+    .equipment-title {
+        color: #172554;
+
+        font-size: 30px;
+
+        font-weight: 700;
+
+        margin: 0 0 25px;
+    }
+
+
+    /* =====================================================
+       GRID
+    ====================================================== */
 
     .equipment-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: 22px;
+
+        grid-template-columns:
+            repeat(auto-fit, minmax(300px, 1fr));
+
+        gap: 28px;
     }
+
+
+    /* =====================================================
+       EQUIPMENT CARD
+    ====================================================== */
 
     .equipment-card {
-        border: 1px solid #e5e7eb;
-        border-radius: 16px;
-        padding: 23px;
         background: white;
-        transition: .2s ease;
+
+        border: 1px solid #dfe4ec;
+
+        border-radius: 18px;
+
+        padding: 28px;
+
+        min-height: 390px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
     }
+
 
     .equipment-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 12px 28px rgba(0, 0, 0, 0.09);
     }
 
+
+    /* =====================================================
+       ICON
+    ====================================================== */
+
     .equipment-icon {
-        width: 55px;
-        height: 55px;
-        border-radius: 14px;
+        width: 68px;
+
+        height: 68px;
+
         background: #eaf2ff;
-        color: #2563eb;
+
+        border-radius: 16px;
+
         display: flex;
+
         align-items: center;
+
         justify-content: center;
-        font-size: 25px;
-        margin-bottom: 15px;
+
+        font-size: 32px;
+
+        margin-bottom: 20px;
     }
+
+
+    /* =====================================================
+       NAME
+    ====================================================== */
 
     .equipment-name {
         color: #172554;
-        font-size: 20px;
+
+        font-size: 25px;
+
         font-weight: 700;
-        margin-bottom: 8px;
+
+        line-height: 1.35;
+
+        margin-bottom: 12px;
     }
 
-    .equipment-info {
+
+    /* =====================================================
+       DESCRIPTION
+    ====================================================== */
+
+    .equipment-description {
         color: #64748b;
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
 
-    .book-btn {
-        display: block;
-        width: 100%;
-        padding: 11px;
-        margin-top: 16px;
-        background: #2563eb;
-        color: white;
-        text-align: center;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-    }
+        font-size: 16px;
 
-    .book-btn:hover {
-        background: #123b91;
-        color: white;
-    }
+        line-height: 1.6;
 
-    .empty-state {
-        text-align: center;
-        padding: 60px 20px;
-        color: #64748b;
-    }
-
-    .empty-icon {
-        font-size: 45px;
         margin-bottom: 15px;
     }
 
+
+    /* =====================================================
+       INFORMATION
+    ====================================================== */
+
+    .equipment-info {
+        color: #64748b;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+
+        margin-bottom: 7px;
+    }
+
+
+    .equipment-info strong {
+        color: #172554;
+    }
+
+
+    /* =====================================================
+       STATUS
+    ====================================================== */
+
+    .status-badge {
+        display: inline-flex;
+
+        width: fit-content;
+
+        align-items: center;
+
+        padding: 7px 15px;
+
+        border-radius: 999px;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        margin-top: 8px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .status-available {
+        background: #dcfce7;
+
+        color: #047857;
+    }
+
+
+    .status-unavailable {
+        background: #fee2e2;
+
+        color: #b91c1c;
+    }
+
+
+    /* =====================================================
+       BOOK BUTTON
+    ====================================================== */
+
+    .book-btn {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 100%;
+
+        margin-top: auto;
+
+        padding: 14px 18px;
+
+        background: #2563eb;
+
+        color: white;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 17px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        border: none;
+
+        transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+    }
+
+
+    .book-btn:hover {
+        background: #123b91;
+
+        color: white;
+
+        transform: translateY(-1px);
+    }
+
+
+    .book-btn:active {
+        transform: translateY(0);
+    }
+
+
+    /* =====================================================
+       UNAVAILABLE BUTTON
+    ====================================================== */
+
+    .unavailable-btn {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 100%;
+
+        margin-top: auto;
+
+        padding: 14px 18px;
+
+        background: #e5e7eb;
+
+        color: #64748b;
+
+        border-radius: 9px;
+
+        font-size: 17px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ====================================================== */
+
+    .empty-state {
+        text-align: center;
+
+        padding: 70px 20px;
+
+        color: #64748b;
+    }
+
+
+    .empty-icon {
+        font-size: 60px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .empty-state h3 {
+        color: #172554;
+
+        font-size: 25px;
+
+        margin-bottom: 10px;
+    }
+
+
+    .empty-state p {
+        margin: 0;
+
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       BACK BUTTON
+    ====================================================== */
+
     .back-btn {
         display: inline-flex;
+
         align-items: center;
+
         gap: 8px;
+
         margin-top: 25px;
-        padding: 10px 18px;
-        border: 1px solid #2563eb;
-        border-radius: 8px;
+
+        padding: 11px 20px;
+
+        background: white;
+
         color: #2563eb;
+
+        border: 1px solid #2563eb;
+
+        border-radius: 9px;
+
         text-decoration: none;
-        font-weight: 600;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        transition: all 0.2s ease;
     }
+
 
     .back-btn:hover {
         background: #2563eb;
+
         color: white;
     }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 768px) {
+
+        .equipment-page {
+            padding: 25px 4%;
+        }
+
+
+        .equipment-header {
+            padding: 28px 25px;
+        }
+
+
+        .equipment-header h1 {
+            font-size: 29px;
+        }
+
+
+        .equipment-container {
+            padding: 22px;
+        }
+
+
+        .equipment-title {
+            font-size: 26px;
+        }
+
+
+        .equipment-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
 </style>
 
 
 <div class="equipment-page">
 
-    <div class="page-header">
-        <h1>🔬 Laboratory Equipment</h1>
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="equipment-header">
+
+        <h1>
+            🔬 Laboratory Equipment
+        </h1>
+
         <p>
             Browse available laboratory equipment
-            and request equipment bookings.
+            and book the equipment you need.
         </p>
+
     </div>
 
 
+
+    <!-- =================================================
+         EQUIPMENT LIST
+    ================================================== -->
+
     <div class="equipment-container">
 
-        <h2 style="color:#172554; margin-bottom:25px;">
+        <h2 class="equipment-title">
             Available Equipment
         </h2>
 
 
         {% if equipment %}
 
+
             <div class="equipment-grid">
+
 
                 {% for item in equipment %}
 
+
                     <div class="equipment-card">
+
+
+                        <!-- =================================
+                             ICON
+                        ================================== -->
 
                         <div class="equipment-icon">
                             🔬
                         </div>
 
+
+                        <!-- =================================
+                             EQUIPMENT NAME
+                        ================================== -->
+
                         <div class="equipment-name">
+
                             {{ item.name }}
+
                         </div>
 
 
+                        <!-- =================================
+                             DESCRIPTION
+                        ================================== -->
+
                         {% if item.description %}
-                            <div class="equipment-info">
+
+                            <div class="equipment-description">
+
                                 {{ item.description }}
+
                             </div>
+
                         {% endif %}
 
+
+
+                        <!-- =================================
+                             EQUIPMENT ID
+                        ================================== -->
 
                         {% if item.equipment_id %}
+
                             <div class="equipment-info">
-                                Equipment ID:
+
+                                <strong>
+                                    Equipment ID:
+                                </strong>
+
                                 {{ item.equipment_id }}
+
                             </div>
+
                         {% endif %}
 
 
-                        {% if item.status %}
+
+                        <!-- =================================
+                             CATEGORY
+                        ================================== -->
+
+                        {% if item.category %}
+
                             <div class="equipment-info">
-                                Status:
-                                {{ item.status }}
+
+                                <strong>
+                                    Category:
+                                </strong>
+
+                                {{ item.category }}
+
                             </div>
+
                         {% endif %}
 
 
-                        <a href="#"
-                           class="book-btn">
 
-                            Book Equipment
+                        <!-- =================================
+                             STATUS
+                        ================================== -->
 
-                        </a>
+                        {% if item.status == 'AVAILABLE' %}
+
+                            <div class="status-badge status-available">
+
+                                ✓ Available
+
+                            </div>
+
+
+                            <!-- =================================
+                                 IMPORTANT BOOK BUTTON
+                            ==================================
+
+                                 equipment_id IS REQUIRED
+                            ================================== -->
+
+                            <a
+                                href="{% url 'external_equipment_booking' item.id %}"
+                                class="book-btn"
+                            >
+
+                                📅
+                                &nbsp;
+                                Book Equipment
+
+                            </a>
+
+
+                        {% else %}
+
+
+                            <div class="status-badge status-unavailable">
+
+                                ✕
+                                &nbsp;
+                                {{ item.status }}
+
+                            </div>
+
+
+                            <span class="unavailable-btn">
+
+                                Equipment Unavailable
+
+                            </span>
+
+
+                        {% endif %}
+
 
                     </div>
 
+
                 {% endfor %}
+
 
             </div>
 
+
         {% else %}
+
+
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
 
             <div class="empty-state">
 
@@ -219,23 +656,34 @@ Equipment | ICLMS
                 </h3>
 
                 <p>
-                    There is currently no laboratory
-                    equipment available for booking.
+                    There is currently no laboratory equipment
+                    available for booking.
                 </p>
 
             </div>
 
+
         {% endif %}
+
 
     </div>
 
 
-    <a href="{% url 'external_dashboard' %}"
-       class="back-btn">
 
-        ← Back 
+    <!-- =================================================
+         BACK TO DASHBOARD
+    ================================================== -->
+
+    <a
+        href="{% url 'external_dashboard' %}"
+        class="back-btn"
+    >
+
+        ←
+        Back 
 
     </a>
+
 
 </div>
 

@@ -789,19 +789,13 @@ Maintenance Management | ICLMS
          BACK BUTTON
     ====================================================== -->
 
-    {% if request.user.labprofile.role == 'TECHNICIAN' %}
-
         <a
-            href="{% url 'technician_dashboard' %}"
+            href="javascript:history.back()"
             class="back-btn"
         >
-            ← Back 
+            ← Back
         </a>
 
-
-    {% endif %}
-
-
-</div>
+    </div>
 
 {% endblock %}

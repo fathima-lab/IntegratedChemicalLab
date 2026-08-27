@@ -26,6 +26,12 @@ urlpatterns = [
         name='external_chemicals'
     ),
 
+    path(
+        'chemicals/purchase/<int:chemical_id>/',
+        views.chemical_purchase,
+        name='chemical_purchase'
+    ),
+
     # Equipment
     path(
         'equipment/',
@@ -35,22 +41,9 @@ urlpatterns = [
 
     # Equipment booking
     path(
-        'equipment/book/',
+        'equipment/book/<int:equipment_id>/',
         views.external_equipment_booking,
         name='external_equipment_booking'
-    ),
-
-    # Reports
-    path(
-        'reports/',
-        views.external_reports,
-        name='external_reports'
-    ),
-
-     path(
-        'reports/laboratory/',
-        views.external_laboratory_reports,
-        name='external_laboratory_reports'
     ),
 
     path(

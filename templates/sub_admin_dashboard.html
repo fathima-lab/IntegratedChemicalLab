@@ -8,70 +8,279 @@ Sub-Administrator Dashboard | ICLMS
 
 <style>
 
+/* ==========================================================
+   PAGE
+========================================================== */
+
 .subadmin-page {
     padding: 45px 5%;
     background: #f4f7ff;
     min-height: calc(100vh - 100px);
 }
 
+
+/* ==========================================================
+   WELCOME HEADER
+========================================================== */
+
 .welcome {
-    background: linear-gradient(135deg, #123b91, #2563eb);
+    background: linear-gradient(
+        135deg,
+        #123b91,
+        #2563eb
+    );
+
     color: white;
+
     border-radius: 22px;
+
     padding: 35px;
+
     margin-bottom: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(18, 59, 145, 0.15);
 }
 
 .welcome h1 {
     font-weight: 700;
+    margin-bottom: 10px;
 }
+
+.welcome p {
+    font-size: 18px;
+}
+
+
+/* ==========================================================
+   LOGOUT
+========================================================== */
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-btn {
+    background: #dc3545;
+
+    color: white;
+
+    border: none;
+
+    padding: 11px 22px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #bb2d3b;
+
+    color: white;
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   SECTION HEADINGS
+========================================================== */
+
+.section-heading {
+    color: #123b91;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.section-description {
+    color: #64748b;
+
+    font-size: 16px;
+}
+
+
+/* ==========================================================
+   STAT CARDS
+========================================================== */
 
 .stat-card {
     background: white;
+
     border-radius: 18px;
+
     padding: 25px;
+
     text-align: center;
-    box-shadow: 0 8px 25px rgba(20,60,140,.08);
+
+    height: 100%;
+
+    box-shadow:
+        0 8px 25px rgba(20, 60, 140, .08);
+
+    border: 1px solid #edf0f7;
+
+    transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 14px 30px rgba(18, 59, 145, .13);
 }
 
 .stat-card i {
     font-size: 35px;
+
     color: #2563eb;
+
+    margin-bottom: 8px;
 }
 
 .stat-number {
     font-size: 30px;
+
     font-weight: 800;
+
     color: #123b91;
+
+    margin-bottom: 5px;
 }
+
+.stat-label {
+    color: #475569;
+
+    font-size: 16px;
+
+    font-weight: 500;
+}
+
+
+/* ==========================================================
+   RESOURCE CARDS
+========================================================== */
+
+.resource-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    height: 100%;
+
+    box-shadow:
+        0 8px 25px rgba(20, 60, 140, .08);
+
+    border: 1px solid #edf0f7;
+}
+
+.resource-card h4 {
+    color: #123b91;
+
+    font-weight: 700;
+
+    margin: 0;
+}
+
+.resource-icon {
+    width: 55px;
+
+    height: 55px;
+
+    background: #edf3ff;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+
+    margin-bottom: 15px;
+}
+
+.resource-item {
+    padding: 13px 5px;
+
+    border-bottom: 1px solid #edf0f7;
+}
+
+.resource-item:last-child {
+    border-bottom: none;
+}
+
+.resource-item strong {
+    color: #172554;
+
+    font-size: 16px;
+}
+
+.resource-item small {
+    color: #64748b;
+}
+
+
+/* ==========================================================
+   MEMBER CARDS
+========================================================== */
 
 .member-card {
     background: white;
+
     border-radius: 18px;
+
     padding: 25px;
-    box-shadow: 0 8px 25px rgba(20,60,140,.08);
+
+    box-shadow:
+        0 8px 25px rgba(20,60,140,.08);
+
     height: 100%;
+
+    border: 1px solid #edf0f7;
 }
 
 .member-icon {
     width: 55px;
+
     height: 55px;
+
     background: #edf3ff;
+
     border-radius: 15px;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     font-size: 27px;
+
     margin-bottom: 15px;
 }
 
 .member-card h4 {
     color: #123b91;
+
     font-weight: 700;
 }
 
 .member {
     padding: 15px 5px;
+
     border-bottom: 1px solid #edf0f7;
 }
 
@@ -79,29 +288,119 @@ Sub-Administrator Dashboard | ICLMS
     border-bottom: none;
 }
 
-.logout-btn {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 11px 22px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
+.member strong {
+    color: #172554;
 }
 
-.logout-btn:hover {
-    background: #bb2d3b;
-    color: white;
-    transform: translateY(-1px);
+.member small {
+    color: #64748b;
 }
+
+
+/* ==========================================================
+   ACTION BUTTONS
+========================================================== */
 
 .action-buttons {
     display: flex;
+
     gap: 8px;
+
     flex-wrap: wrap;
+
     margin-top: 8px;
+}
+
+
+/* ==========================================================
+   TEAM ACTIVITIES
+========================================================== */
+
+.activity-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+
+    border: 1px solid #edf0f7;
+
+    box-shadow:
+        0 8px 25px rgba(20,60,140,.08);
+}
+
+.activity-card h4 {
+    color: #123b91;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+.activity-item {
+    padding: 15px 5px;
+
+    border-bottom: 1px solid #edf0f7;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item strong {
+    color: #172554;
+}
+
+.activity-item small {
+    color: #94a3b8;
+}
+
+
+/* ==========================================================
+   EMPTY MESSAGE
+========================================================== */
+
+.empty-message {
+    background: #f8fafc;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    color: #64748b;
+
+    text-align: center;
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 700px) {
+
+    .subadmin-page {
+        padding: 25px 5%;
+    }
+
+    .welcome {
+        padding: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 30px;
+    }
+
+    .logout-form {
+        width: 100%;
+    }
+
+    .logout-btn {
+        width: 100%;
+    }
+
 }
 
 </style>
@@ -110,13 +409,14 @@ Sub-Administrator Dashboard | ICLMS
 <div class="subadmin-page">
 
 
-    <!-- ================================================= -->
-    <!-- WELCOME HEADER -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         WELCOME HEADER
+    ====================================================== -->
 
     <div class="welcome">
 
-        <div class="d-flex justify-content-between
+        <div class="d-flex
+                    justify-content-between
                     align-items-center
                     flex-wrap
                     gap-3">
@@ -130,7 +430,6 @@ Sub-Administrator Dashboard | ICLMS
                 <p class="mb-0">
 
                     Welcome,
-
                     {{ request.user.get_full_name|default:request.user.username }}
 
                 </p>
@@ -167,9 +466,9 @@ Sub-Administrator Dashboard | ICLMS
 
 
 
-    <!-- ================================================= -->
-    <!-- CREATE TEAM MEMBER -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         LABORATORY TEAM HEADER
+    ====================================================== -->
 
     <div class="d-flex
                 justify-content-between
@@ -180,11 +479,11 @@ Sub-Administrator Dashboard | ICLMS
 
         <div>
 
-            <h3>
+            <h3 class="section-heading">
                 My Laboratory Team
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="section-description mb-0">
 
                 Manage the Researchers and Technicians
                 assigned to your laboratory.
@@ -207,16 +506,16 @@ Sub-Administrator Dashboard | ICLMS
 
 
 
-    <!-- ================================================= -->
-    <!-- STATISTICS -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         LABORATORY STATISTICS
+    ====================================================== -->
 
     <div class="row g-4 mb-4">
 
 
         <!-- RESEARCHERS -->
 
-        <div class="col-md-6">
+        <div class="col-lg-3 col-md-6">
 
             <div class="stat-card">
 
@@ -226,7 +525,7 @@ Sub-Administrator Dashboard | ICLMS
                     {{ total_researchers }}
                 </div>
 
-                <div>
+                <div class="stat-label">
                     Researchers
                 </div>
 
@@ -237,7 +536,7 @@ Sub-Administrator Dashboard | ICLMS
 
         <!-- TECHNICIANS -->
 
-        <div class="col-md-6">
+        <div class="col-lg-3 col-md-6">
 
             <div class="stat-card">
 
@@ -247,8 +546,50 @@ Sub-Administrator Dashboard | ICLMS
                     {{ total_technicians }}
                 </div>
 
-                <div>
+                <div class="stat-label">
                     Technicians
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- AVAILABLE CHEMICALS -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <i class="bi bi-droplet-fill"></i>
+
+                <div class="stat-number">
+                    {{ total_available_chemicals }}
+                </div>
+
+                <div class="stat-label">
+                    Available Chemicals
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- AVAILABLE EQUIPMENT -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <i class="bi bi-tools"></i>
+
+                <div class="stat-number">
+                    {{ total_available_equipment }}
+                </div>
+
+                <div class="stat-label">
+                    Available Equipment
                 </div>
 
             </div>
@@ -259,16 +600,272 @@ Sub-Administrator Dashboard | ICLMS
 
 
 
-    <!-- ================================================= -->
-    <!-- TEAM MEMBERS -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         EXPERIMENTS DONE
+    ====================================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <i class="bi bi-flask"></i>
+
+                <div class="stat-number">
+                    {{ total_experiments_done }}
+                </div>
+
+                <div class="stat-label">
+                    Experiments Done
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         LABORATORY RESOURCES
+    ====================================================== -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- =================================================
+             AVAILABLE CHEMICALS
+        ================================================== -->
+
+        <div class="col-lg-4">
+
+            <div class="resource-card">
+
+                <div class="resource-icon">
+                    🧪
+                </div>
+
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-3">
+
+                    <h4>
+                        Available Chemicals
+                    </h4>
+
+                    <span class="badge bg-primary">
+                        {{ total_available_chemicals }}
+                    </span>
+
+                </div>
+
+
+                {% for chemical in available_chemicals %}
+
+                    <div class="resource-item">
+
+                        <strong>
+                            {{ chemical.name }}
+                        </strong>
+
+                        {% if chemical.chemical_id %}
+
+                            <br>
+
+                            <small>
+                                ID: {{ chemical.chemical_id }}
+                            </small>
+
+                        {% endif %}
+
+                        {% if chemical.quantity %}
+
+                            <br>
+
+                            <small>
+                                Quantity:
+                                {{ chemical.quantity }}
+                                {{ chemical.unit }}
+                            </small>
+
+                        {% endif %}
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-message">
+                        No available chemicals.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             AVAILABLE EQUIPMENT
+        ================================================== -->
+
+        <div class="col-lg-4">
+
+            <div class="resource-card">
+
+                <div class="resource-icon">
+                    🔬
+                </div>
+
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-3">
+
+                    <h4>
+                        Available Equipment
+                    </h4>
+
+                    <span class="badge bg-success">
+                        {{ total_available_equipment }}
+                    </span>
+
+                </div>
+
+
+                {% for item in available_equipment %}
+
+                    <div class="resource-item">
+
+                        <strong>
+                            {{ item.name }}
+                        </strong>
+
+                        {% if item.equipment_id %}
+
+                            <br>
+
+                            <small>
+                                ID: {{ item.equipment_id }}
+                            </small>
+
+                        {% endif %}
+
+                        {% if item.location %}
+
+                            <br>
+
+                            <small>
+                                📍 {{ item.location }}
+                            </small>
+
+                        {% endif %}
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-message">
+                        No available equipment.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             EXPERIMENTS DONE
+        ================================================== -->
+
+        <div class="col-lg-4">
+
+            <div class="resource-card">
+
+                <div class="resource-icon">
+                    🧫
+                </div>
+
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-3">
+
+                    <h4>
+                        Experiments Done
+                    </h4>
+
+                    <span class="badge bg-info text-dark">
+                        {{ total_experiments_done }}
+                    </span>
+
+                </div>
+
+
+                {% for experiment in experiments_done %}
+
+                    <div class="resource-item">
+
+                        <strong>
+                            {{ experiment.name }}
+                        </strong>
+
+                        {% if experiment.researcher %}
+
+                            <br>
+
+                            <small>
+                                Researcher:
+                                {{ experiment.researcher.get_full_name|default:experiment.researcher.username }}
+                            </small>
+
+                        {% endif %}
+
+                        {% if experiment.created_at %}
+
+                            <br>
+
+                            <small>
+                                {{ experiment.created_at|date:"d M Y" }}
+                            </small>
+
+                        {% endif %}
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-message">
+                        No experiments recorded.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TEAM MEMBERS
+    ====================================================== -->
 
     <div class="row g-4">
 
 
-        <!-- ================================================= -->
-        <!-- RESEARCHERS -->
-        <!-- ================================================= -->
+        <!-- =================================================
+             RESEARCHERS
+        ================================================== -->
 
         <div class="col-lg-6">
 
@@ -296,81 +893,65 @@ Sub-Administrator Dashboard | ICLMS
 
                 {% for researcher in researchers %}
 
-                <div class="member">
-
-                    <div class="d-flex
-                                justify-content-between
-                                align-items-start
-                                gap-3">
+                    <div class="member">
 
                         <div>
 
                             <strong>
-
                                 {{ researcher.user.get_full_name|default:researcher.user.username }}
-
                             </strong>
 
                             <br>
 
-                            <small class="text-muted">
-
+                            <small>
                                 @{{ researcher.user.username }}
-
                             </small>
 
                             {% if researcher.user.email %}
 
-                            <br>
+                                <br>
 
-                            <small class="text-muted">
-
-                                {{ researcher.user.email }}
-
-                            </small>
+                                <small>
+                                    {{ researcher.user.email }}
+                                </small>
 
                             {% endif %}
 
                         </div>
 
+
+                        <!-- ACTION BUTTONS -->
+
+                        <div class="action-buttons">
+
+                            <a
+                                href="{% url 'edit_team_member' researcher.user.id %}"
+                                class="btn btn-warning btn-sm"
+                            >
+
+                                ✏️ Edit
+
+                            </a>
+
+
+                            <a
+                                href="{% url 'delete_team_member' researcher.user.id %}"
+                                class="btn btn-danger btn-sm"
+                            >
+
+                                🗑️ Remove
+
+                            </a>
+
+                        </div>
+
                     </div>
-
-
-                    <!-- ACTION BUTTONS -->
-
-                    <div class="action-buttons">
-
-                        <a
-                            href="{% url 'edit_team_member' researcher.user.id %}"
-                            class="btn btn-warning btn-sm"
-                        >
-
-                            ✏️ Edit
-
-                        </a>
-
-
-                        <a
-                            href="{% url 'delete_team_member' researcher.user.id %}"
-                            class="btn btn-danger btn-sm"
-                        >
-
-                            🗑️ Remove
-
-                        </a>
-
-                    </div>
-
-                </div>
-
 
                 {% empty %}
 
-                <div class="alert alert-secondary">
-
-                    No researchers assigned.
-
-                </div>
+                    <div class="empty-message">
+                        No researchers assigned.
+                    </div>
 
                 {% endfor %}
 
@@ -380,9 +961,9 @@ Sub-Administrator Dashboard | ICLMS
 
 
 
-        <!-- ================================================= -->
-        <!-- TECHNICIANS -->
-        <!-- ================================================= -->
+        <!-- =================================================
+             TECHNICIANS
+        ================================================== -->
 
         <div class="col-lg-6">
 
@@ -410,81 +991,65 @@ Sub-Administrator Dashboard | ICLMS
 
                 {% for technician in technicians %}
 
-                <div class="member">
-
-                    <div class="d-flex
-                                justify-content-between
-                                align-items-start
-                                gap-3">
+                    <div class="member">
 
                         <div>
 
                             <strong>
-
                                 {{ technician.user.get_full_name|default:technician.user.username }}
-
                             </strong>
 
                             <br>
 
-                            <small class="text-muted">
-
+                            <small>
                                 @{{ technician.user.username }}
-
                             </small>
 
                             {% if technician.user.email %}
 
-                            <br>
+                                <br>
 
-                            <small class="text-muted">
-
-                                {{ technician.user.email }}
-
-                            </small>
+                                <small>
+                                    {{ technician.user.email }}
+                                </small>
 
                             {% endif %}
 
                         </div>
 
+
+                        <!-- ACTION BUTTONS -->
+
+                        <div class="action-buttons">
+
+                            <a
+                                href="{% url 'edit_team_member' technician.user.id %}"
+                                class="btn btn-warning btn-sm"
+                            >
+
+                                ✏️ Edit
+
+                            </a>
+
+
+                            <a
+                                href="{% url 'delete_team_member' technician.user.id %}"
+                                class="btn btn-danger btn-sm"
+                            >
+
+                                🗑️ Remove
+
+                            </a>
+
+                        </div>
+
                     </div>
-
-
-                    <!-- ACTION BUTTONS -->
-
-                    <div class="action-buttons">
-
-                        <a
-                            href="{% url 'edit_team_member' technician.user.id %}"
-                            class="btn btn-warning btn-sm"
-                        >
-
-                            ✏️ Edit
-
-                        </a>
-
-
-                        <a
-                            href="{% url 'delete_team_member' technician.user.id %}"
-                            class="btn btn-danger btn-sm"
-                        >
-
-                            🗑️ Remove
-
-                        </a>
-
-                    </div>
-
-                </div>
-
 
                 {% empty %}
 
-                <div class="alert alert-secondary">
-
-                    No technicians assigned.
-
-                </div>
+                    <div class="empty-message">
+                        No technicians assigned.
+                    </div>
 
                 {% endfor %}
 
@@ -496,11 +1061,11 @@ Sub-Administrator Dashboard | ICLMS
 
 
 
-    <!-- ================================================= -->
-    <!-- TEAM ACTIVITIES -->
-    <!-- ================================================= -->
+    <!-- =====================================================
+         TEAM ACTIVITIES
+    ====================================================== -->
 
-    <div class="member-card mt-4">
+    <div class="activity-card">
 
         <div class="d-flex
                     justify-content-between
@@ -516,34 +1081,27 @@ Sub-Administrator Dashboard | ICLMS
 
         {% for activity in activities %}
 
-        <div class="member">
+            <div class="activity-item">
 
-            <strong>
+                <strong>
+                    {{ activity.actor.get_full_name|default:activity.actor.username }}
+                </strong>
 
-                {{ activity.actor.get_full_name|default:activity.actor.username }}
+                — {{ activity.description }}
 
-            </strong>
+                <br>
 
-            — {{ activity.description }}
+                <small>
+                    {{ activity.created_at|date:"d M Y, h:i A" }}
+                </small>
 
-            <br>
-
-            <small class="text-muted">
-
-                {{ activity.created_at|date:"d M Y, h:i A" }}
-
-            </small>
-
-        </div>
-
+            </div>
 
         {% empty %}
 
-        <div class="alert alert-secondary mb-0">
-
-            No activities recorded.
-
-        </div>
+            <div class="empty-message">
+                No activities recorded.
+            </div>
 
         {% endfor %}
 

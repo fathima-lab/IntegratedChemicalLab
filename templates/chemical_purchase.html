@@ -1,0 +1,662 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Purchase Chemical | ICLMS
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ======================================================
+   PAGE
+====================================================== */
+
+.purchase-page {
+    min-height: calc(100vh - 80px);
+    background: #f4f7fc;
+    padding: 45px 6%;
+}
+
+
+/* ======================================================
+   PURCHASE CARD
+====================================================== */
+
+.purchase-card {
+    max-width: 850px;
+    margin: 0 auto;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 35px 40px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .07);
+}
+
+
+/* ======================================================
+   HEADER
+====================================================== */
+
+.purchase-header {
+    background: linear-gradient(
+        135deg,
+        #123b91,
+        #2563eb
+    );
+
+    color: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 30px;
+}
+
+.purchase-header h1 {
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: 700;
+}
+
+.purchase-header p {
+    margin: 8px 0 0;
+
+    font-size: 16px;
+
+    opacity: .92;
+}
+
+
+/* ======================================================
+   CHEMICAL DETAILS
+====================================================== */
+
+.chemical-details {
+    background: #f7f9ff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    margin-bottom: 30px;
+}
+
+.chemical-details h2 {
+    color: #123b91;
+
+    font-size: 28px;
+
+    margin: 0 0 20px;
+
+    font-weight: 700;
+}
+
+
+/* ======================================================
+   DETAIL ROW
+====================================================== */
+
+.detail-row {
+    color: #64748b;
+
+    font-size: 16px;
+
+    margin-bottom: 12px;
+
+    line-height: 1.5;
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.detail-row strong {
+    color: #172554;
+}
+
+
+/* ======================================================
+   DESCRIPTION
+====================================================== */
+
+.description-box {
+    margin-top: 20px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e5e7eb;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+.description-box strong {
+    display: block;
+
+    color: #172554;
+
+    margin-bottom: 6px;
+}
+
+
+/* ======================================================
+   AVAILABLE STATUS
+====================================================== */
+
+.available-badge {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* ======================================================
+   FORM
+====================================================== */
+
+.purchase-form {
+    margin-top: 10px;
+}
+
+
+/* ======================================================
+   FORM LABEL
+====================================================== */
+
+.purchase-form label {
+    display: block;
+
+    color: #172554;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+
+/* ======================================================
+   QUANTITY INPUT
+====================================================== */
+
+.quantity-input {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition: border-color .2s ease,
+                box-shadow .2s ease;
+}
+
+.quantity-input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+
+/* ======================================================
+   UNIT INFORMATION
+====================================================== */
+
+.quantity-help {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-top: 8px;
+
+    margin-bottom: 0;
+}
+
+
+/* ======================================================
+   PURCHASE BUTTON
+====================================================== */
+
+.purchase-submit-btn {
+    display: block;
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 25px;
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.purchase-submit-btn:hover {
+    background: #123b91;
+
+    transform: translateY(-1px);
+}
+
+
+/* ======================================================
+   BACK BUTTON
+====================================================== */
+
+.back-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 22px;
+
+    padding: 11px 18px;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 9px;
+
+    background: white;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+}
+
+.back-btn:hover {
+    background: #2563eb;
+
+    color: white;
+}
+
+
+/* ======================================================
+   MESSAGES
+====================================================== */
+
+.message-container {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 13px 16px;
+
+    border-radius: 9px;
+
+    margin-bottom: 10px;
+
+    font-size: 15px;
+}
+
+
+/* ======================================================
+   MOBILE
+====================================================== */
+
+@media (max-width: 700px) {
+
+    .purchase-page {
+        padding: 25px 5%;
+    }
+
+    .purchase-card {
+        padding: 25px 20px;
+
+        border-radius: 18px;
+    }
+
+    .purchase-header {
+        padding: 25px 20px;
+    }
+
+    .purchase-header h1 {
+        font-size: 28px;
+    }
+
+    .chemical-details h2 {
+        font-size: 24px;
+    }
+
+}
+
+</style>
+
+
+<div class="purchase-page">
+
+
+    <div class="purchase-card">
+
+
+        <!-- ==================================================
+             HEADER
+        ================================================== -->
+
+        <div class="purchase-header">
+
+            <h1>
+                🧪 Purchase Chemical
+            </h1>
+
+            <p>
+                Review the chemical details and enter
+                the quantity you would like to purchase.
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             MESSAGES
+        ================================================== -->
+
+        {% if messages %}
+
+            <div class="message-container">
+
+                {% for message in messages %}
+
+                    <div class="message
+                        {% if message.tags %}
+                            alert alert-{{ message.tags }}
+                        {% else %}
+                            alert alert-info
+                        {% endif %}
+                    ">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             CHEMICAL DETAILS
+        ================================================== -->
+
+        <div class="chemical-details">
+
+
+            <h2>
+                {{ chemical.name }}
+            </h2>
+
+
+            {% if chemical.chemical_id %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Chemical ID:
+                    </strong>
+
+                    {{ chemical.chemical_id }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.formula %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Formula:
+                    </strong>
+
+                    {{ chemical.formula }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.cas_number %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        CAS Number:
+                    </strong>
+
+                    {{ chemical.cas_number }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.quantity %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Available:
+                    </strong>
+
+                    {{ chemical.quantity }}
+
+                    {% if chemical.unit %}
+
+                        {{ chemical.unit }}
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.storage_location %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Storage Location:
+                    </strong>
+
+                    {{ chemical.storage_location }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.price %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Price:
+                    </strong>
+
+                    ₹{{ chemical.price }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.description %}
+
+                <div class="description-box">
+
+                    <strong>
+                        Description
+                    </strong>
+
+                    {{ chemical.description }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if chemical.status %}
+
+                <span class="available-badge">
+
+                    {{ chemical.get_status_display|default:chemical.status }}
+
+                </span>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- ==================================================
+             PURCHASE FORM
+        ================================================== -->
+
+        <form
+            method="POST"
+            action="{% url 'chemical_purchase' chemical.id %}"
+            class="purchase-form"
+        >
+
+            {% csrf_token %}
+
+
+            <label for="quantity">
+
+                Quantity
+
+            </label>
+
+
+            <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                class="quantity-input"
+                min="1"
+                step="1"
+                required
+                placeholder="Enter quantity"
+            >
+
+
+            {% if chemical.unit %}
+
+                <p class="quantity-help">
+
+                    Enter the required quantity in
+                    {{ chemical.unit }}.
+
+                </p>
+
+            {% else %}
+
+                <p class="quantity-help">
+
+                    Enter the required quantity.
+
+                </p>
+
+            {% endif %}
+
+
+            <!-- ==================================================
+                 PLACE ORDER
+            ================================================== -->
+
+            <button
+                type="submit"
+                class="purchase-submit-btn"
+            >
+
+                🛒 Place Purchase Order
+
+            </button>
+
+
+        </form>
+
+
+        <!-- ==================================================
+             BACK
+        ================================================== -->
+
+        <a
+            href="{% url 'external_chemicals' %}"
+            class="back-btn"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Chemicals
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

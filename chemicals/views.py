@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Chemical
 from .forms import ChemicalForm
+from dashboard.models import LabActivity
 
 
 # ======================================================
@@ -43,10 +44,16 @@ def create_chemical(request):
                 commit=False
             )
 
-            # Automatically assign logged-in researcher
             chemical.researcher = request.user
 
             chemical.save()
+
+            # Record chemical activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='CHEMICAL',
+                description=f'Chemical registered: {chemical.name}'
+            )
 
             messages.success(
                 request,
@@ -92,6 +99,13 @@ def edit_chemical(request, chemical_id):
 
             form.save()
 
+            # Record chemical activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='CHEMICAL',
+                description=f'Updated chemical: {chemical.name}'
+            )
+
             messages.success(
                 request,
                 'Chemical updated successfully.'
@@ -107,7 +121,7 @@ def edit_chemical(request, chemical_id):
 
     return render(
         request,
-        'edit_chemical.html',
+        'edit_chemicals.html',
         {
             'form': form,
             'chemical': chemical,
@@ -130,7 +144,17 @@ def delete_chemical(request, chemical_id):
 
     if request.method == 'POST':
 
+        # Save name before deleting
+        chemical_name = chemical.name
+
         chemical.delete()
+
+        # Record chemical activity
+        LabActivity.objects.create(
+            actor=request.user,
+            activity_type='CHEMICAL',
+            description=f'Removed chemical: {chemical_name}'
+        )
 
         messages.success(
             request,
@@ -141,7 +165,7 @@ def delete_chemical(request, chemical_id):
 
     return render(
         request,
-        'remove_chemical.html',
+        'delete_chemicals.html',
         {
             'chemical': chemical,
         }

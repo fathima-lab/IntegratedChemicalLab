@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Equipment, Maintenance
 from .forms import EquipmentForm, MaintenanceForm
+from dashboard.models import LabActivity
 
 
 # ======================================================
@@ -47,6 +48,13 @@ def create_equipment(request):
             equipment.researcher = request.user
 
             equipment.save()
+
+            # Record equipment activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='EQUIPMENT',
+                description=f'Equipment registered: {equipment.name}'
+            )
 
             messages.success(
                 request,
@@ -218,6 +226,13 @@ def schedule_maintenance(request, equipment_id):
             maintenance.scheduled_by = request.user
 
             maintenance.save()
+
+            # Record maintenance activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='MAINTENANCE',
+                description=f'Maintenance scheduled for {equipment.name}'
+            )
 
             messages.success(
                 request,

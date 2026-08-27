@@ -1,316 +1,693 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Schedule Equipment | ICLMS
+Book Equipment | ICLMS
 {% endblock %}
+
 
 {% block content %}
 
 <style>
 
+/* =====================================================
+   PAGE
+===================================================== */
+
+.booking-page {
+    min-height: calc(100vh - 80px);
+
+    background: #f4f7fc;
+
+    padding: 45px 6%;
+}
+
+
+/* =====================================================
+   MAIN CARD
+===================================================== */
+
+.booking-container {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 35px 40px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .07);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.booking-header {
+    background: linear-gradient(
+        135deg,
+        #123b91,
+        #2563eb
+    );
+
+    color: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 30px;
+}
+
+
+.booking-header h1 {
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: 700;
+}
+
+
+.booking-header p {
+    margin: 8px 0 0;
+
+    opacity: .9;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   EQUIPMENT DETAILS
+===================================================== */
+
+.equipment-details {
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    margin-bottom: 30px;
+}
+
+
+.equipment-details h2 {
+    color: #123b91;
+
+    font-size: 27px;
+
+    font-weight: 700;
+
+    margin: 0 0 18px;
+}
+
+
+.detail-row {
+    color: #64748b;
+
+    font-size: 16px;
+
+    margin-bottom: 10px;
+}
+
+
+.detail-row strong {
+    color: #172554;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status-badge {
+    display: inline-block;
+
+    padding: 6px 13px;
+
+    border-radius: 999px;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group {
+    margin-bottom: 23px;
+}
+
+
+.form-label {
+    display: block;
+
+    color: #172554;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+
+.form-control {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 15px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #172554;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.form-control:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+
+/* =====================================================
+   SELECTED EQUIPMENT
+===================================================== */
+
+.selected-equipment {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 15px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    color: #172554;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   HELP TEXT
+===================================================== */
+
+.help-text {
+    margin: 7px 0 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.book-submit-btn {
+    display: block;
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.book-submit-btn:hover {
+    background: #123b91;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 22px;
+
+    padding: 11px 18px;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 9px;
+
+    background: white;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 700;
+}
+
+
+.back-btn:hover {
+    background: #2563eb;
+
+    color: white;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
     .booking-page {
-        padding: 45px 5%;
-        background: #f4f7ff;
-        min-height: calc(100vh - 100px);
+        padding: 25px 5%;
     }
 
-    .booking-card {
-        max-width: 850px;
-        margin: auto;
-        background: white;
-        border-radius: 20px;
-        padding: 35px;
-        box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
-    }
-
-    .booking-header {
-        background: linear-gradient(
-            135deg,
-            #123b91,
-            #2563eb
-        );
-
-        color: white;
-        border-radius: 18px;
-        padding: 28px;
-        margin-bottom: 30px;
+    .booking-container {
+        padding: 25px 20px;
     }
 
     .booking-header h1 {
-        font-weight: 700;
-        margin-bottom: 8px;
+        font-size: 28px;
     }
 
-    .section-title {
-        color: #123b91;
-        font-weight: 700;
-        margin-top: 25px;
-        margin-bottom: 18px;
-    }
-
-    .form-label {
-        font-weight: 600;
-        color: #123b91;
-    }
-
-    .form-control,
-    .form-select {
-        border-radius: 10px;
-        padding: 12px;
-    }
-
-    .equipment-select {
-        margin-bottom: 25px;
-    }
-
-    .info-box {
-        background: #f4f7ff;
-        border-radius: 12px;
-        padding: 18px;
-        margin-bottom: 25px;
-    }
-
-    .submit-btn {
-        background: linear-gradient(
-            135deg,
-            #123b91,
-            #2563eb
-        );
-
-        color: white;
-        border: none;
-        border-radius: 10px;
-        padding: 12px 25px;
-        font-weight: 600;
-    }
-
-    .submit-btn:hover {
-        opacity: .9;
-    }
-
-    .cancel-btn {
-        border-radius: 10px;
-        padding: 12px 25px;
-    }
-
-    .empty-box {
-        background: #fff3cd;
-        border: 1px solid #ffe69c;
-        color: #664d03;
-        border-radius: 12px;
-        padding: 20px;
-    }
+}
 
 </style>
 
 
 <div class="booking-page">
 
-    <div class="booking-card">
+    <div class="booking-container">
 
-        <!-- HEADER -->
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
 
         <div class="booking-header">
 
             <h1>
-                📅 Schedule Equipment
+                🔬 Book Equipment
             </h1>
 
-            <p class="mb-0">
-                Book laboratory equipment for your required
-                date and time.
+            <p>
+                Schedule laboratory equipment for your use.
             </p>
 
         </div>
 
 
-        <!-- USER INFORMATION -->
+        <!-- =================================================
+             MESSAGES
+        ================================================== -->
 
-        <div class="info-box">
+        {% if messages %}
 
-            <strong>
-                External User:
-            </strong>
+            {% for message in messages %}
 
-            {{ request.user.get_full_name|default:request.user.username }}
+                <div class="alert alert-{{ message.tags }} mb-4">
 
-            <br>
+                    {{ message }}
 
-            <small class="text-muted">
-                Select an available equipment and choose
-                your preferred schedule.
-            </small>
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <!-- =================================================
+             EQUIPMENT DETAILS
+        ================================================== -->
+
+        <div class="equipment-details">
+
+            <h2>
+                {{ equipment.name }}
+            </h2>
+
+
+            {% if equipment.equipment_id %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Equipment ID:
+                    </strong>
+
+                    {{ equipment.equipment_id }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if equipment.category %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Category:
+                    </strong>
+
+                    {{ equipment.category }}
+
+                </div>
+
+            {% endif %}
+
+
+            {% if equipment.description %}
+
+                <div class="detail-row">
+
+                    <strong>
+                        Description:
+                    </strong>
+
+                    {{ equipment.description }}
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="detail-row">
+
+                <strong>
+                    Status:
+                </strong>
+
+                <span class="status-badge">
+                    ✓ Available
+                </span>
+
+            </div>
 
         </div>
 
 
-        {% if equipment %}
+        <!-- =================================================
+             BOOKING FORM
+        ================================================== -->
 
-        <form method="POST">
+        <form
+            method="POST"
+            action="{% url 'external_equipment_booking' equipment.id %}"
+            id="bookingForm"
+        >
 
             {% csrf_token %}
 
 
             <!-- EQUIPMENT -->
 
-            <h4 class="section-title">
-                🔬 Equipment
-            </h4>
-
-            <div class="mb-4">
+            <div class="form-group">
 
                 <label class="form-label">
-                    Select Equipment
+
+                    Equipment
+
                 </label>
 
-                <select
+
+                <div class="selected-equipment">
+
+                    {{ equipment.name }}
+
+                </div>
+
+
+                <input
+                    type="hidden"
                     name="equipment"
-                    class="form-select equipment-select"
-                    required
+                    value="{{ equipment.id }}"
                 >
 
-                    <option value="">
-                        -- Select Equipment --
-                    </option>
-
-                    {% for item in equipment %}
-
-                        <option value="{{ item.id }}">
-
-                            {{ item.name }}
-
-                            {% if item.equipment_id %}
-                                - {{ item.equipment_id }}
-                            {% endif %}
-
-                        </option>
-
-                    {% endfor %}
-
-                </select>
-
             </div>
 
 
-            <!-- DATE AND TIME -->
+            <!-- DATE -->
 
-            <h4 class="section-title">
-                🕐 Schedule
-            </h4>
+            <div class="form-group">
 
-            <div class="row">
+                <label
+                    for="booking_date"
+                    class="form-label"
+                >
 
-                <div class="col-md-6 mb-4">
+                    Booking Date
 
-                    <label class="form-label">
-                        Booking Date
-                    </label>
-
-                    <input
-                        type="date"
-                        name="booking_date"
-                        class="form-control"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="col-md-6 mb-4">
-
-                    <label class="form-label">
-                        Booking Time
-                    </label>
-
-                    <input
-                        type="time"
-                        name="booking_time"
-                        class="form-control"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <!-- PURPOSE -->
-
-            <h4 class="section-title">
-                📝 Booking Purpose
-            </h4>
-
-            <div class="mb-4">
-
-                <label class="form-label">
-                    Purpose
                 </label>
 
-                <textarea
-                    name="purpose"
+
+                <input
+                    type="date"
+                    id="booking_date"
+                    name="booking_date"
                     class="form-control"
-                    rows="4"
-                    placeholder="Explain the purpose of using the equipment..."
+                    value="{{ booking_date|default:'' }}"
                     required
-                ></textarea>
-
-            </div>
-
-
-            <!-- BUTTONS -->
-
-            <div class="d-flex gap-2 flex-wrap mt-4">
-
-                <button
-                    type="submit"
-                    class="submit-btn"
                 >
-                    💳 Continue to Payment
-                </button>
 
 
-                <a
-                    href="{% url 'external_dashboard' %}"
-                    class="btn btn-secondary cancel-btn"
-                >
-                    Cancel
-                </a>
+                <p class="help-text">
 
-            </div>
+                    Select the date when you need the equipment.
 
-        </form>
-
-        {% else %}
-
-            <div class="empty-box">
-
-                <h5>
-                    ⚠️ No Equipment Available
-                </h5>
-
-                <p class="mb-0">
-                    There are currently no laboratory equipment
-                    items available for external users.
-                    Please try again later.
                 </p>
 
             </div>
 
-            <div class="mt-4">
 
-                <a
-                    href="{% url 'external_dashboard' %}"
-                    class="btn btn-primary"
+            <!-- START TIME -->
+
+            <div class="form-group">
+
+                <label
+                    for="start_time"
+                    class="form-label"
                 >
-                    ← Back 
-                </a>
+
+                    Start Time
+
+                </label>
+
+
+                <input
+                    type="time"
+                    id="start_time"
+                    name="start_time"
+                    class="form-control"
+                    value="{{ start_time|default:'' }}"
+                    required
+                >
+
+
+                <p class="help-text">
+
+                    Select the time you want to start.
+
+                </p>
 
             </div>
 
-        {% endif %}
+
+            <!-- END TIME -->
+
+            <div class="form-group">
+
+                <label
+                    for="end_time"
+                    class="form-label"
+                >
+
+                    End Time
+
+                </label>
+
+
+                <input
+                    type="time"
+                    id="end_time"
+                    name="end_time"
+                    class="form-control"
+                    value="{{ end_time|default:'' }}"
+                    required
+                >
+
+
+                <p class="help-text">
+
+                    Select the time you want to finish.
+
+                </p>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="book-submit-btn"
+            >
+
+                📅 Confirm Equipment Booking
+
+            </button>
+
+
+        </form>
+
+
+        <!-- BACK -->
+
+        <a
+            href="{% url 'external_equipment' %}"
+            class="back-btn"
+        >
+
+            ← Back to Equipment
+
+        </a>
+
 
     </div>
 
 </div>
+
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        const form =
+            document.getElementById('bookingForm');
+
+        const start =
+            document.getElementById('start_time');
+
+        const end =
+            document.getElementById('end_time');
+
+        if (!form || !start || !end) {
+            return;
+        }
+
+
+        function validateTimes() {
+
+            if (
+                start.value &&
+                end.value &&
+                end.value <= start.value
+            ) {
+
+                end.setCustomValidity(
+                    'End time must be later than start time.'
+                );
+
+            } else {
+
+                end.setCustomValidity('');
+
+            }
+
+        }
+
+
+        start.addEventListener(
+            'change',
+            validateTimes
+        );
+
+
+        end.addEventListener(
+            'change',
+            validateTimes
+        );
+
+
+        form.addEventListener(
+            'submit',
+            function (event) {
+
+                validateTimes();
+
+                if (!form.checkValidity()) {
+
+                    event.preventDefault();
+
+                    form.reportValidity();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
 
 {% endblock %}
