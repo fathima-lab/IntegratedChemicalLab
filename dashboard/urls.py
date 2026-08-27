@@ -113,12 +113,6 @@ urlpatterns = [
     # ======================================================
 
     path(
-        'samples/',
-        views.samples,
-        name='samples'
-    ),
-
-    path(
         'reports/',
         views.reports,
         name='reports'
