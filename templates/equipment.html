@@ -379,7 +379,7 @@ Equipment | ICLMS
                 <div class="d-flex gap-2 flex-wrap">
 
                     <a
-                        href="{% url 'edit_equipment' item.id %}"
+                        href="{% url 'update_equipment' item.id %}"
                         class="btn btn-warning btn-sm"
                     >
                         ✏️ Edit
@@ -387,7 +387,7 @@ Equipment | ICLMS
 
 
                     <a
-                        href="{% url 'delete_equipment' item.id %}"
+                        href="{% url 'remove_equipment' item.id %}"
                         class="btn btn-danger btn-sm"
                     >
                         🗑️ Remove
