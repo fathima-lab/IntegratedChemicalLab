@@ -391,36 +391,41 @@ Researcher Dashboard | ICLMS
 
 
         <!-- =================================================
-            EXPERIMENTS
+             EXPERIMENTS
         ================================================== -->
 
         <div class="col-lg-4 col-md-6">
 
-            <div class="feature-card">
+        <div class="feature-card">
 
-                <div class="feature-icon">
-                    🧪
-                </div>
-
-                <h4>
-                    Experiments
-                </h4>
-
-                <p>
-                    Create, manage and monitor your laboratory experiments.
-                </p>
-
-                <a
-                    href="{% url 'experiments' %}"
-                    class="btn btn-primary"
-                >
-                    <i class="bi bi-arrow-right-circle me-1"></i>
-                    Open Experiments
-                </a>
-
+            <div class="feature-icon">
+                🧪
             </div>
 
+            <h4>
+                Experiments
+            </h4>
+
+            <p>
+                Create, manage and monitor your laboratory experiments.
+            </p>
+
+
+            {% for experiment in experiments %}
+
+
+
+
+            <a
+                href="{% url 'create_experiment' %}"
+                class="btn btn-primary"
+            >
+                Open Experiment
+            </a>
+
         </div>
+
+    </div>
 
         <!-- =================================================
              SAMPLES
