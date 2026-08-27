@@ -315,40 +315,45 @@ Experiments | ICLMS
                 </div>
 
 
-                <!-- ACTIONS -->
+                        <!-- ACTIONS -->
 
-                <div class="d-flex gap-2">
+        <div class="d-flex gap-2">
 
-                    <a
-                        href="{% url 'view_experiment' experiment.id %}"
-                        class="btn btn-primary btn-sm"
-                    >
-                        👁️ View
-                    </a>
-                    <a
-                        href="{% url 'edit_experiment' experiment.id %}"
-                        class="btn btn-warning btn-sm"
-                    >
-                        ✏️ Edit
-                    </a>
+            <!-- VIEW -->
+
+            <a
+                href="{% url 'view_experiment' experiment.id %}"
+                class="btn btn-primary btn-sm"
+            >
+                👁️ View
+            </a>
 
 
-                    <a
-                        href="{% url 'delete_experiment' experiment.id %}"
-                        class="btn btn-danger btn-sm"
-                    >
-                        🗑️ Remove
-                    </a>
+            <!-- EDIT -->
 
-                </div>
+            <a
+                href="{% url 'edit_experiment' experiment.id %}"
+                class="btn btn-primary btn-sm"
+            >
+                ✏️ Edit
+            </a>
+
+
+            <!-- DELETE -->
+
+            <a
+                href="{% url 'delete_experiment' experiment.id %}"
+                class="btn btn-danger btn-sm"
+            >
+                🗑️ Delete
+            </a>
+
+        </div>
 
             </div>
 
         {% endfor %}
-
-
-    {% endif %}
-
+    {% endif%}
     <!-- ================================================= -->
     <!-- BACK -->
     <!-- ================================================= -->
