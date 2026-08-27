@@ -5,6 +5,8 @@ from django.contrib import messages
 from .models import Sample
 from .forms import SampleForm
 
+from dashboard.models import LabActivity
+
 
 # ==========================================================
 # SAMPLE LIST
@@ -44,6 +46,13 @@ def create_sample(request):
             sample.researcher = request.user
 
             sample.save()
+
+            # Record sample activity
+            LabActivity.objects.create(
+                actor=request.user,
+                activity_type='SAMPLE',
+                description=f'Created sample: {sample.name}'
+            )
 
             messages.success(
                 request,
