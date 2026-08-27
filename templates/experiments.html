@@ -14,12 +14,16 @@ Experiments | ICLMS
         min-height: calc(100vh - 100px);
     }
 
+    /* ==============================
+       WELCOME
+    ============================== */
+
     .welcome-card {
         background: linear-gradient(135deg, #123b91, #2563eb);
         color: white;
         border-radius: 22px;
         padding: 35px;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
         box-shadow: 0 8px 25px rgba(20, 60, 140, .12);
     }
 
@@ -33,12 +37,247 @@ Experiments | ICLMS
         opacity: .95;
     }
 
+
+    /* ==============================
+       HEADER
+    ============================== */
+
+    .experiment-header {
+        margin-bottom: 30px;
+    }
+
+    .experiment-header h2 {
+        color: #123b91;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .experiment-header p {
+        color: #64748b;
+    }
+
+
+    /* ==============================
+       CREATE BUTTON
+    ============================== */
+
+    .create-btn {
+        background: #1677ff;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 12px 20px;
+        text-decoration: none;
+        transition: .2s;
+    }
+
+    .create-btn:hover {
+        background: #0d63d8;
+        color: white;
+    }
+
+
+    /* ==============================
+       EXPERIMENT CARD
+    ============================== */
+
     .experiment-card {
         background: white;
         border-radius: 18px;
         padding: 25px;
         margin-bottom: 20px;
         box-shadow: 0 8px 25px rgba(20, 60, 140, .08);
+        border: 1px solid #edf1f7;
+    }
+
+    .experiment-card h4 {
+        color: #123b91;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .experiment-description {
+        color: #64748b;
+        margin-bottom: 0;
+    }
+
+
+    /* ==============================
+       STATUS
+    ============================== */
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .status-planned {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-ongoing {
+        background: #1677ff;
+        color: white;
+    }
+
+    .status-completed {
+        background: #22c55e;
+        color: white;
+    }
+
+    .status-cancelled {
+        background: #dc3545;
+        color: white;
+    }
+
+
+    /* ==============================
+       DETAILS
+    ============================== */
+
+    .experiment-details {
+        border-top: 1px solid #e9eef5;
+        padding-top: 18px;
+        margin-top: 20px;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #123b91;
+    }
+
+    .detail-value {
+        color: #64748b;
+        margin-top: 4px;
+    }
+
+
+    /* ==============================
+       RESULTS
+    ============================== */
+
+    .result-section {
+        margin-top: 20px;
+    }
+
+    .result-section h5 {
+        color: #123b91;
+        font-weight: 700;
+    }
+
+    .result-box {
+        background: #f4f7ff;
+        border-radius: 10px;
+        padding: 15px;
+        color: #475569;
+    }
+
+
+    /* ==============================
+       ACTION BUTTONS
+    ============================== */
+
+    .experiment-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        min-width: 110px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        transition: .2s;
+    }
+
+    /* BLUE - VIEW */
+    .view-btn {
+        background: #1677ff;
+        color: white;
+    }
+
+    .view-btn:hover {
+        background: #0d63d8;
+        color: white;
+    }
+
+    /* BLUE - EDIT */
+    .edit-btn {
+        background: #1677ff;
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background: #0d63d8;
+        color: white;
+    }
+
+    /* RED - DELETE */
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background: #bb2d3b;
+        color: white;
+    }
+
+
+    /* ==============================
+       BACK BUTTON
+    ============================== */
+
+    .back-btn {
+        border: 1px solid #1677ff;
+        color: #1677ff;
+        background: white;
+        border-radius: 8px;
+        padding: 10px 18px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+    .back-btn:hover {
+        background: #1677ff;
+        color: white;
+    }
+
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 768px) {
+
+        .experiments-page {
+            padding: 25px 4%;
+        }
+
+        .welcome-card {
+            padding: 25px;
+        }
+
+        .experiment-actions {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+        }
+
     }
 
 </style>
@@ -68,13 +307,9 @@ Experiments | ICLMS
 
             </div>
 
-
             <!-- LOGOUT -->
 
-            <form
-                method="POST"
-                action="{% url 'logout' %}"
-            >
+            <form method="POST" action="{% url 'logout' %}">
 
                 {% csrf_token %}
 
@@ -96,27 +331,31 @@ Experiments | ICLMS
     <!-- EXPERIMENT HEADER -->
     <!-- ================================================= -->
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <div class="experiment-header">
 
-        <div>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
-            <h2>
-                🧪 My Experiments
-            </h2>
+            <div>
 
-            <p class="text-muted mb-0">
-                Create, update and manage your laboratory experiments.
-            </p>
+                <h2>
+                    🧪 My Experiments
+                </h2>
+
+                <p class="mb-0">
+                    Create, update and manage your laboratory experiments.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'create_experiment' %}"
+                class="create-btn"
+            >
+                + Create Experiment
+            </a>
 
         </div>
-
-
-        <a
-            href="{% url 'create_experiment' %}"
-            class="btn btn-primary"
-        >
-            + Create Experiment
-        </a>
 
     </div>
 
@@ -156,7 +395,12 @@ Experiments | ICLMS
 
             <div class="experiment-card">
 
-                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                <!-- ================================================= -->
+                <!-- TITLE + STATUS -->
+                <!-- ================================================= -->
+
+                <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
 
                     <div>
 
@@ -164,15 +408,16 @@ Experiments | ICLMS
                             🧪 {{ experiment.name }}
                         </h4>
 
+
                         {% if experiment.description %}
 
-                            <p class="text-muted">
+                            <p class="experiment-description">
                                 {{ experiment.description }}
                             </p>
 
                         {% else %}
 
-                            <p class="text-muted">
+                            <p class="experiment-description">
                                 No description provided.
                             </p>
 
@@ -180,65 +425,32 @@ Experiments | ICLMS
 
                     </div>
 
-                        {% if experiment.results_observations %}
 
-                        <div class="mt-3">
-
-                            <h5 class="text-primary">
-                                📊 Results & Observations
-                            </h5>
-
-                            <div class="p-3 bg-light rounded">
-                                {{ experiment.results_observations|linebreaks }}
-                            </div>
-
-                        </div>
-
-                    {% endif %}
-
-
-                    {% if experiment.conclusion %}
-
-                        <div class="mt-3">
-
-                            <h5 class="text-primary">
-                                📝 Conclusion
-                            </h5>
-
-                            <div class="p-3 bg-light rounded">
-                                {{ experiment.conclusion|linebreaks }}
-                            </div>
-
-                        </div>
-
-                    {% endif %}
-
-                   
                     <!-- STATUS -->
 
                     <div>
 
                         {% if experiment.status == 'PLANNED' %}
 
-                            <span class="badge bg-warning text-dark">
+                            <span class="status-badge status-planned">
                                 Planned
                             </span>
 
                         {% elif experiment.status == 'ONGOING' %}
 
-                            <span class="badge bg-primary">
+                            <span class="status-badge status-ongoing">
                                 Ongoing
                             </span>
 
                         {% elif experiment.status == 'COMPLETED' %}
 
-                            <span class="badge bg-success">
+                            <span class="status-badge status-completed">
                                 Completed
                             </span>
 
                         {% elif experiment.status == 'CANCELLED' %}
 
-                            <span class="badge bg-danger">
+                            <span class="status-badge status-cancelled">
                                 Cancelled
                             </span>
 
@@ -249,120 +461,172 @@ Experiments | ICLMS
                 </div>
 
 
-                <hr>
+                <!-- ================================================= -->
+                <!-- RESULTS -->
+                <!-- ================================================= -->
+
+                {% if experiment.results_observations %}
+
+                    <div class="result-section">
+
+                        <h5>
+                            📊 Results & Observations
+                        </h5>
+
+                        <div class="result-box">
+                            {{ experiment.results_observations|linebreaks }}
+                        </div>
+
+                    </div>
+
+                {% endif %}
 
 
+                <!-- ================================================= -->
+                <!-- CONCLUSION -->
+                <!-- ================================================= -->
+
+                {% if experiment.conclusion %}
+
+                    <div class="result-section">
+
+                        <h5>
+                            📝 Conclusion
+                        </h5>
+
+                        <div class="result-box">
+                            {{ experiment.conclusion|linebreaks }}
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- ================================================= -->
                 <!-- DETAILS -->
+                <!-- ================================================= -->
 
-                <div class="row mb-3">
+                <div class="experiment-details">
 
-                    <div class="col-md-4">
+                    <div class="row">
 
-                        <strong>
-                            Start Date
-                        </strong>
+                        <!-- START DATE -->
 
-                        <br>
+                        <div class="col-md-4 mb-3 mb-md-0">
 
-                        <span class="text-muted">
+                            <div class="detail-label">
+                                📅 Start Date
+                            </div>
 
-                            {% if experiment.start_date %}
-                                {{ experiment.start_date|date:"d M Y" }}
-                            {% else %}
-                                —
-                            {% endif %}
+                            <div class="detail-value">
 
-                        </span>
+                                {% if experiment.start_date %}
+                                    {{ experiment.start_date|date:"d M Y" }}
+                                {% else %}
+                                    —
+                                {% endif %}
 
-                    </div>
+                            </div>
 
-
-                    <div class="col-md-4">
-
-                        <strong>
-                            End Date
-                        </strong>
-
-                        <br>
-
-                        <span class="text-muted">
-
-                            {% if experiment.end_date %}
-                                {{ experiment.end_date|date:"d M Y" }}
-                            {% else %}
-                                —
-                            {% endif %}
-
-                        </span>
-
-                    </div>
+                        </div>
 
 
-                    <div class="col-md-4">
+                        <!-- END DATE -->
 
-                        <strong>
-                            Created
-                        </strong>
+                        <div class="col-md-4 mb-3 mb-md-0">
 
-                        <br>
+                            <div class="detail-label">
+                                📅 End Date
+                            </div>
 
-                        <span class="text-muted">
-                            {{ experiment.created_at|date:"d M Y, h:i A" }}
-                        </span>
+                            <div class="detail-value">
+
+                                {% if experiment.end_date %}
+                                    {{ experiment.end_date|date:"d M Y" }}
+                                {% else %}
+                                    —
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CREATED -->
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                🕒 Created
+                            </div>
+
+                            <div class="detail-value">
+                                {{ experiment.created_at|date:"d M Y, h:i A" }}
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                        <!-- ACTIONS -->
+                <!-- ================================================= -->
+                <!-- VIEW / EDIT / DELETE -->
+                <!-- ================================================= -->
 
-        <div class="d-flex gap-2">
-
-            <!-- VIEW -->
-
-            <a
-                href="{% url 'view_experiment' experiment.id %}"
-                class="btn btn-primary btn-sm"
-            >
-                👁️ View
-            </a>
+                <div class="experiment-actions">
 
 
-            <!-- EDIT -->
+                    <!-- VIEW -->
 
-            <a
-                href="{% url 'edit_experiment' experiment.id %}"
-                class="btn btn-primary btn-sm"
-            >
-                ✏️ Edit
-            </a>
+                    <a
+                        href="{% url 'view_experiment' experiment.id %}"
+                        class="action-btn view-btn"
+                    >
+                        👁️ View
+                    </a>
 
 
-            <!-- DELETE -->
+                    <!-- EDIT -->
 
-            <a
-                href="{% url 'delete_experiment' experiment.id %}"
-                class="btn btn-danger btn-sm"
-            >
-                🗑️ Delete
-            </a>
+                    <a
+                        href="{% url 'edit_experiment' experiment.id %}"
+                        class="action-btn edit-btn"
+                    >
+                        ✏️ Edit
+                    </a>
 
-        </div>
+
+                    <!-- DELETE -->
+
+                    <a
+                        href="{% url 'delete_experiment' experiment.id %}"
+                        class="action-btn delete-btn"
+                    >
+                        🗑️ Delete
+                    </a>
+
+
+                </div>
 
             </div>
 
         {% endfor %}
-    {% endif%}
+
+    {% endif %}
+
+
     <!-- ================================================= -->
     <!-- BACK -->
     <!-- ================================================= -->
 
     <a
         href="{% url 'researcher_dashboard' %}"
-        class="btn btn-outline-primary mt-4"
+        class="back-btn"
     >
-        ← Back 
+        ← Back to Dashboard
     </a>
 
 
